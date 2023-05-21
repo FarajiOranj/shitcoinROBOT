@@ -13,8 +13,6 @@ const eventName: { method: AlchemySubscription; fromAddress?: string; toAddress?
 export async function pendingTxTracker(
   queryData: IPendingTrackerFn
 ) {
-  try {
-
   const { from, to, isPaired, callback } = queryData;
 
   Object.assign(eventName, { toAddress: to, fromAddress: from });
@@ -46,76 +44,73 @@ export async function pendingTxTracker(
     default: break;
   }
 
-    console.log('Turning alchemy on...')
-    alchemy.ws.on(
-      eventName,
-      async (tx) => {
-        if (
-          isPaired === 'BothPaired'
-          &&
-          (
-            tx.from !== eventName.fromAddress
-            ||
-            tx.to !== eventName.toAddress
-          )
-        ) { } else {
-          console.log('Turning off the alchemy...');
-          await alchemy.ws.off(eventName);
-          const {
-            input,
-            from,
-            to,
-            value,
-            gas,
-            gasPrice,
-            maxFeePerGas,
-            maxPriorityFeePerGas,
-            nonce,
-            v,
-            r,
-            s,
-            type,
-            accessList,
-            hash,
-          } = tx;
-          console.log('Entering into the callback...')
-          await callback(
-            {
-              Input: {
-                input
-              },
-              Route: {
-                from,
-                to
-              },
-              Fiscal: {
-                value,
-                gas,
-                gasPrice,
-                maxFeePerGas,
-                maxPriorityFeePerGas
-              },
-              Sign: {
-                nonce,
-                v,
-                r,
-                s
-              },
-              TxInfo: {
-                type,
-                accessList,
-                hash
-              },
+  console.log('Turning alchemy on...');
+  alchemy.ws.on(
+    eventName,
+    async (tx) => {
+      if (
+        isPaired === 'BothPaired'
+        &&
+        (
+          tx.from !== eventName.fromAddress
+          ||
+          tx.to !== eventName.toAddress
+        )
+      ) {} 
+      else {
+        console.log('Turning off the alchemy...');
+        await alchemy.ws.off(eventName);
+        const {
+          input,
+          from,
+          to,
+          value,
+          gas,
+          gasPrice,
+          maxFeePerGas,
+          maxPriorityFeePerGas,
+          nonce,
+          v,
+          r,
+          s,
+          type,
+          accessList,
+          hash,
+        } = tx;
+        console.log('Entering into the callback...');
+        await callback(
+          {
+            Input: {
+              input
             },
-          );
-          console.log("callback done.")
-        }
+            Route: {
+              from,
+              to
+            },
+            Fiscal: {
+              value,
+              gas,
+              gasPrice,
+              maxFeePerGas,
+              maxPriorityFeePerGas
+            },
+            Sign: {
+              nonce,
+              v,
+              r,
+              s
+            },
+            TxInfo: {
+              type,
+              accessList,
+              hash
+            },
+          },
+        );
+        console.log("callback done.");
       }
-    );
-  } catch {
-    // console.log(error.message)
-    pendingTxTracker(queryData);
-  }
+    }
+  );
 }
 
 
@@ -133,12 +128,12 @@ async function createFile(TxData: ITxData, comment: string) {
     err => console.log(err)
   );
 
-  console.log("End of file paste.")
+  console.log("End of file paste.");
 }
 
  function fileCreator() {
   console.log("Sending request...");
-   pendingTxTracker(
+  pendingTxTracker(
     {
       // from: whaleAddresses[0],
       to: process.env.UNI_ROUTE2,
@@ -146,11 +141,11 @@ async function createFile(TxData: ITxData, comment: string) {
       callback: (txData: ITxData) => createFile(txData, "// new transaction"),
     }
   );
+
   return console.log("Processing on server background");
 }
 
 fileCreator();
-
 
 
 export default pendingTxTracker;
