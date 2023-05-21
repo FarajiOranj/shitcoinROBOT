@@ -1,0 +1,43 @@
+{
+    "name": "fast-targeter",
+    "version": "1.0.0",
+    "description": "shitcoin spotter with real time reaction",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "track": "npx nodemon src/provider/routeTracker.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "private"
+    },
+    "keywords": [
+        "telegraf",
+        "shitcoin",
+        "spot",
+        "sniper",
+        "telegram",
+        "bot"
+    ],
+    "author": "an unknown team",
+    "license": "GPL-3.0-or-later",
+    "dependencies": {
+        "@alch/alchemy-web3": "^1.4.7",
+        "@ethersproject/bignumber": "^5.7.0",
+        "alchemy-sdk": "^2.8.3",
+        "axios": "^1.4.0",
+        "dotenv": "^16.0.3",
+        "ethers": "^6.3.0",
+        "evm-bn": "^1.1.2",
+        "node-storage": "^0.0.9",
+        "telegraf": "^4.12.2",
+        "telegram-keyboard": "^2.3.2",
+        "web3": "^1.10.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.1.4",
+        "nodemon": "^2.0.22",
+        "ts-node": "^10.9.1",
+        "tslib": "^2.5.0"
+    }
+}
