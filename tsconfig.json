@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    // "module": "es6",
+    // "target": "es2015",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+  }
+}
