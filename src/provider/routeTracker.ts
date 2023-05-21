@@ -56,7 +56,7 @@ export async function pendingTxTracker(
           ||
           tx.to !== eventName.toAddress
         )
-      ) {} 
+      ) {}
       else {
         console.log('Turning off the alchemy...');
         await alchemy.ws.off(eventName);
