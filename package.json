@@ -4,7 +4,7 @@
     "description": "shitcoin spotter with real time reaction",
     "main": "app.js",
     "scripts": {
-        "start": "node dist/app.js",
+        "start": "npx tsc && node dist/app.js",
         "track": "npx nodemon src/provider/routeTracker.ts"
     },
     "repository": {
