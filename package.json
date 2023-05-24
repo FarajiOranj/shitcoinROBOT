@@ -38,6 +38,7 @@
         "@types/node": "^20.1.4",
         "nodemon": "^2.0.22",
         "ts-node": "^10.9.1",
-        "tslib": "^2.5.0"
+        "tslib": "^2.5.0",
+        "typescript": "^5.0.4"
     }
 }
