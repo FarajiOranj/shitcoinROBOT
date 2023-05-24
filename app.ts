@@ -1,4 +1,6 @@
-import bot from './src/bot/bot.instance.ts';
+import bot from './src/bot/bot.instance';
+
+import { starter, backward } from './src/bot/commands/common.commands';
 
 
 
