@@ -1,4 +1,6 @@
-import {Alchemy, Network, AlchemySubscription} from 'alchemy-sdk';
+import { Alchemy, Network, AlchemySubscription } from "alchemy-sdk";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const settings = {
   apiKey: process.env.ALCHEMY_API_KEY,
@@ -6,8 +8,4 @@ const settings = {
 };
 
 const alchemy = new Alchemy(settings);
-
-export {
-  alchemy,
-  AlchemySubscription
-};
+export { alchemy, AlchemySubscription };
