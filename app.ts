@@ -1,8 +1,11 @@
+import { MiddlewareFn } from "telegraf";
+import ITxData, { IPendingTrackerFn } from "./public/types/transaction";
 import bot from './src/bot/bot.instance';
+import { menuCB } from "./src/bot/handlers/common.handlers";
 
-import './src/bot/commands/common.commands';
-
-
+bot.start(menuCB);
+bot.action("start", menuCB);
+// bot.action('track',); // bot.action('',);
 
 // fastify.get('/ws', { websocket: true }, (connection /*, request */) => {
 //   connection.socket.on('message', async (message) => {
@@ -20,7 +23,5 @@ import './src/bot/commands/common.commands';
 //     }
 //   });
 // });
-
-
 
 bot.launch();
