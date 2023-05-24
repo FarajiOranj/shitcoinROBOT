@@ -19,7 +19,7 @@
         "telegram",
         "bot"
     ],
-    "author": "an unknown team",
+    "author": "github.com/@FarajiOranj",
     "license": "GPL-3.0-or-later",
     "dependencies": {
         "@alch/alchemy-web3": "^1.4.7",
