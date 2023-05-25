@@ -11,3 +11,5 @@ registeredUserIDS.set(5443857391, "0x0");
 // function validateUserAddress(address: string): boolean {
 //     return evmAddrRegex.test(address);
 // } 
+
+export default registeredUserIDS;
