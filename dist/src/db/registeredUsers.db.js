@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 let registeredUserIDS = new Map();
 registeredUserIDS.set(644473251, "0x0");
 registeredUserIDS.set(89192167, "0x0");
@@ -7,3 +9,4 @@ registeredUserIDS.set(5443857391, "0x0");
 // function validateUserAddress(address: string): boolean {
 //     return evmAddrRegex.test(address);
 // } 
+exports.default = registeredUserIDS;

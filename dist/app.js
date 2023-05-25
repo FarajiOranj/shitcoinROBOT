@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bot_instance_1 = __importDefault(require("./src/bot/bot.instance"));
 require("./src/bot/commands/common.commands");
+require("./src/bot/middlewares/common.middlewares");
 // import './src/bot/commands/track.commands'
 bot_instance_1.default.launch();
 // bot.action('track',); // bot.action('',);
