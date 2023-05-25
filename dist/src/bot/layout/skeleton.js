@@ -6,7 +6,7 @@ class Skeleton {
             reply_markup: {
                 resize_keyboard: true,
                 one_time_keyboard: true,
-                keyboard: keyboard,
+                inline_keyboard: keyboard,
             },
         };
     }
