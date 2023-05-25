@@ -9,7 +9,7 @@ import {
 const menuCB = (ctx: Context) => {
   const message: string =
     (ctx.update as any)?.message?.text === "/start"
-      ? starterMessage(ctx.from.first_name ?? ctx.from.last_name)
+      ? starterMessage(ctx.from.first_name)
       : menuMessage;
   bot.telegram.sendMessage(ctx.chat.id, message, mainMenu);
 };
