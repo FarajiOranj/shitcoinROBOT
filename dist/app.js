@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const bot_instance_1 = __importDefault(require("./src/bot/bot.instance"));
-const common_handlers_1 = require("./src/bot/handlers/common.handlers");
-bot_instance_1.default.start(common_handlers_1.menuCB);
-bot_instance_1.default.action("start", common_handlers_1.menuCB);
+require("./src/bot/commands/common.commands");
+// import './src/bot/commands/track.commands'
+bot_instance_1.default.launch();
 // bot.action('track',); // bot.action('',);
 // fastify.get('/ws', { websocket: true }, (connection /*, request */) => {
 //   connection.socket.on('message', async (message) => {
@@ -23,4 +23,3 @@ bot_instance_1.default.action("start", common_handlers_1.menuCB);
 //     }
 //   });
 // });
-bot_instance_1.default.launch();
