@@ -1,4 +1,4 @@
-import { Context, MiddlewareFn } from "telegraf";
+import { Context } from "telegraf";
 import bot from "../bot.instance";
 import { mainMenu } from "../layout/layout";
 import {
