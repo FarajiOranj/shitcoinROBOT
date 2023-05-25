@@ -24,7 +24,7 @@ const trackMenu = new Skeleton([
     { text: "🔴 بدون ترتیب", callback_data: "unpaired" },
     { text: "🔳 جفت شده", callback_data: "bothPaied" },
   ],
-  [{ text: "⬅️ بازگشت", callback_data: "backToMenu" }],
+  [{ text: "⬅️ بازگشت", callback_data: "menu" }],
 ]).keyboardLayout;
 
 const backToMenu = new Skeleton([
