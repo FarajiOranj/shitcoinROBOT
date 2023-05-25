@@ -7,6 +7,7 @@ import {
 } from "../../../public/static/starterUserUx";
 
 const menuCB = (ctx: Context) => {
+  ctx?.deleteMessage();
   const message: string =
     (ctx.update as any)?.message?.text === "/start"
       ? starterMessage(ctx.from.first_name)
