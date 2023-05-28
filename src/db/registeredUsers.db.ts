@@ -1,4 +1,4 @@
-let registeredUserIDS: Map<number, string | Array<string>> = new Map(
+const registeredUserIDS: Map<number, string | Array<string>> = new Map(
     [
         [644473251, "0x0"], // Behrouz
         [89192167, "0x0"], // Matin
