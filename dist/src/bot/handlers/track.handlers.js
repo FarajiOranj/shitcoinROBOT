@@ -31,4 +31,7 @@ const pairOptSaver = (ctx) => {
     ctx.telegram.sendMessage(chatId, message, layout_1.backToMenu);
 };
 exports.pairOptSaver = pairOptSaver;
+bot_instance_1.default.hears("a", (ctx) => {
+    ctx.telegram.sendMessage(ctx.chat.id, ctx.session.triggerType);
+});
 exports.default = trackCB;
