@@ -1,4 +1,4 @@
-import { Context } from "telegraf";
+import { SessionContext } from "telegraf/typings/session";
 import bot from "../bot.instance";
 import { mainMenu } from "../layout/layout";
 import {
@@ -6,12 +6,14 @@ import {
   menuMessage,
 } from "../../../public/static/starterUserUx";
 
-const menuCB = (ctx: Context) => {
-  ctx?.deleteMessage();
-  const message: string =
-    (ctx.update as any)?.message?.text === "/start"
+
+const menuCB = (ctx: SessionContext<any>) => {
+  ctx.deleteMessage();
+  delete ctx.session;
+  const message: string = (ctx.update as any)?.message?.text === "/start"
       ? starterMessage(ctx.from.first_name)
       : menuMessage;
+
   bot.telegram.sendMessage(ctx.chat.id, message, mainMenu);
 };
 export { menuCB };
