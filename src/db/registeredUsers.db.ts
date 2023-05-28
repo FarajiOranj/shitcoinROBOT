@@ -8,11 +8,4 @@ const registeredUserIDS: Map<number, string | Array<string>> = new Map(
     ]
 );
 
-// type AddrRegExp = RegExp;
-// const evmAddrRegex: RegExp = /^(0x)?[0-9a-fA-F]{40}$/i;
-
-// function validateUserAddress(address: string): boolean {
-//     return evmAddrRegex.test(address);
-// } 
-
 export default registeredUserIDS;
