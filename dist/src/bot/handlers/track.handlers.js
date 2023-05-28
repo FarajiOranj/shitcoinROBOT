@@ -36,8 +36,8 @@ const pairOptSaver = (ctx) => {
 };
 exports.pairOptSaver = pairOptSaver;
 const AddrAnalysis = (ctx) => {
+    // ctx.deleteMessage();
     var _a;
-    ctx.deleteMessage();
     //TODO! add as middleware
     if ((_a = ctx.session) === null || _a === void 0 ? void 0 : _a.commonStat) {
         if (!web3_1.default.utils.checkAddressChecksum(ctx.message["text"]))
