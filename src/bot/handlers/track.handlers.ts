@@ -14,6 +14,8 @@ const trackCB = (ctx: Context) => {
 const pairOptSaver = (ctx: SessionContext<trackSession>) => {
   const chatId: number = ctx.chat.id;
   const data: string = ctx.callbackQuery?.["data"];
+
+  ctx.session = {} as trackSession;
   
   ctx.session.userId = chatId;
   ctx.session.triggerType = data;

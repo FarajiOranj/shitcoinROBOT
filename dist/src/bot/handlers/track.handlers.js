@@ -15,6 +15,7 @@ const pairOptSaver = (ctx) => {
     var _a;
     const chatId = ctx.chat.id;
     const data = (_a = ctx.callbackQuery) === null || _a === void 0 ? void 0 : _a["data"];
+    ctx.session = {};
     ctx.session.userId = chatId;
     ctx.session.triggerType = data;
     const message = data === "toPaired" ? trackUx_1.toAddress : trackUx_1.fromAddres;
