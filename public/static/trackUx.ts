@@ -6,5 +6,7 @@ const toAddress: string = "⚫️ لطفا آدرس مقصد را وارد نم�
 
 const bothPairedWarn: string = "⚠️ آدرس مبدا و مقصد نمیتواند در حالت '🔳 جفت شده' یکسان باشد!!!";
 
-export {trackOpts, fromAddres, toAddress, bothPairedWarn}
+const invalidAddress: string = "آدرس وارد شده نادرست میباشد ❌\nلطفا مجددا وارد بفرمایید 🔻"
+
+export {trackOpts, fromAddres, toAddress, bothPairedWarn, invalidAddress}
 
