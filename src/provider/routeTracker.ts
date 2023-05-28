@@ -12,32 +12,32 @@ const eventName: {
 export default async function pendingTxTracker(queryData: IPendingTrackerFn) {
   const { from, to, isPaired, callback } = queryData;
   Object.assign(eventName, { toAddress: to, fromAddress: from });
-  switch (isPaired) {
-    case "BothPaired": {
-      if (from === undefined || to === undefined)
-        throw 'pendingTxTracker: "Both" side of Route must be given!';
-      break;
-    }
-    case "Unpaired": {
-      if (from === undefined && to === undefined)
-        throw "pendingTxTracker: A side of Route must be given!";
-      break;
-    }
-    case "PairedFrom": {
-      if (queryData.from === undefined)
-        throw 'pendingTxTracker: "From" address must be given!';
-      delete eventName.toAddress;
-      break;
-    }
-    case "PairedTo": {
-      if (queryData.to === undefined)
-        throw 'pendingTxTracker: "To" address must be given!';
-      delete eventName.fromAddress;
-      break;
-    }
-    default:
-      break;
-  }
+  // switch (isPaired) {
+  //   case "BothPaired": {
+  //     if (from === undefined || to === undefined)
+  //       throw 'pendingTxTracker: "Both" side of Route must be given!';
+  //     break;
+  //   }
+  //   case "Unpaired": {
+  //     if (from === undefined && to === undefined)
+  //       throw "pendingTxTracker: A side of Route must be given!";
+  //     break;
+  //   }
+  //   case "PairedFrom": {
+  //     if (queryData.from === undefined)
+  //       throw 'pendingTxTracker: "From" address must be given!';
+  //     delete eventName.toAddress;
+  //     break;
+  //   }
+  //   case "PairedTo": {
+  //     if (queryData.to === undefined)
+  //       throw 'pendingTxTracker: "To" address must be given!';
+  //     delete eventName.fromAddress;
+  //     break;
+  //   }
+  //   default:
+  //     break;
+  // }
   console.log("Turning alchemy on...");
   alchemy.ws.on(eventName, async (tx) => {
     if (
