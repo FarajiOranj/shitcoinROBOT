@@ -29,6 +29,6 @@ const trackMenu = new Skeleton([
 
 const backToMenu = new Skeleton([
   [{ text: "⬅️ بازگشت", callback_data: "menu" }],
-]);
+]).keyboardLayout;
 
 export { mainMenu, trackMenu, backToMenu };
