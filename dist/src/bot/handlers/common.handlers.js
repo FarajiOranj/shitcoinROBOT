@@ -10,7 +10,7 @@ const starterUserUx_1 = require("../../../public/static/starterUserUx");
 const menuCB = (ctx) => {
     var _a, _b;
     ctx.deleteMessage();
-    delete ctx.session;
+    ctx.session = null;
     const message = ((_b = (_a = ctx.update) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.text) === "/start"
         ? (0, starterUserUx_1.starterMessage)(ctx.from.first_name)
         : starterUserUx_1.menuMessage;
