@@ -36,7 +36,7 @@ const pairOptSaver = (ctx: SessionContext<trackSession>) => {
 }
 
 bot.hears("a", (ctx: SessionContext<trackSession>) => {
-  ctx.telegram.sendMessage(ctx.chat.id, ctx.session.triggerType);
+  ctx.telegram.sendMessage(ctx.chat.id, `${ctx.session.triggerType}`);
 });
 
 export default trackCB;
