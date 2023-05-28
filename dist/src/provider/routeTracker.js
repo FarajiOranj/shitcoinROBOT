@@ -40,35 +40,35 @@ function pendingTxTracker(queryData) {
     return __awaiter(this, void 0, void 0, function* () {
         const { from, to, isPaired, callback } = queryData;
         Object.assign(eventName, { toAddress: to, fromAddress: from });
-        switch (isPaired) {
-            case "BothPaired": {
-                if (from === undefined || to === undefined)
-                    throw 'pendingTxTracker: "Both" side of Route must be given!';
-                break;
-            }
-            case "Unpaired": {
-                if (from === undefined && to === undefined)
-                    throw "pendingTxTracker: A side of Route must be given!";
-                break;
-            }
-            case "PairedFrom": {
-                if (queryData.from === undefined)
-                    throw 'pendingTxTracker: "From" address must be given!';
-                delete eventName.toAddress;
-                break;
-            }
-            case "PairedTo": {
-                if (queryData.to === undefined)
-                    throw 'pendingTxTracker: "To" address must be given!';
-                delete eventName.fromAddress;
-                break;
-            }
-            default:
-                break;
-        }
+        // switch (isPaired) {
+        //   case "BothPaired": {
+        //     if (from === undefined || to === undefined)
+        //       throw 'pendingTxTracker: "Both" side of Route must be given!';
+        //     break;
+        //   }
+        //   case "Unpaired": {
+        //     if (from === undefined && to === undefined)
+        //       throw "pendingTxTracker: A side of Route must be given!";
+        //     break;
+        //   }
+        //   case "PairedFrom": {
+        //     if (queryData.from === undefined)
+        //       throw 'pendingTxTracker: "From" address must be given!';
+        //     delete eventName.toAddress;
+        //     break;
+        //   }
+        //   case "PairedTo": {
+        //     if (queryData.to === undefined)
+        //       throw 'pendingTxTracker: "To" address must be given!';
+        //     delete eventName.fromAddress;
+        //     break;
+        //   }
+        //   default:
+        //     break;
+        // }
         console.log("Turning alchemy on...");
         provider_1.alchemy.ws.on(eventName, (tx) => __awaiter(this, void 0, void 0, function* () {
-            if (isPaired === "BothPaired" &&
+            if (isPaired === "bothPaired" &&
                 (tx.from !== eventName.fromAddress || tx.to !== eventName.toAddress)) {
             }
             else {

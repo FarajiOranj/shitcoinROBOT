@@ -34,5 +34,5 @@ const trackMenu = new skeleton_1.default([
 exports.trackMenu = trackMenu;
 const backToMenu = new skeleton_1.default([
     [{ text: "⬅️ بازگشت", callback_data: "menu" }],
-]);
+]).keyboardLayout;
 exports.backToMenu = backToMenu;
