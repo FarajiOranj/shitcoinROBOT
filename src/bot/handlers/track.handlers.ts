@@ -12,6 +12,7 @@ const trackCB = (ctx: Context) => {
 };
 
 const pairOptSaver = (ctx: SessionContext<trackSession>) => {
+  ctx.deleteMessage();
   const chatId: number = ctx.chat.id;
   const data: string = ctx.callbackQuery?.["data"];
 

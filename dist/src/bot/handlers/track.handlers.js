@@ -13,6 +13,7 @@ const trackCB = (ctx) => {
 };
 const pairOptSaver = (ctx) => {
     var _a;
+    ctx.deleteMessage();
     const chatId = ctx.chat.id;
     const data = (_a = ctx.callbackQuery) === null || _a === void 0 ? void 0 : _a["data"];
     ctx.session = {};
