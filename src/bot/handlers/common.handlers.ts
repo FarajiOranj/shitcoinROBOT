@@ -9,7 +9,7 @@ import {
 
 const menuCB = (ctx: SessionContext<any>) => {
   ctx.deleteMessage();
-  delete ctx.session;
+  ctx.session = null;
   const message: string = (ctx.update as any)?.message?.text === "/start"
       ? starterMessage(ctx.from.first_name)
       : menuMessage;
