@@ -41,7 +41,7 @@ export default async function pendingTxTracker(queryData: IPendingTrackerFn) {
   console.log("Turning alchemy on...");
   alchemy.ws.on(eventName, async (tx) => {
     if (
-      isPaired === "BothPaired" &&
+      isPaired === "bothPaired" &&
       (tx.from !== eventName.fromAddress || tx.to !== eventName.toAddress)
     ) {
     } else {
