@@ -1,4 +1,4 @@
-declare type PairStat = 'Unpaired' | 'PairedFrom' | 'PairedTo' | 'BothPaired';
+declare type PairStat = 'unpaired' | 'bothPaired' | 'fromPaired' | 'toPaired';
 
 
 declare type TxTypes = '0x0' | '0x2';
