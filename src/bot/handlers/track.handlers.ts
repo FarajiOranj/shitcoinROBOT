@@ -41,7 +41,7 @@ const pairOptSaver = (ctx: SessionContext<TrackSession>) => {
 
 
 const AddrAnalysis = (ctx: SessionContext<TrackSession>) => {
-  ctx.deleteMessage();
+  // ctx.deleteMessage();
   
   //TODO! add as middleware
   if(ctx.session?.commonStat) {
