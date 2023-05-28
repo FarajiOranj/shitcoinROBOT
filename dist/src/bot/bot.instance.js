@@ -26,5 +26,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const telegraf_1 = require("telegraf");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const bot = new telegraf_1.Telegraf(process.env.TELEGRAM_BOT_TOKEN).use((0, telegraf_1.session)());
+const bot = new telegraf_1.Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 exports.default = bot;
