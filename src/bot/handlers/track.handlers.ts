@@ -44,19 +44,20 @@ const pairOptSaver = (ctx: SessionContext<any>) => {
 
 //TODO! change "any" type later to an accurate type
 const AddrAnalysis = (ctx: SessionContext<any>) => {
-  deleteAvailableMsg(ctx);
-
   const triggerType: PairStat = ctx.session.trackSession.triggerType;
   const givenAddress: string = ctx.message["text"];
+
+  deleteAvailableMsg(ctx);
 
   let sendAcceptionNotif: boolean;
   let continuousMsg: string;
 
   if(triggerType !== "toPaired") {
     if(ctx.session.trackSession?.fromAddr) {
-      if(triggerType === "bothPaired" && (
-        ctx.session.trackSession.fromAddr === givenAddress
-      )) {
+      if(
+        triggerType === "bothPaired" && 
+        (ctx.session.trackSession.fromAddr === givenAddress)
+      ) {
         continuousMsg = bothPairedWarn;
       } else {
         ctx.session.trackSession.toAddr = givenAddress;
@@ -72,6 +73,7 @@ const AddrAnalysis = (ctx: SessionContext<any>) => {
     sendAcceptionNotif = true;
   }
   if (sendAcceptionNotif) {
+    ctx.session.trackSession.completed = true;
     // only for test - will change
     ctx.reply("درخواست شما ثبت شد");
     ctx.telegram.sendMessage(ctx.chat.id, menuMessage, mainMenu);
