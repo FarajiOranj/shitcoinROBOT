@@ -5,6 +5,6 @@ import composedAddrMiddleware from "../middlewares/track.middlewares";
 
 bot.action("track", trackCB);
 
-bot.action(["unpaired", "bothPaied", "fromPaired", "toPaired"], pairOptSaver);
+bot.action(["unpaired", "bothPaired", "fromPaired", "toPaired"], pairOptSaver);
 
 bot.hears(/^0x(.+)/, composedAddrMiddleware, AddrAnalysis);
