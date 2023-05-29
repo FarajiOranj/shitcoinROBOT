@@ -8,5 +8,11 @@ const bothPairedWarn: string = "⚠️ آدرس مبدا و مقصد نمیتو�
 
 const invalidAddress: string = "آدرس وارد شده نادرست میباشد ❌\nلطفا مجددا وارد بفرمایید 🔻"
 
-export {trackOpts, fromAddres, toAddress, bothPairedWarn, invalidAddress}
+export {
+    trackOpts,
+    fromAddres,
+    toAddress,
+    bothPairedWarn,
+    invalidAddress
+}
 
