@@ -8,8 +8,8 @@ const web3_1 = __importDefault(require("web3"));
 const layout_1 = require("../layout/layout");
 const trackUx_1 = require("../../../public/static/trackUx");
 const hasCommonStat = (ctx, next) => {
-    var _a;
-    if ((_a = ctx.session.trackSession) === null || _a === void 0 ? void 0 : _a.commonStat)
+    var _a, _b;
+    if ((_b = (_a = ctx.session) === null || _a === void 0 ? void 0 : _a.trackSession) === null || _b === void 0 ? void 0 : _b.commonStat)
         next();
     return;
 };
