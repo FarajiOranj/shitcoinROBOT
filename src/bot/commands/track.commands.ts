@@ -1,7 +1,5 @@
-import { Composer } from "telegraf";
 import bot from "../bot.instance";
 import trackCB, { pairOptSaver, AddrAnalysis } from "../handlers/track.handlers";
-import Web3 from "web3";
 import composedAddrMiddleware from "../middlewares/track.middlewares";
 
 
