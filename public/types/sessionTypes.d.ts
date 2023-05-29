@@ -6,8 +6,9 @@ import CommonStatus from "./commonStatus";
 
 export interface TrackSession {
     commonStat: CommonStatus,
+    userId: number,
     triggerType: string,
     fromAddr?: string,
     toAddr?: string,
-    userId: number,
+    completed?: boolean, 
 }
