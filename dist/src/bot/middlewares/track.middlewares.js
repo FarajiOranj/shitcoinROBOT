@@ -13,10 +13,15 @@ const hasCommonStat = (ctx, next) => {
         next();
     return;
 };
+const isCompleted = (ctx, next) => {
+    if (!ctx.session.trackSession.completed)
+        next();
+    return;
+};
 const addressCheck = (ctx, next) => {
     web3_1.default.utils.checkAddressChecksum(ctx.message["text"]) ?
         next() :
         ctx.reply(trackUx_1.invalidAddress, layout_1.backToMenu);
 };
-const composedAddrMiddleware = telegraf_1.Telegraf.compose([hasCommonStat, addressCheck]);
+const composedAddrMiddleware = telegraf_1.Telegraf.compose([hasCommonStat, isCompleted, addressCheck]);
 exports.default = composedAddrMiddleware;
