@@ -7,9 +7,10 @@ exports.menuCB = void 0;
 const bot_instance_1 = __importDefault(require("../bot.instance"));
 const layout_1 = require("../layout/layout");
 const starterUserUx_1 = require("../../../public/static/starterUserUx");
+const deleteMsg_1 = __importDefault(require("../../helper/deleteMsg"));
 const menuCB = (ctx) => {
     var _a, _b;
-    ctx.deleteMessage();
+    (0, deleteMsg_1.default)(ctx);
     ctx.session = null;
     const message = ((_b = (_a = ctx.update) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.text) === "/start"
         ? (0, starterUserUx_1.starterMessage)(ctx.from.first_name)

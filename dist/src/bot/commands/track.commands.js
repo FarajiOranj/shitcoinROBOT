@@ -28,11 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bot_instance_1 = __importDefault(require("../bot.instance"));
 const track_handlers_1 = __importStar(require("../handlers/track.handlers"));
+const track_middlewares_1 = __importDefault(require("../middlewares/track.middlewares"));
 bot_instance_1.default.action("track", track_handlers_1.default);
 bot_instance_1.default.action(["unpaired", "bothPaied", "fromPaired", "toPaired"], track_handlers_1.pairOptSaver);
-// type AddrRegExp = RegExp;
-// const evmAddrRegex: RegExp = /^(0x)?[0-9a-fA-F]{40}$/i;
-// function validateUserAddress(address: string): boolean {
-//     return evmAddrRegex.test(address);
-// } 
-bot_instance_1.default.hears(/^0x(.+)/, track_handlers_1.AddrAnalysis);
+bot_instance_1.default.hears(/^0x(.+)/, track_middlewares_1.default, track_handlers_1.AddrAnalysis);

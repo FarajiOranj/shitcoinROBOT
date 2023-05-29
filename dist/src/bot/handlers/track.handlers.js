@@ -7,22 +7,24 @@ exports.AddrAnalysis = exports.pairOptSaver = void 0;
 const bot_instance_1 = __importDefault(require("../bot.instance"));
 const layout_1 = require("../layout/layout");
 const trackUx_1 = require("../../../public/static/trackUx");
-const web3_1 = __importDefault(require("web3"));
 const starterUserUx_1 = require("../../../public/static/starterUserUx");
+const deleteMsg_1 = __importDefault(require("../../helper/deleteMsg"));
 const trackCB = (ctx) => {
-    ctx.deleteMessage();
+    (0, deleteMsg_1.default)(ctx);
     bot_instance_1.default.telegram.sendMessage(ctx.chat.id, trackUx_1.trackOpts, layout_1.trackMenu);
 };
+//TODO! change "any" type later to an accurate type
 const pairOptSaver = (ctx) => {
     var _a;
-    ctx.deleteMessage();
+    (0, deleteMsg_1.default)(ctx);
     const chatId = ctx.chat.id;
     const data = (_a = ctx.callbackQuery) === null || _a === void 0 ? void 0 : _a["data"];
-    //! maybe should change or move
+    //* maybe should change or move
     ctx.session = {};
-    ctx.session.userId = chatId;
-    ctx.session.triggerType = data;
-    ctx.session.commonStat = "trackNotifier";
+    ctx.session.trackSession = {};
+    ctx.session.trackSession.userId = chatId;
+    ctx.session.trackSession.triggerType = data;
+    ctx.session.trackSession.commonStat = "trackNotifier";
     const message = data === "toPaired" ? trackUx_1.toAddress : trackUx_1.fromAddres;
     /* TODO
      ! needs more researches to use - untested
@@ -35,22 +37,43 @@ const pairOptSaver = (ctx) => {
     ctx.telegram.sendMessage(chatId, message, layout_1.backToMenu);
 };
 exports.pairOptSaver = pairOptSaver;
+//TODO! change "any" type later to an accurate type
 const AddrAnalysis = (ctx) => {
-    // ctx.deleteMessage();
     var _a;
-    //TODO! add as middleware
-    if ((_a = ctx.session) === null || _a === void 0 ? void 0 : _a.commonStat) {
-        if (!web3_1.default.utils.checkAddressChecksum(ctx.message["text"]))
-            ctx.reply(trackUx_1.invalidAddress, layout_1.backToMenu);
-        if (ctx.session.triggerType !== "toPaired") {
+    (0, deleteMsg_1.default)(ctx);
+    const triggerType = ctx.session.trackSession.triggerType;
+    const givenAddress = ctx.message["text"];
+    let sendAcceptionNotif;
+    let continuousMsg;
+    if (triggerType !== "toPaired") {
+        if ((_a = ctx.session.trackSession) === null || _a === void 0 ? void 0 : _a.fromAddr) {
+            if (triggerType === "bothPaired" && (ctx.session.trackSession.fromAddr === givenAddress)) {
+                continuousMsg = trackUx_1.bothPairedWarn;
+            }
+            else {
+                ctx.session.trackSession.toAddr = givenAddress;
+                sendAcceptionNotif = true;
+            }
         }
         else {
-            // only for test - will change
-            ctx.reply("درخواست شما ثبت شد");
-            ctx.telegram.sendMessage(ctx.chat.id, starterUserUx_1.menuMessage, layout_1.mainMenu);
+            ctx.session.trackSession.fromAddr = givenAddress;
+            if (triggerType === "fromPaired")
+                sendAcceptionNotif = true;
+            else
+                continuousMsg = trackUx_1.toAddress;
         }
     }
+    else {
+        ctx.session.trackSession.toAddr = givenAddress;
+        sendAcceptionNotif = true;
+    }
+    if (sendAcceptionNotif) {
+        // only for test - will change
+        ctx.reply("درخواست شما ثبت شد");
+        ctx.telegram.sendMessage(ctx.chat.id, starterUserUx_1.menuMessage, layout_1.mainMenu);
+    }
+    else
+        ctx.telegram.sendMessage(ctx.chat.id, continuousMsg, layout_1.backToMenu);
 };
 exports.AddrAnalysis = AddrAnalysis;
-// if(ctx.session?.toAddr) {}
 exports.default = trackCB;
