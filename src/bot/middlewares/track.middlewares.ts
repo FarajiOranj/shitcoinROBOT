@@ -6,7 +6,7 @@ import { invalidAddress } from "../../../public/static/trackUx";
 
 
 const hasCommonStat = (ctx: SessionContext<any>, next: () => void) => {
-    if(ctx.session?.commonStat) next();
+    if(ctx.session.trackSession.commonStat) next();
     return;
 }
 
