@@ -11,7 +11,7 @@ const deleteMsg_1 = __importDefault(require("../../helper/deleteMsg"));
 const sessionKey_store_1 = __importDefault(require("../../helper/sessionKey.store"));
 const trackCB = (ctx) => {
     (0, deleteMsg_1.default)(ctx);
-    ctx.telegram.sendMessage(ctx.chat.id, trackUx_1.trackOpts, layout_1.trackMenu);
+    ctx.telegram.sendMessage(ctx.chat.id, trackUx_1.trackOpts, layout_1.trackMenu).then((0, sessionKey_store_1.default)(ctx));
 };
 //TODO! change "any" type later to an accurate type
 const pairOptSaver = (ctx) => {
