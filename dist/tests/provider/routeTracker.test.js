@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const routeTracker_1 = __importDefault(require("../../src/provider/routeTracker"));
+const pendingTracker_1 = __importDefault(require("../../src/provider/pendingTracker"));
 const fs = require("fs");
 function createFileCB(TxData, comment) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -23,7 +23,7 @@ function createFileCB(TxData, comment) {
 }
 (function fileCreator() {
     console.log("Sending request...");
-    (0, routeTracker_1.default)({
+    (0, pendingTracker_1.default)({
         // from: whaleAddresses[0],
         to: process.env.UNI_ROUTE2,
         // isPaired: 'BothPaired',

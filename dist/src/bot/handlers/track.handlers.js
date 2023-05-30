@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -37,7 +46,7 @@ const pairOptSaver = (ctx) => {
 };
 exports.pairOptSaver = pairOptSaver;
 //TODO! change "any" type later to an accurate type
-const AddrAnalysis = (ctx) => {
+const AddrAnalysis = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const triggerType = ctx.session.trackSession.triggerType;
     const givenAddress = ctx.message["text"];
@@ -60,7 +69,7 @@ const AddrAnalysis = (ctx) => {
             if (triggerType === "fromPaired")
                 sendAcceptionNotif = true;
             else {
-                ctx.telegram.sendMessage(ctx.chat.id, "آدرس مبدا ثبت شد.", { reply_to_message_id: ctx.message.message_id });
+                ctx.telegram.sendMessage(ctx.chat.id, trackUx_1.fromSubmitted, { reply_to_message_id: ctx.message.message_id });
                 continuousMsg = trackUx_1.toAddress;
             }
         }
@@ -71,12 +80,11 @@ const AddrAnalysis = (ctx) => {
     }
     if (sendAcceptionNotif) {
         ctx.session.trackSession.completed = true;
-        // only for test - will change
-        ctx.telegram.sendMessage(ctx.chat.id, "درخواست شما ثبت شد", { reply_to_message_id: ctx.message.message_id });
+        yield ctx.telegram.sendMessage(ctx.chat.id, trackUx_1.reqSent, { reply_to_message_id: ctx.message.message_id });
         ctx.telegram.sendMessage(ctx.chat.id, starterUserUx_1.menuMessage, layout_1.mainMenu).then((0, sessionKey_store_1.default)(ctx));
     }
     else
         ctx.telegram.sendMessage(ctx.chat.id, continuousMsg, layout_1.backToMenu).then((0, sessionKey_store_1.default)(ctx));
-};
+});
 exports.AddrAnalysis = AddrAnalysis;
 exports.default = trackCB;

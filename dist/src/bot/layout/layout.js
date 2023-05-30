@@ -15,7 +15,8 @@ const skeleton_1 = __importDefault(require("./skeleton"));
     [       ⬅️ بازگشت        ]
   ---------------------------------------
     back To Menu Reply Keyboard
-    [ ⬅️ بازگشت ] */
+    [ ⬅️ بازگشت ]
+*/
 const mainMenu = new skeleton_1.default([
     [{ text: "📌 نشانه گذاری 🔎", callback_data: "track" }],
 ]).keyboardLayout;
