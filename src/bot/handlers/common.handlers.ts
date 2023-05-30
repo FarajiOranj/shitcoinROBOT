@@ -10,7 +10,7 @@ import storeKeyID from "../../helper/sessionKey.store";
 
 const menuCB = (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
-  ctx.session = null;
+  ctx.session = {} as Object;
   const message: string = (ctx.update as any)?.message?.text === "/start"
       ? starterMessage(ctx.from.first_name)
       : menuMessage;
