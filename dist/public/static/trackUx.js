@@ -20,12 +20,13 @@ const resWillReply = (route) => {
         route.from = "";
     }
     else
-        route.from = `از مبدا: ${route.from}\n`;
+        route.from = `⚪️ مبدا: ${route.from}\n`;
     if (route.to === undefined) {
         route.to = "";
     }
     else
-        route.to = `به مقصد: ${route.to}\n`;
-    return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n${route.from}${route.to}بر روی همین پیام اعلان داده خواهد شد.`;
+        route.to = `⚫️ مقصد: ${route.to}\n`;
+    const OR = route.isUnpaired ? `یا\n` : "";
+    return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n\n${route.from}${OR}${route.to}\nبر روی همین پیام اعلان داده خواهد شد.`;
 };
 exports.resWillReply = resWillReply;
