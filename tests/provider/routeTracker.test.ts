@@ -1,5 +1,5 @@
 import ITxData from "../../public/types/transaction";
-import pendingTxTracker from "../../src/provider/routeTracker";
+import pendingTxTracker from "../../src/provider/pendingTracker";
 const fs = require("fs");
 
 async function createFileCB(TxData: ITxData, comment: string) {
