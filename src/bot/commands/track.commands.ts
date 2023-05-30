@@ -1,7 +1,9 @@
 import bot from "../bot.instance";
-import trackCB, { pairOptSaver, AddrAnalysis } from "../handlers/track.handlers";
 import composedAddrMiddleware from "../middlewares/track.middlewares";
-
+import trackCB, {
+  pairOptSaver,
+  AddrAnalysis,
+} from "../handlers/track.handlers";
 
 bot.action("track", trackCB);
 

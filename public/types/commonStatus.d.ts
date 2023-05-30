@@ -1,3 +1,6 @@
-declare type CommonStatus = "trackNotifier" | "trackInvestor" | "timeLineTrackNotifier";
+declare type CommonStatus =
+  | "trackNotifier"
+  | "trackInvestor"
+  | "timeLineTrackNotifier";
 
 export default CommonStatus;

@@ -3,6 +3,7 @@ type Keyboard = Array<Array<btn>>;
 
 class Skeleton {
   private layout;
+
   constructor(keyboard: Keyboard) {
     this.layout = {
       reply_markup: {
@@ -12,6 +13,7 @@ class Skeleton {
       },
     };
   }
+
   get keyboardLayout() {
     return this.layout;
   }

@@ -8,4 +8,5 @@ const settings = {
 };
 
 const alchemy = new Alchemy(settings);
+
 export { alchemy, AlchemySubscription };
