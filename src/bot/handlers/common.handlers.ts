@@ -1,11 +1,11 @@
 import { SessionContext } from "telegraf/typings/session";
-import bot from "../bot.instance";
 import { mainMenu } from "../layout/layout";
 import {
   starterMessage,
   menuMessage,
 } from "../../../public/static/starterUserUx";
 import deleteAvailableMsg from "../../helper/deleteMsg";
+import storeKeyID from "../../helper/sessionKey.store";
 
 
 const menuCB = (ctx: SessionContext<any>) => {
@@ -15,7 +15,7 @@ const menuCB = (ctx: SessionContext<any>) => {
       ? starterMessage(ctx.from.first_name)
       : menuMessage;
 
-  bot.telegram.sendMessage(ctx.chat.id, message, mainMenu);
+  ctx.telegram.sendMessage(ctx.chat.id, message, mainMenu).then(storeKeyID(ctx));
 };
 
 export { menuCB };
