@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.reqSent = exports.invalidAddress = exports.bothPairedWarn = exports.fromSubmitted = exports.toAddress = exports.fromAddres = exports.trackOpts = void 0;
+exports.resWillReply = exports.reqSent = exports.invalidAddress = exports.bothPairedWarn = exports.fromSubmitted = exports.toAddress = exports.fromAddres = exports.trackOpts = void 0;
 const trackOpts = "🖲 یکی از گزینه های مدنظر را انتخاب کرده و منتظر باشید.\n💡 در صورت نیاز به راهنمایی میتوانید به منو مراجعه کنید.";
 exports.trackOpts = trackOpts;
 const fromAddres = "⚪️ لطفا آدرس مبدا مورد نظر را ارسال نمایید.\n‼️ توجه: آدرس مبدا نمیتواند آدرس یک قرارداد هوشمند و یا آدرس null باشد.";
@@ -15,3 +15,17 @@ const invalidAddress = "❌ آدرس وارد شده نادرست میباشد.\
 exports.invalidAddress = invalidAddress;
 const reqSent = "✅ درخواست شما با موفقیت ارسال شد.";
 exports.reqSent = reqSent;
+const resWillReply = (route) => {
+    if (route.from === undefined) {
+        route.from = "";
+    }
+    else
+        route.from = `از مبدا: ${route.from}\n`;
+    if (route.to === undefined) {
+        route.to = "";
+    }
+    else
+        route.to = `به مقصد: ${route.to}\n`;
+    return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n${route.from}${route.to}بر روی همین پیام اعلان داده خواهد شد.`;
+};
+exports.resWillReply = resWillReply;
