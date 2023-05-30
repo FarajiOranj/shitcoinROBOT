@@ -101,6 +101,7 @@ const AddrAnalysis = async (ctx: SessionContext<any>) => {
         resWillReply({
           from: ctx.session.trackSession?.fromAddr,
           to: ctx.session.trackSession?.toAddr,
+          isUnpaired: ctx.session.trackSession === "unpaired",
         })
       )
       .then((message) => (replyMsgId = message.message_id));
