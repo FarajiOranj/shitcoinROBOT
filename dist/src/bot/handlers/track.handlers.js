@@ -93,7 +93,7 @@ const AddrAnalysis = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
             .sendMessage(chatId, (0, trackUx_1.resWillReply)({
             from: (_b = ctx.session.trackSession) === null || _b === void 0 ? void 0 : _b.fromAddr,
             to: (_c = ctx.session.trackSession) === null || _c === void 0 ? void 0 : _c.toAddr,
-            isUnpaired: ctx.session.trackSession === "unpaired",
+            isUnpaired: ctx.session.trackSession.triggerType === "unpaired",
         }))
             .then((message) => (replyMsgId = message.message_id));
         ctx.telegram
