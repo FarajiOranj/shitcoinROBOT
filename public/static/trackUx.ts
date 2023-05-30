@@ -19,16 +19,19 @@ const reqSent: string = "✅ درخواست شما با موفقیت ارسال 
 const resWillReply = (route: {
   from: string | undefined;
   to: string | undefined;
+  isUnpaired: boolean;
 }): string => {
   if (route.from === undefined) {
     route.from = "";
-  } else route.from = `از مبدا: ${route.from}\n`;
+  } else route.from = `⚪️ مبدا: ${route.from}\n`;
 
   if (route.to === undefined) {
     route.to = "";
-  } else route.to = `به مقصد: ${route.to}\n`;
+  } else route.to = `⚫️ مقصد: ${route.to}\n`;
 
-  return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n${route.from}${route.to}بر روی همین پیام اعلان داده خواهد شد.`;
+  const OR: string = route.isUnpaired ? `یا\n` : "";
+
+  return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n\n${route.from}${OR}${route.to}\nبر روی همین پیام اعلان داده خواهد شد.`;
 };
 
 export {
