@@ -1,9 +1,8 @@
 import { Context } from "telegraf";
-// import { callbackQuery } from "telegraf/filters";
 import { SessionContext } from "telegraf/typings/session";
 import { backToMenu, mainMenu, trackMenu } from "../layout/layout";
 import { TrackSession } from "../../../public/types/sessionTypes";
-import { trackOpts, fromAddres, toAddress, bothPairedWarn } from "../../../public/static/trackUx";
+import { trackOpts, fromAddres, toAddress, bothPairedWarn, fromSubmitted, reqSent } from "../../../public/static/trackUx";
 import { menuMessage } from "../../../public/static/starterUserUx";
 import deleteAvailableMsg from "../../helper/deleteMsg";
 import { PairStat } from "../../../public/types/transaction";
@@ -42,7 +41,7 @@ const pairOptSaver = (ctx: SessionContext<any>) => {
 }
 
 //TODO! change "any" type later to an accurate type
-const AddrAnalysis = (ctx: SessionContext<any>) => {
+const AddrAnalysis = async (ctx: SessionContext<any>) => {
   const triggerType: PairStat = ctx.session.trackSession.triggerType;
   const givenAddress: string = ctx.message["text"];
 
@@ -66,7 +65,7 @@ const AddrAnalysis = (ctx: SessionContext<any>) => {
       ctx.session.trackSession.fromAddr = givenAddress;
       if(triggerType === "fromPaired") sendAcceptionNotif = true;
       else {
-        ctx.telegram.sendMessage(ctx.chat.id, "آدرس مبدا ثبت شد.", {reply_to_message_id: ctx.message.message_id});
+        ctx.telegram.sendMessage(ctx.chat.id, fromSubmitted, {reply_to_message_id: ctx.message.message_id});
         continuousMsg = toAddress;
       }
     }
@@ -76,8 +75,7 @@ const AddrAnalysis = (ctx: SessionContext<any>) => {
   }
   if (sendAcceptionNotif) {
     ctx.session.trackSession.completed = true;
-    // only for test - will change
-    ctx.telegram.sendMessage(ctx.chat.id, "درخواست شما ثبت شد", {reply_to_message_id: ctx.message.message_id});
+    await ctx.telegram.sendMessage(ctx.chat.id, reqSent, {reply_to_message_id: ctx.message.message_id});
     ctx.telegram.sendMessage(ctx.chat.id, menuMessage, mainMenu).then(storeKeyID(ctx));
   } else ctx.telegram.sendMessage(ctx.chat.id, continuousMsg, backToMenu).then(storeKeyID(ctx));
 }
