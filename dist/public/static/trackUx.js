@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.reqSent = exports.invalidAddress = exports.bothPairedWarn = exports.fromSubmitted = exports.toAddress = exports.fromAddres = exports.trackOpts = void 0;
-const trackOpts = "🖲 یکی از گزینه های مدنظر را انتخاب کرده و منتظر باشید.🆘\n در صورت نیاز به راهنمایی میتوانید به منو مراجعه کنید.";
+const trackOpts = "🖲 یکی از گزینه های مدنظر را انتخاب کرده و منتظر باشید.\n🆘 در صورت نیاز به راهنمایی میتوانید به منو مراجعه کنید.";
 exports.trackOpts = trackOpts;
 const fromAddres = "⚪️ لطفا آدرس مبدا مورد نظر را ارسال نمایید.\n‼️ توجه: آدرس مبدا نمیتواند آدرس یک قرارداد هوشمند و یا آدرس null باشد.";
 exports.fromAddres = fromAddres;
