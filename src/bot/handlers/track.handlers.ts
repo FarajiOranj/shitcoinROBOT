@@ -11,7 +11,7 @@ import storeKeyID from "../../helper/sessionKey.store";
 
 const trackCB = (ctx: Context) => {
   deleteAvailableMsg(ctx);
-  ctx.telegram.sendMessage(ctx.chat.id, trackOpts, trackMenu);
+  ctx.telegram.sendMessage(ctx.chat.id, trackOpts, trackMenu).then(storeKeyID(ctx));
 };
 
 //TODO! change "any" type later to an accurate type
