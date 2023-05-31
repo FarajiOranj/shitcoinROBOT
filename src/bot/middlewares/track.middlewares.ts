@@ -3,6 +3,8 @@ import { SessionContext } from "telegraf/typings/session";
 import Web3 from "web3";
 import { backToMenu } from "../layout/layout";
 import { invalidAddress } from "../../../public/static/trackUx";
+import storeKeyID from "../../helper/sessionKey.store";
+import deleteAvailableMsg from "../../helper/deleteMsg";
 
 const hasCommonStat = (ctx: SessionContext<any>, next: () => void) => {
   if (ctx.session?.trackSession?.commonStat) next();
@@ -15,9 +17,10 @@ const isCompleted = (ctx: SessionContext<any>, next: () => void) => {
 };
 
 const addressCheck = (ctx: Context, next: () => void) => {
-  Web3.utils.checkAddressChecksum(ctx.message["text"])
-    ? next()
-    : ctx.reply(invalidAddress, backToMenu);
+  if (!Web3.utils.checkAddressChecksum(ctx.message["text"])) {
+    deleteAvailableMsg(ctx);
+    ctx.reply(invalidAddress, backToMenu).then(storeKeyID(ctx));
+  } else next();
 };
 
 const composedAddrMiddleware = Telegraf.compose([
