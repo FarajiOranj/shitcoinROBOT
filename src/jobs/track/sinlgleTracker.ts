@@ -11,10 +11,10 @@ const singlePendingTxFinder = async (
   const { fromAddr, toAddr, triggerType } = trackBackData;
 
   pendingTxTracker({
-      isPaired: triggerType as PairStat,
-      from: fromAddr,
-      to: toAddr,
-      callback: (txData: ITxData) => pendTxResToUser(txData, chatId, replyMsgId),
+    isPaired: triggerType as PairStat,
+    from: fromAddr,
+    to: toAddr,
+    callback: (txData: ITxData) => pendTxResToUser(txData, chatId, replyMsgId),
   });
 };
 
