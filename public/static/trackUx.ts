@@ -45,8 +45,8 @@ const pendMsg = (txData: ITxData): string => {
   const eth = +Web3.utils.toBN(value) / 10 ** 18;
   const convertedGas = +Web3.utils.toBN(gas) / 10 ** 18;
 
-  const Nfee = convertedGas * +Web3.utils.toBN(gasPrice) / 10 ** 18;
-  const Ufee = convertedGas * +Web3.utils.toBN(maxFeePerGas) / 10 ** 18;
+  const Nfee = convertedGas * +Web3.utils.toBN(gasPrice);
+  const Ufee = convertedGas * +Web3.utils.toBN(maxFeePerGas);
 
   return `🔚 نتیجه درخواست داده شده به شرح زیر میباشد:\n\n⏳ وضعیت: ...pending\n⚪️ آدرس مبدا: ${from}\n⚫️ آدرس مقصد: ${to}\n\n💵 میزان اتریوم جا به جا شده: ${eth}\n🔥گس مصرفی محاسبه شده شبکه: ${Nfee}\n⚡️حداکثر گس مصرفی محاسبه شده کاربر: ${Ufee}\n\n📝 هش تراکنش:
   https://etherscan.io/tx/${hash}`;
