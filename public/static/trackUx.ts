@@ -1,3 +1,6 @@
+import Web3 from "web3";
+import ITxData from "../types/transaction";
+
 const trackOpts: string =
   "🖲 یکی از گزینه های مدنظر را انتخاب کرده و منتظر باشید.\n💡 در صورت نیاز به راهنمایی میتوانید به منو مراجعه کنید.";
 
@@ -34,6 +37,22 @@ const resWillReply = (route: {
   return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n\n${route.from}${OR}${route.to}\nبر روی همین پیام اعلان داده خواهد شد.`;
 };
 
+const pendMsg = (txData: ITxData): string => {
+  const { from, to } = txData.Route;
+  const { value, gas, gasPrice, maxFeePerGas } = txData.Fiscal;
+  const { hash } = txData.TxInfo;
+
+  const convertedGas = +Web3.utils.toBN(gas);
+
+  const Nfee = convertedGas * +Web3.utils.toBN(gasPrice);
+  const Ufee = convertedGas * +Web3.utils.toBN(maxFeePerGas);
+
+  return `🔚 نتیجه درخواست داده شده به شرح زیر میباشد:\n\n⏳ وضعیت: ...pending\n⚪️ آدرس مبدا: ${from}\n⚫️ آدرس مقصد: ${to}\n\n💵 میزان اتریوم جا به جا شده: ${Web3.utils.toBN(
+    value
+  )}\n🔥گس مصرفی محاسبه شده شبکه: ${Nfee}\n⚡️حداکثر گس مصرفی محاسبه شده کاربر: ${Ufee}\n\n📝 هش تراکنش: /n
+  https://etherscan.io/tx/${hash}`;
+};
+
 export {
   trackOpts,
   fromAddres,
@@ -43,4 +62,5 @@ export {
   invalidAddress,
   reqSent,
   resWillReply,
+  pendMsg,
 };
