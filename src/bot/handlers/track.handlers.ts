@@ -15,6 +15,7 @@ import { menuMessage } from "../../../public/static/starterUserUx";
 import deleteAvailableMsg from "../../helper/deleteMsg";
 import { PairStat } from "../../../public/types/transaction";
 import storeKeyID from "../../helper/sessionKey.store";
+import { singlePendingTxFinder } from "../../jobs/track/sinlgleTracker";
 
 const trackCB = (ctx: Context) => {
   deleteAvailableMsg(ctx);
@@ -32,7 +33,6 @@ const pairOptSaver = (ctx: SessionContext<any>) => {
   //* maybe should change or move
   ctx.session.trackSession = {} as TrackSession;
 
-  ctx.session.trackSession.userId = chatId;
   ctx.session.trackSession.triggerType = data;
   ctx.session.trackSession.commonStat = "trackNotifier";
 
@@ -101,10 +101,12 @@ const AddrAnalysis = async (ctx: SessionContext<any>) => {
         resWillReply({
           from: ctx.session.trackSession?.fromAddr,
           to: ctx.session.trackSession?.toAddr,
-          isUnpaired: ctx.session.trackSession.triggerType === "unpaired",
+          isUnpaired: triggerType === "unpaired",
         })
       )
       .then((message) => (replyMsgId = message.message_id));
+
+    singlePendingTxFinder(chatId, replyMsgId, ctx.session.trackSession);
 
     ctx.telegram
       .sendMessage(chatId, menuMessage, mainMenu)
