@@ -18,6 +18,7 @@ const trackUx_1 = require("../../../public/static/trackUx");
 const starterUserUx_1 = require("../../../public/static/starterUserUx");
 const deleteMsg_1 = __importDefault(require("../../helper/deleteMsg"));
 const sessionKey_store_1 = __importDefault(require("../../helper/sessionKey.store"));
+const sinlgleTracker_1 = require("../../jobs/track/sinlgleTracker");
 const trackCB = (ctx) => {
     (0, deleteMsg_1.default)(ctx);
     ctx.telegram
@@ -32,7 +33,6 @@ const pairOptSaver = (ctx) => {
     const data = (_a = ctx.callbackQuery) === null || _a === void 0 ? void 0 : _a["data"];
     //* maybe should change or move
     ctx.session.trackSession = {};
-    ctx.session.trackSession.userId = chatId;
     ctx.session.trackSession.triggerType = data;
     ctx.session.trackSession.commonStat = "trackNotifier";
     const message = data === "toPaired" ? trackUx_1.toAddress : trackUx_1.fromAddres;
@@ -93,9 +93,10 @@ const AddrAnalysis = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
             .sendMessage(chatId, (0, trackUx_1.resWillReply)({
             from: (_b = ctx.session.trackSession) === null || _b === void 0 ? void 0 : _b.fromAddr,
             to: (_c = ctx.session.trackSession) === null || _c === void 0 ? void 0 : _c.toAddr,
-            isUnpaired: ctx.session.trackSession.triggerType === "unpaired",
+            isUnpaired: triggerType === "unpaired",
         }))
             .then((message) => (replyMsgId = message.message_id));
+        (0, sinlgleTracker_1.singlePendingTxFinder)(chatId, replyMsgId, ctx.session.trackSession);
         ctx.telegram
             .sendMessage(chatId, starterUserUx_1.menuMessage, layout_1.mainMenu)
             .then((0, sessionKey_store_1.default)(ctx));
