@@ -1,4 +1,4 @@
-import { session } from "telegraf";
-import bot from "../bot.instance";
+// import { session } from "telegraf";
+// import bot from "../bot.instance";
 
-bot.use(session());
+// bot.use(session());
