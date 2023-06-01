@@ -5,7 +5,8 @@
     "main": "app.js",
     "scripts": {
         "start": "node dist/app.js",
-        "track": "npx nodemon src/provider/routeTracker.ts"
+        "track": "npx nodemon src/provider/routeTracker.ts",
+        "install": "npm i --legacy-peer-deps"
     },
     "repository": {
         "type": "git",
