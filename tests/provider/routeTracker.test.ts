@@ -17,8 +17,8 @@ async function createFileCB(TxData: ITxData, comment: string) {
 (function fileCreator() {
   pendingTxTracker({
     from: whaleAddresses[0],
-    // to: process.env.UNI_ROUTE2,
-    // isPaired: 'bothPaired',
+    to: process.env.UNI_ROUTE2,
+    isPaired: 'bothPaired',
     callback: (txData: ITxData) => createFileCB(txData, "// new transaction"),
   });
 })();
