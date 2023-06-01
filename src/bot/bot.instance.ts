@@ -1,5 +1,5 @@
 import { Telegraf } from "telegraf";
-const ms = require("milisecond");
+const ms = require("millisecond");
 import * as dotenv from "dotenv";
 dotenv.config();
 
