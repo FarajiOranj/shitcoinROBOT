@@ -24,7 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const telegraf_1 = require("telegraf");
-const ms = require("milisecond");
+const ms = require("millisecond");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const bot = new telegraf_1.Telegraf(process.env.TELEGRAM_BOT_TOKEN, {
