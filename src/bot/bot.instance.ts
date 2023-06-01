@@ -1,7 +1,11 @@
 import { Telegraf } from "telegraf";
+const ms = require("milisecond");
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const bot: Telegraf = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
+const bot: Telegraf = new Telegraf(process.env.TELEGRAM_BOT_TOKEN, {
+    handlerTimeout: ms('172000s'),
+});
+
 
 export default bot;
