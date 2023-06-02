@@ -12,15 +12,17 @@ const eventName: {
 const pendingTxTracker = async (queryData: IPendingTrackerFn) => {
   const { from, to, isPaired, callback } = queryData;
 
-  Object.assign(eventName, { toAddress:   to.toLowerCase(), fromAddress: from.toLowerCase() });
+  Object.assign(eventName, {
+    toAddress: to.toLowerCase(),
+    fromAddress: from.toLowerCase(),
+  });
 
   alchemy.ws.on(eventName, async (tx) => {
     if (
       isPaired === "bothPaired" &&
       (tx.from !== eventName.fromAddress || tx.to !== eventName.toAddress)
-      ) {
-        console.log(tx.from);
-        return
+    ) {
+      return;
     } else {
       await alchemy.ws.off(eventName);
 
