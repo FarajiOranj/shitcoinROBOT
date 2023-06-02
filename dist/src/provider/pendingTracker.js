@@ -42,6 +42,7 @@ const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, functi
     provider_1.alchemy.ws.on(eventName, (tx) => __awaiter(void 0, void 0, void 0, function* () {
         if (isPaired === "bothPaired" &&
             (tx.from !== eventName.fromAddress || tx.to !== eventName.toAddress)) {
+            console.log(tx.from);
             return;
         }
         else {
