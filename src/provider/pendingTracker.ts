@@ -13,8 +13,8 @@ const pendingTxTracker = async (queryData: IPendingTrackerFn) => {
   const { from, to, isPaired, callback } = queryData;
 
   Object.assign(eventName, {
-    toAddress: to.toLowerCase(),
-    fromAddress: from.toLowerCase(),
+    toAddress: to,
+    fromAddress: from,
   });
 
   alchemy.ws.on(eventName, async (tx) => {
