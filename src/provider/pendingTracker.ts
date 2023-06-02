@@ -12,7 +12,7 @@ const eventName: {
 const pendingTxTracker = async (queryData: IPendingTrackerFn) => {
   const { from, to, isPaired, callback } = queryData;
 
-  Object.assign(eventName, { toAddress: to, fromAddress: from });
+  Object.assign(eventName, { toAddress:   to.toLowerCase(), fromAddress: from.toLowerCase() });
 
   alchemy.ws.on(eventName, async (tx) => {
     if (
