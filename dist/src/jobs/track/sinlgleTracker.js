@@ -19,8 +19,8 @@ const singlePendingTxFinder = (chatId, replyMsgId, trackBackData) => __awaiter(v
     const { fromAddr, toAddr, triggerType } = trackBackData;
     (0, pendingTracker_1.default)({
         isPaired: triggerType,
-        from: fromAddr,
-        to: toAddr,
+        from: fromAddr === null || fromAddr === void 0 ? void 0 : fromAddr.toLowerCase(),
+        to: toAddr === null || toAddr === void 0 ? void 0 : toAddr.toLowerCase(),
         callback: (txData) => (0, track_reply_1.pendTxResToUser)(txData, chatId, replyMsgId),
     });
 });

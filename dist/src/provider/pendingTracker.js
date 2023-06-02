@@ -39,8 +39,8 @@ const eventName = { method: provider_1.AlchemySubscription.PENDING_TRANSACTIONS 
 const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
     const { from, to, isPaired, callback } = queryData;
     Object.assign(eventName, {
-        toAddress: to.toLowerCase(),
-        fromAddress: from.toLowerCase(),
+        toAddress: to,
+        fromAddress: from,
     });
     provider_1.alchemy.ws.on(eventName, (tx) => __awaiter(void 0, void 0, void 0, function* () {
         if (isPaired === "bothPaired" &&
