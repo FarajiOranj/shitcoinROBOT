@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const whaleAddresses = [
-    "0xAf2358e98683265cBd3a48509123d390dDf54534",
+    "0xaf2358e98683265cbd3a48509123d390ddf54534",
 ];
 exports.default = whaleAddresses;
