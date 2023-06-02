@@ -20,7 +20,7 @@ const pendingTxTracker = async (queryData: IPendingTrackerFn) => {
   alchemy.ws.on(eventName, async (tx) => {
     if (
       isPaired === "bothPaired" &&
-      (tx.from !== eventName.fromAddress || tx.to !== eventName.toAddress)
+      (tx.from !== from || tx.to !== to)
     ) {
       return;
     } else {
