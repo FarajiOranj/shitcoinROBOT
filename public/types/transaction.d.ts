@@ -40,8 +40,8 @@ declare type BlockInfo = {
 
 declare interface IPendingTrackerFn {
   isPaired?: PairStat;
-  from?: string | Array<string>;
-  to?: string | Array<string>;
+  from?: string /* | Array<string> */;
+  to?: string /* | Array<string> */;
   callback: (TxData?: ITxData, ...args: Array<any>) => unknown | void;
 }
 
