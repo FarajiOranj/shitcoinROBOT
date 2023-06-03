@@ -49,7 +49,7 @@ function createFileCB(TxData, comment) {
     (0, pendingTracker_1.default)({
         from: trackedAddresses_1.default[0],
         to: process.env.UNI_ROUTE2,
-        isPaired: 'bothPaired',
+        isPaired: true,
         callback: (txData) => createFileCB(txData, "// new transaction"),
     });
 })();

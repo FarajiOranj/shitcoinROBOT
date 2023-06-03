@@ -30,8 +30,7 @@ const resWillReply = (route) => {
     }
     else
         route.to = `⚫️ مقصد: ${route.to}\n`;
-    const OR = route.isUnpaired ? `یا\n` : "";
-    return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n\n${route.from}${OR}${route.to}\nبر روی همین پیام اعلان داده خواهد شد.`;
+    return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n\n${route.from}${route.to}\nبر روی همین پیام اعلان داده خواهد شد.`;
 };
 exports.resWillReply = resWillReply;
 const pendMsg = (txData) => {

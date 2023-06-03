@@ -35,7 +35,6 @@ const pairOptSaver = (ctx) => {
     ctx.session.trackSession = {};
     ctx.session.trackSession.triggerType = data;
     ctx.session.trackSession.commonStat = "trackNotifier";
-    const message = data === "toPaired" ? trackUx_1.toAddress : trackUx_1.fromAddres;
     /* TODO
     ! needs more researches to use - untested
     let data: string;
@@ -44,44 +43,37 @@ const pairOptSaver = (ctx) => {
     }
     ctx.session.triggerType = data;
     */
-    ctx.telegram.sendMessage(chatId, message, layout_1.backToMenu).then((0, sessionKey_store_1.default)(ctx));
+    ctx.telegram.sendMessage(chatId, trackUx_1.fromAddres, layout_1.backToMenu).then((0, sessionKey_store_1.default)(ctx));
 };
 exports.pairOptSaver = pairOptSaver;
 //TODO! change "any" type later to an accurate type
 const AddrAnalysis = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c;
-    const triggerType = ctx.session.trackSession.triggerType;
+    const triggerType = ctx.session.trackSession.triggerType === "bothPaired";
     const givenAddress = ctx.message["text"];
     const chatId = ctx.chat.id;
     (0, deleteMsg_1.default)(ctx);
     let sendAcceptionNotif;
     let continuousMsg;
-    if (triggerType !== "toPaired") {
-        if ((_a = ctx.session.trackSession) === null || _a === void 0 ? void 0 : _a.fromAddr) {
-            if (triggerType === "bothPaired" &&
-                ctx.session.trackSession.fromAddr === givenAddress) {
-                continuousMsg = trackUx_1.bothPairedWarn;
-            }
-            else {
-                ctx.session.trackSession.toAddr = givenAddress;
-                sendAcceptionNotif = true;
-            }
+    if ((_a = ctx.session.trackSession) === null || _a === void 0 ? void 0 : _a.fromAddr) {
+        if (ctx.session.trackSession.fromAddr === givenAddress) {
+            continuousMsg = trackUx_1.bothPairedWarn;
         }
         else {
-            ctx.session.trackSession.fromAddr = givenAddress;
-            if (triggerType === "fromPaired")
-                sendAcceptionNotif = true;
-            else {
-                ctx.telegram.sendMessage(chatId, trackUx_1.fromSubmitted, {
-                    reply_to_message_id: ctx.message.message_id,
-                });
-                continuousMsg = trackUx_1.toAddress;
-            }
+            ctx.session.trackSession.toAddr = givenAddress;
+            sendAcceptionNotif = true;
         }
     }
     else {
-        ctx.session.trackSession.toAddr = givenAddress;
-        sendAcceptionNotif = true;
+        ctx.session.trackSession.fromAddr = givenAddress;
+        if (!triggerType)
+            sendAcceptionNotif = true;
+        else {
+            ctx.telegram.sendMessage(chatId, trackUx_1.fromSubmitted, {
+                reply_to_message_id: ctx.message.message_id,
+            });
+            continuousMsg = trackUx_1.toAddress;
+        }
     }
     if (sendAcceptionNotif) {
         let replyMsgId;
@@ -93,7 +85,6 @@ const AddrAnalysis = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
             .sendMessage(chatId, (0, trackUx_1.resWillReply)({
             from: (_b = ctx.session.trackSession) === null || _b === void 0 ? void 0 : _b.fromAddr,
             to: (_c = ctx.session.trackSession) === null || _c === void 0 ? void 0 : _c.toAddr,
-            isUnpaired: triggerType === "unpaired",
         }))
             .then((message) => (replyMsgId = message.message_id));
         (0, sinlgleTracker_1.singlePendingTxFinder)(chatId, replyMsgId, ctx.session.trackSession);

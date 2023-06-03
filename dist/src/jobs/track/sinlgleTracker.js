@@ -18,7 +18,7 @@ const track_reply_1 = require("../../bot/server-reply/track.reply");
 const singlePendingTxFinder = (chatId, replyMsgId, trackBackData) => __awaiter(void 0, void 0, void 0, function* () {
     const { fromAddr, toAddr, triggerType } = trackBackData;
     (0, pendingTracker_1.default)({
-        isPaired: triggerType,
+        isPaired: triggerType === "bothPaired",
         from: fromAddr === null || fromAddr === void 0 ? void 0 : fromAddr.toLowerCase(),
         to: toAddr === null || toAddr === void 0 ? void 0 : toAddr.toLowerCase(),
         callback: (txData) => (0, track_reply_1.pendTxResToUser)(txData, chatId, replyMsgId),
