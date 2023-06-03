@@ -38,13 +38,16 @@ dotenv.config();
 const eventName = { method: provider_1.AlchemySubscription.PENDING_TRANSACTIONS };
 const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
     const { from, to, isPaired, callback } = queryData;
-    Object.assign(eventName, {
-        toAddress: to,
-        fromAddress: from,
-    });
+    if (isPaired === "fromPaired")
+        Object.assign(eventName, {
+            fromAddress: from,
+        });
+    else
+        Object.assign(eventName, {
+            toAddress: to,
+        });
     provider_1.alchemy.ws.on(eventName, (tx) => __awaiter(void 0, void 0, void 0, function* () {
-        if (isPaired === "bothPaired" &&
-            (tx.from !== from || tx.to !== to)) {
+        if (isPaired === "bothPaired" && (tx.from !== from || tx.to !== to)) {
             return;
         }
         else {
