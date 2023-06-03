@@ -5,8 +5,7 @@ import Skeleton from "./skeleton";
     [ 📌 نشانه گذاری 🔎 ]
   ---------------------------------------
     Track Menu Reply Keyboard
-    [⚫️ صرفا مقصد ] [⚪️ صرفا مبدا]
-    [🔴 بدون ترتیب] [ 🔳 جفت شده ]
+    [ 🔳 جفت شده ] [⚪️ صرفا مبدا]
     [       ⬅️ بازگشت        ]
   ---------------------------------------
     back To Menu Reply Keyboard
@@ -19,12 +18,8 @@ const mainMenu = new Skeleton([
 
 const trackMenu = new Skeleton([
   [
-    { text: "⚫️ صرفا مقصد", callback_data: "toPaired" },
-    { text: "⚪️ صرفا مبدا", callback_data: "fromPaired" },
-  ],
-  [
-    { text: "🔴 بدون ترتیب", callback_data: "unpaired" },
     { text: "🔳 جفت شده", callback_data: "bothPaired" },
+    { text: "⚪️ صرفا مبدا", callback_data: "fromPaired" },
   ],
   [{ text: "⬅️ بازگشت", callback_data: "menu" }],
 ]).keyboardLayout;

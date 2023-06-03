@@ -22,7 +22,6 @@ const reqSent: string = "✅ درخواست شما با موفقیت ارسال 
 const resWillReply = (route: {
   from: string | undefined;
   to: string | undefined;
-  isUnpaired: boolean;
 }): string => {
   if (route.from === undefined) {
     route.from = "";
@@ -32,9 +31,7 @@ const resWillReply = (route: {
     route.to = "";
   } else route.to = `⚫️ مقصد: ${route.to}\n`;
 
-  const OR: string = route.isUnpaired ? `یا\n` : "";
-
-  return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n\n${route.from}${OR}${route.to}\nبر روی همین پیام اعلان داده خواهد شد.`;
+  return `❇️ نتیجه درخواست ارسال شده به مشخصات:\n\n${route.from}${route.to}\nبر روی همین پیام اعلان داده خواهد شد.`;
 };
 
 const pendMsg = (txData: ITxData): string => {

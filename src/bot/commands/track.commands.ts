@@ -7,6 +7,6 @@ import trackCB, {
 
 bot.action("track", trackCB);
 
-bot.action(["unpaired", "bothPaired", "fromPaired", "toPaired"], pairOptSaver);
+bot.action(["bothPaired", "fromPaired"], pairOptSaver);
 
 bot.hears(/^0x(.+)/, composedAddrMiddleware, AddrAnalysis);

@@ -1,5 +1,3 @@
-declare type PairStat = "unpaired" | "bothPaired" | "fromPaired" | "toPaired";
-
 declare type TxTypes = "0x0" | "0x2";
 
 declare type Input = {
@@ -39,7 +37,7 @@ declare type BlockInfo = {
 };
 
 declare interface IPendingTrackerFn {
-  isPaired?: PairStat;
+  isPaired? :boolean;
   from?: string /* | Array<string> */;
   to?: string /* | Array<string> */;
   callback: (TxData?: ITxData, ...args: Array<any>) => unknown | void;
@@ -78,7 +76,6 @@ export default ITxData;
 export {
   IPendingTrackerFn,
   TxTypes,
-  PairStat,
   Input,
   Route,
   Fiscal,
