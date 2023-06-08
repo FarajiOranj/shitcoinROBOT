@@ -36,14 +36,14 @@ declare type BlockInfo = {
   readonly blockNumber?: number | null;
 };
 
-declare interface IPendingTrackerFn {
+declare interface ITrackerFn {
   isPaired? :boolean;
   from?: string /* | Array<string> */;
   to?: string /* | Array<string> */;
-  callback: (TxData?: ITxData, ...args: Array<any>) => unknown | void;
+  callback: (TxData?: ITxData, calledTimes?: {value: number} ,...args: Array<any>) => boolean;
 }
 
-// declare function pendingTxTracker(queryData:IPendingTrackerFn ) :void;
+// declare function pendingTxTracker(queryData:ITrackerFn ) :void;
 
 declare interface ITxData {
   // input :string,
@@ -74,7 +74,7 @@ declare interface ITxData {
 
 export default ITxData;
 export {
-  IPendingTrackerFn,
+  ITrackerFn,
   TxTypes,
   Input,
   Route,
