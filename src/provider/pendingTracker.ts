@@ -56,8 +56,6 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
         },
         calledTimes
         );
-        // calledTimes.value++;
-        console.log(calledTimes.value);
         
         if (shouldOff) await alchemy.ws.off(eventName);
       }
