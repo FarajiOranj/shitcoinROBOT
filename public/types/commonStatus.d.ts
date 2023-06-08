@@ -1,6 +1,7 @@
 declare type CommonStatus =
   | "trackNotifier"
   | "trackInvestor"
-  | "timeLineTrackNotifier";
+  | "timeLineTrackNotifier"
+  | "uniPair";
 
 export default CommonStatus;
