@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "shitcoin spotter with real time reaction",
     "main": "app.js",
+     
     "scripts": {
         "start": "node dist/app.js",
         "track": "npx nodemon tests/provider/routeTracker.test.ts",
@@ -28,7 +29,7 @@
         "alchemy-sdk": "^2.8.3",
         "axios": "^1.4.0",
         "dotenv": "^16.0.3",
-        "ethers": "^6.3.0",
+        "ethers": "^6.4.1",
         "evm-bn": "^1.1.2",
         "millisecond": "^0.1.2",
         "node-storage": "^0.0.9",
