@@ -26,7 +26,7 @@ const givenPairNum = (ctx: SessionContext<any>) => {
   // ctx.telegram
   // .sendMessage(chatId, )
 
-  findUniV2Pairs(chatId, ctx.message["text"]);
+  findUniV2Pairs(chatId, Number(ctx.message["text"]));
 
   ctx.telegram.sendMessage(chatId, menuMessage, mainMenu).then(storeKeyID(ctx));
 };
