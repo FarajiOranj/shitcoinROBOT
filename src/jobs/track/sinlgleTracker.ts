@@ -14,7 +14,8 @@ const singlePendingTxFinder = async (
     isPaired: triggerType === "bothPaired",
     from: fromAddr?.toLowerCase(),
     to: toAddr?.toLowerCase(),
-    callback: (txData: ITxData) => pendTxResToUser(txData, chatId, replyMsgId),
+    callback: (txData: ITxData, calledTimes: {value:number}): boolean =>
+      pendTxResToUser(txData, calledTimes, chatId, replyMsgId),
   });
 };
 
