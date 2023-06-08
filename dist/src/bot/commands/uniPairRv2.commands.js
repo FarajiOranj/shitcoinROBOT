@@ -30,4 +30,4 @@ const bot_instance_1 = __importDefault(require("../bot.instance"));
 const uniPairRv2_handlers_1 = __importStar(require("../handlers/uniPairRv2.handlers"));
 const uniPairRv2_middlewares_1 = require("../middlewares/uniPairRv2.middlewares");
 bot_instance_1.default.action("uniNewPair", uniPairRv2_handlers_1.default);
-bot_instance_1.default.hears("/^(10|[1-9])$/", uniPairRv2_middlewares_1.hasUniPairStat, uniPairRv2_handlers_1.givenPairNum);
+bot_instance_1.default.hears(/^(10|[1-9])$/, uniPairRv2_middlewares_1.hasUniPairStat, uniPairRv2_handlers_1.givenPairNum);

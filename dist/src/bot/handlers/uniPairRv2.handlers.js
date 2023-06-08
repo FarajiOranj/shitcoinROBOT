@@ -24,9 +24,7 @@ const givenPairNum = (ctx) => {
     // ctx.telegram
     // .sendMessage(chatId, )
     (0, pairFinderV2_1.default)(chatId, ctx.message["text"]);
-    ctx.telegram
-        .sendMessage(chatId, starterUserUx_1.menuMessage, layout_1.mainMenu)
-        .then((0, sessionKey_store_1.default)(ctx));
+    ctx.telegram.sendMessage(chatId, starterUserUx_1.menuMessage, layout_1.mainMenu).then((0, sessionKey_store_1.default)(ctx));
 };
 exports.givenPairNum = givenPairNum;
 exports.default = newUniPair;
