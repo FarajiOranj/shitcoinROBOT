@@ -19,6 +19,8 @@ const invalidAddress: string =
 
 const reqSent: string = "✅ درخواست شما با موفقیت ارسال شد.";
 
+const uniPairNums: string = "🔢 لطفا از 1 تا 10 یک عدد را ارسال نمایید.";
+
 const resWillReply = (route: {
   from: string | undefined;
   to: string | undefined;
@@ -57,6 +59,7 @@ export {
   bothPairedWarn,
   invalidAddress,
   reqSent,
+  uniPairNums,
   resWillReply,
   pendMsg,
 };
