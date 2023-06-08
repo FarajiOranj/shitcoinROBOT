@@ -23,7 +23,7 @@ const givenPairNum = (ctx) => {
     const chatId = ctx.chat.id;
     // ctx.telegram
     // .sendMessage(chatId, )
-    (0, pairFinderV2_1.default)(chatId, ctx.message["text"]);
+    (0, pairFinderV2_1.default)(chatId, Number(ctx.message["text"]));
     ctx.telegram.sendMessage(chatId, starterUserUx_1.menuMessage, layout_1.mainMenu).then((0, sessionKey_store_1.default)(ctx));
 };
 exports.givenPairNum = givenPairNum;

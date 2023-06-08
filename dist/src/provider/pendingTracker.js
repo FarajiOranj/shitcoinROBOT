@@ -61,8 +61,6 @@ const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, functi
                 Sign: { nonce, v, r, s },
                 TxInfo: { type, accessList, hash },
             }, calledTimes);
-            // calledTimes.value++;
-            console.log(calledTimes.value);
             if (shouldOff)
                 yield provider_1.alchemy.ws.off(eventName);
         }
