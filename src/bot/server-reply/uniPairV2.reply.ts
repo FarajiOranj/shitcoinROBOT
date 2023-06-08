@@ -13,11 +13,11 @@ const uniPairV2: ITrackerFn["callback"] = (
   const input = txData.Input.input ?? "";
 
   if (input.includes("0xf305d719")) {
-    const pairAddr = getPairAddress(txData.TxInfo.hash);
+    const pairAddr: string = getPairAddress(txData.TxInfo.hash);
+    bot.telegram.sendMessage(chatId, pairAddr);
 
     if (pairAddr) {
 
-    bot.telegram.sendMessage(chatId, pairAddr);
 
       if (totalPairs >= calledTimes.value) return true;
       else {
