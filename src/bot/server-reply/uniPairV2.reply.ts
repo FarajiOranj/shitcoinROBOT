@@ -10,7 +10,7 @@ const uniPairV2: ITrackerFn["callback"] = (
   chatId: number,
   totalPairs: number
 ): boolean => {
-  const input = txData.Input.input;
+  const input = txData.Input.input ?? "";
 
   if (input.includes("0xf305d719")) {
     const pairAddr = getPairAddress(txData.TxInfo.hash);
