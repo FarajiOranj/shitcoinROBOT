@@ -26,7 +26,6 @@ const getPairAddress = (txHash: string): string => {
 
 // const txHash =
 //   "0x5b04ee73e9c4d78eb3ee376c5d52e20105e7400ace7891d5156587d42e5bcd5f";
-
 // getPairAddress(txHash);
 
 export default getPairAddress;

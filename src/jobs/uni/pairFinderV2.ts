@@ -7,7 +7,7 @@ dotenv.config();
 const findUniV2Pairs = async (chatId: number, totalPairs: number) => {
   minedTxTracker({
     to: process.env.UNI_ROUTE2,
-    callback: (txData: ITxData, calledTimes:{value:number} ): boolean =>
+    callback: (txData: ITxData, calledTimes: { value: number }): boolean =>
       uniPairV2(txData, calledTimes, chatId, totalPairs),
   });
 };

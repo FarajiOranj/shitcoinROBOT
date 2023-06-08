@@ -6,4 +6,4 @@ import { hasUniPairStat } from "../middlewares/uniPairRv2.middlewares";
 bot.action("uniNewPair", newUniPair);
 
 
-bot.hears("/^(10|[1-9])$/", hasUniPairStat, givenPairNum);
+bot.hears(/^(10|[1-9])$/, hasUniPairStat, givenPairNum);

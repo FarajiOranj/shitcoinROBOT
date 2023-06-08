@@ -16,8 +16,7 @@ const newUniPair = (ctx: SessionContext<any>) => {
   ctx.telegram
     .sendMessage(ctx.chat.id, uniPairNums, backToMenu)
     .then(storeKeyID(ctx));
-}
-
+};
 
 const givenPairNum = (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
@@ -25,18 +24,12 @@ const givenPairNum = (ctx: SessionContext<any>) => {
   const chatId: number = ctx.chat.id;
 
   // ctx.telegram
-      // .sendMessage(chatId, )
-    
-      findUniV2Pairs(chatId, ctx.message["text"])
+  // .sendMessage(chatId, )
 
-  ctx.telegram
-      .sendMessage(chatId, menuMessage, mainMenu)
-      .then(storeKeyID(ctx));
-}
+  findUniV2Pairs(chatId, ctx.message["text"]);
 
+  ctx.telegram.sendMessage(chatId, menuMessage, mainMenu).then(storeKeyID(ctx));
+};
 
 export default newUniPair;
-export {
-  givenPairNum
-}
-
+export { givenPairNum };
