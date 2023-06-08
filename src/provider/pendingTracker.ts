@@ -1,4 +1,4 @@
-import { IPendingTrackerFn } from "../../public/types/transaction";
+import { ITrackerFn } from "../../public/types/transaction";
 import { alchemy, AlchemySubscription } from "./provider";
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -9,7 +9,7 @@ const eventName: {
   toAddress?: string;
 } = { method: AlchemySubscription.PENDING_TRANSACTIONS };
 
-const pendingTxTracker = async (queryData: IPendingTrackerFn) => {
+const pendingTxTracker = async (queryData: ITrackerFn) => {
   const { from, to, isPaired, callback } = queryData;
 
   isPaired
@@ -20,13 +20,14 @@ const pendingTxTracker = async (queryData: IPendingTrackerFn) => {
         fromAddress: from,
       });
 
+  let calledTimes: number;
+
   alchemy.ws.on(eventName, async (tx) => {
+    
     if (isPaired && tx.from !== from) {
       console.log(tx);
       return;
     } else {
-      await alchemy.ws.off(eventName);
-
       const {
         input,
         from,
@@ -45,13 +46,18 @@ const pendingTxTracker = async (queryData: IPendingTrackerFn) => {
         hash,
       } = tx;
 
-      await callback({
-        Input: { input },
-        Route: { from, to },
-        Fiscal: { value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas },
-        Sign: { nonce, v, r, s },
-        TxInfo: { type, accessList, hash },
-      });
+      const shouldOff: boolean = await callback(
+        {
+          Input: { input },
+          Route: { from, to },
+          Fiscal: { value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas },
+          Sign: { nonce, v, r, s },
+          TxInfo: { type, accessList, hash },
+        },
+        calledTimes
+      );
+
+      if (shouldOff) await alchemy.ws.off(eventName);
     }
   });
 };
