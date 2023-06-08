@@ -20,12 +20,12 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
         fromAddress: from,
       });
 
-  let calledTimes: {value : number};
+  let calledTimes = {
+    value: 1,
+  };
 
   alchemy.ws.on(eventName, async (tx) => {
-    
     if (isPaired && tx.from !== from) {
-      console.log(tx);
       return;
     } else {
       const {
@@ -45,7 +45,7 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
         accessList,
         hash,
       } = tx;
-
+      
       const shouldOff: boolean = await callback(
         {
           Input: { input },
@@ -55,11 +55,14 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
           TxInfo: { type, accessList, hash },
         },
         calledTimes
-      );
-
-      if (shouldOff) await alchemy.ws.off(eventName);
-    }
-  });
-};
-
-export default pendingTxTracker;
+        );
+        // calledTimes.value++;
+        console.log(calledTimes.value);
+        
+        if (shouldOff) await alchemy.ws.off(eventName);
+      }
+    });
+  };
+  
+  export default pendingTxTracker;
+  

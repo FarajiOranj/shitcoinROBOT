@@ -5,7 +5,9 @@ import whaleAddresses from "../../public/static/trackedAddresses";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-function createFileCB(TxData: ITxData, comment: string) : boolean {
+function createFileCB(TxData: ITxData, callback:{value: number},comment: string) : boolean {
+  callback.value++;
+
   fs.writeFile(
     "txHistory.js",
     `${comment}\n${JSON.stringify(TxData)}\n`,
@@ -18,10 +20,10 @@ function createFileCB(TxData: ITxData, comment: string) : boolean {
 
 (function fileCreator() {
   pendingTxTracker({
-    from: whaleAddresses[0],
+    // from: whaleAddresses[0],
     to: process.env.UNI_ROUTE2,
-    isPaired: true,
-    callback: (txData: ITxData) :boolean => createFileCB(txData,"// new transaction"),
+    // isPaired: true,
+    callback: (txData: ITxData, callback?: {value: number}) :boolean => createFileCB(txData,callback,"// new transaction"),
   });
 })();
 

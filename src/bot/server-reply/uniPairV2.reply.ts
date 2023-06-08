@@ -19,7 +19,7 @@ const uniPairV2: ITrackerFn["callback"] = (
 
     bot.telegram.sendMessage(chatId, pairAddr);
 
-      if (totalPairs === calledTimes.value) return true;
+      if (totalPairs >= calledTimes.value) return true;
       else {
         calledTimes.value++;
         return false;

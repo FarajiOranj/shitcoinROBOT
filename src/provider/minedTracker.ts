@@ -17,7 +17,7 @@ const minedTxTracker = async (queryData: ITrackerFn) => {
   const { /* from, */ to/* , isPaired */, callback } = queryData;
 
   let calledTimes = {
-    value: 1
+    value: 1,
   };
 
   Object.assign(eventName, {
