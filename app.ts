@@ -3,6 +3,7 @@ import './src/bot/session/default.session'
 import './src/bot/middlewares/common.middlewares';
 import './src/bot/commands/common.commands';
 import './src/bot/commands/track.commands';
+import './src/bot/commands/uniPairRv2.commands';
 
 
 bot.launch();
