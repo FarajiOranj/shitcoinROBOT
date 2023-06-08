@@ -6,8 +6,8 @@ import { invalidAddress } from "../../../public/static/trackUx";
 import storeKeyID from "../../helper/sessionKey.store";
 import deleteAvailableMsg from "../../helper/deleteMsg";
 
-const hasCommonStat = (ctx: SessionContext<any>, next: () => void) => {
-  if (ctx.session?.trackSession?.commonStat) next();
+const hasTrackNotifierStat = (ctx: SessionContext<any>, next: () => void) => {
+  if (ctx.session?.trackSession?.commonStat === "trackNotifier") next();
   return;
 };
 
@@ -24,7 +24,7 @@ const addressCheck = (ctx: Context, next: () => void) => {
 };
 
 const composedAddrMiddleware = Telegraf.compose([
-  hasCommonStat,
+  hasTrackNotifierStat,
   isCompleted,
   addressCheck,
 ]);
