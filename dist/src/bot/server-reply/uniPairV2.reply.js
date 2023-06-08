@@ -8,7 +8,8 @@ const bot_instance_1 = __importDefault(require("../bot.instance"));
 const pairGetter_1 = __importDefault(require("../../helper/pairGetter"));
 // import { pendMsg } from "../../../public/static/trackUx";
 const uniPairV2 = (txData, calledTimes, chatId, totalPairs) => {
-    const input = txData.Input.input;
+    var _a;
+    const input = (_a = txData.Input.input) !== null && _a !== void 0 ? _a : "";
     if (input.includes("0xf305d719")) {
         const pairAddr = (0, pairGetter_1.default)(txData.TxInfo.hash);
         if (pairAddr) {
