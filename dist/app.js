@@ -8,4 +8,5 @@ require("./src/bot/session/default.session");
 require("./src/bot/middlewares/common.middlewares");
 require("./src/bot/commands/common.commands");
 require("./src/bot/commands/track.commands");
+require("./src/bot/commands/uniPairRv2.commands");
 bot_instance_1.default.launch();

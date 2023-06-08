@@ -35,34 +35,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const provider_1 = require("./provider");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const eventName = { method: provider_1.AlchemySubscription.PENDING_TRANSACTIONS };
-const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
-    const { from, to, isPaired, callback } = queryData;
-    isPaired
-        ? Object.assign(eventName, {
-            toAddress: to,
-        })
-        : Object.assign(eventName, {
-            fromAddress: from,
-        });
-    let calledTimes;
+const eventName = { method: provider_1.AlchemySubscription.MINED_TRANSACTIONS };
+const minedTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
+    const { /* from, */ to /* , isPaired */, callback } = queryData;
+    let calledTimes = {
+        value: 1
+    };
+    Object.assign(eventName, {
+        addresses: [
+            {
+                to,
+            },
+        ],
+    });
     provider_1.alchemy.ws.on(eventName, (tx) => __awaiter(void 0, void 0, void 0, function* () {
-        if (isPaired && tx.from !== from) {
-            console.log(tx);
-            return;
-        }
-        else {
-            const { input, from, to, value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas, nonce, v, r, s, type, accessList, hash, } = tx;
-            const shouldOff = yield callback({
-                Input: { input },
-                Route: { from, to },
-                Fiscal: { value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas },
-                Sign: { nonce, v, r, s },
-                TxInfo: { type, accessList, hash },
-            }, calledTimes);
-            if (shouldOff)
-                yield provider_1.alchemy.ws.off(eventName);
-        }
+        const { input, from, to, value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas, nonce, v, r, s, type, accessList, hash, blockHash, blockNumber, } = tx;
+        const shouldOff = yield callback({
+            Input: { input },
+            Route: { from, to },
+            Fiscal: { value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas },
+            Sign: { nonce, v, r, s },
+            TxInfo: { type, accessList, hash },
+            BlockInfo: { blockHash, blockNumber }
+        }, calledTimes);
+        if (shouldOff)
+            yield provider_1.alchemy.ws.off(eventName);
     }));
 });
-exports.default = pendingTxTracker;
+exports.default = minedTxTracker;

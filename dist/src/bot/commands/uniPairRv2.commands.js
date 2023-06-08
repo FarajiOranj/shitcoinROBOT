@@ -26,21 +26,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require("fs");
-const pendingTracker_1 = __importDefault(require("../../src/provider/pendingTracker"));
-const trackedAddresses_1 = __importDefault(require("../../public/static/trackedAddresses"));
-const dotenv = __importStar(require("dotenv"));
-dotenv.config();
-function createFileCB(TxData, comment) {
-    fs.writeFile("txHistory.js", `${comment}\n${JSON.stringify(TxData)}\n`, { flag: "a", encoding: "utf-8" }, (err) => console.log(err));
-    return true;
-}
-(function fileCreator() {
-    (0, pendingTracker_1.default)({
-        from: trackedAddresses_1.default[0],
-        to: process.env.UNI_ROUTE2,
-        isPaired: true,
-        callback: (txData) => createFileCB(txData, "// new transaction"),
-    });
-})();
-// asserstions, mocha and chai will be added ASAP.
+const bot_instance_1 = __importDefault(require("../bot.instance"));
+const uniPairRv2_handlers_1 = __importStar(require("../handlers/uniPairRv2.handlers"));
+const uniPairRv2_middlewares_1 = require("../middlewares/uniPairRv2.middlewares");
+bot_instance_1.default.action("uniNewPair", uniPairRv2_handlers_1.default);
+bot_instance_1.default.hears("/^(10|[1-9])$/", uniPairRv2_middlewares_1.hasUniPairStat, uniPairRv2_handlers_1.givenPairNum);

@@ -18,6 +18,7 @@ const skeleton_1 = __importDefault(require("./skeleton"));
 */
 const mainMenu = new skeleton_1.default([
     [{ text: "📌 نشانه گذاری 🔎", callback_data: "track" }],
+    [{ text: "🆕 میم کوین جدید 🔥", callback_data: "uniNewPair" }]
 ]).keyboardLayout;
 exports.mainMenu = mainMenu;
 const trackMenu = new skeleton_1.default([

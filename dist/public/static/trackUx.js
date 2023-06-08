@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pendMsg = exports.resWillReply = exports.reqSent = exports.invalidAddress = exports.bothPairedWarn = exports.fromSubmitted = exports.toAddress = exports.fromAddres = exports.trackOpts = void 0;
+exports.pendMsg = exports.resWillReply = exports.uniPairNums = exports.reqSent = exports.invalidAddress = exports.bothPairedWarn = exports.fromSubmitted = exports.toAddress = exports.fromAddres = exports.trackOpts = void 0;
 const web3_1 = __importDefault(require("web3"));
 const trackOpts = "🖲 یکی از گزینه های مدنظر را انتخاب کرده و منتظر باشید.\n💡 در صورت نیاز به راهنمایی میتوانید به منو مراجعه کنید.";
 exports.trackOpts = trackOpts;
@@ -19,6 +19,8 @@ const invalidAddress = "❌ آدرس وارد شده نادرست میباشد.\
 exports.invalidAddress = invalidAddress;
 const reqSent = "✅ درخواست شما با موفقیت ارسال شد.";
 exports.reqSent = reqSent;
+const uniPairNums = "🔢 لطفا از 1 تا 10 یک عدد را ارسال نمایید.";
+exports.uniPairNums = uniPairNums;
 const resWillReply = (route) => {
     if (route.from === undefined) {
         route.from = "";
