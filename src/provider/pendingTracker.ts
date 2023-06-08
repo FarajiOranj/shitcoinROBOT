@@ -20,7 +20,7 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
         fromAddress: from,
       });
 
-  let calledTimes: number;
+  let calledTimes: {value : number};
 
   alchemy.ws.on(eventName, async (tx) => {
     
