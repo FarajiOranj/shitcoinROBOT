@@ -14,7 +14,7 @@ const uniPairV2 = (txData, calledTimes, chatId, totalPairs) => {
         const pairAddr = (0, pairGetter_1.default)(txData.TxInfo.hash);
         if (pairAddr) {
             bot_instance_1.default.telegram.sendMessage(chatId, pairAddr);
-            if (totalPairs === calledTimes.value)
+            if (totalPairs >= calledTimes.value)
                 return true;
             else {
                 calledTimes.value++;

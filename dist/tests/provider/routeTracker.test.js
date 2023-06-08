@@ -28,19 +28,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const pendingTracker_1 = __importDefault(require("../../src/provider/pendingTracker"));
-const trackedAddresses_1 = __importDefault(require("../../public/static/trackedAddresses"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-function createFileCB(TxData, comment) {
+function createFileCB(TxData, callback, comment) {
+    callback.value++;
     fs.writeFile("txHistory.js", `${comment}\n${JSON.stringify(TxData)}\n`, { flag: "a", encoding: "utf-8" }, (err) => console.log(err));
     return true;
 }
 (function fileCreator() {
     (0, pendingTracker_1.default)({
-        from: trackedAddresses_1.default[0],
+        // from: whaleAddresses[0],
         to: process.env.UNI_ROUTE2,
-        isPaired: true,
-        callback: (txData) => createFileCB(txData, "// new transaction"),
+        // isPaired: true,
+        callback: (txData, callback) => createFileCB(txData, callback, "// new transaction"),
     });
 })();
 // asserstions, mocha and chai will be added ASAP.

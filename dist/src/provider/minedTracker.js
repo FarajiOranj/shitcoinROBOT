@@ -39,7 +39,7 @@ const eventName = { method: provider_1.AlchemySubscription.MINED_TRANSACTIONS };
 const minedTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
     const { /* from, */ to /* , isPaired */, callback } = queryData;
     let calledTimes = {
-        value: 1
+        value: 1,
     };
     Object.assign(eventName, {
         addresses: [

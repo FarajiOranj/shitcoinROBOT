@@ -45,10 +45,11 @@ const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, functi
         : Object.assign(eventName, {
             fromAddress: from,
         });
-    let calledTimes;
+    let calledTimes = {
+        value: 1,
+    };
     provider_1.alchemy.ws.on(eventName, (tx) => __awaiter(void 0, void 0, void 0, function* () {
         if (isPaired && tx.from !== from) {
-            console.log(tx);
             return;
         }
         else {
@@ -60,6 +61,8 @@ const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, functi
                 Sign: { nonce, v, r, s },
                 TxInfo: { type, accessList, hash },
             }, calledTimes);
+            // calledTimes.value++;
+            console.log(calledTimes.value);
             if (shouldOff)
                 yield provider_1.alchemy.ws.off(eventName);
         }
