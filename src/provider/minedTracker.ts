@@ -1,12 +1,12 @@
-import { ITrackerFn, Route } from "../../public/types/transaction";
+import { ITrackerFn/* , Route */ } from "../../public/types/transaction";
 import { alchemy, AlchemySubscription } from "./provider";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-interface RouteObj {
-  from?: string;
-  to?: string;
-}
+// interface RouteObj {
+//   from?: string;
+//   to?: string;
+// }
 
 const eventName: {
   method: AlchemySubscription;
@@ -14,7 +14,7 @@ const eventName: {
 } = { method: AlchemySubscription.MINED_TRANSACTIONS };
 
 const minedTxTracker = async (queryData: ITrackerFn) => {
-  const { /* from, */ to/* , isPaired */, callback } = queryData;
+  const { /* from, */ to, /* isPaired, */ callback } = queryData;
 
   let calledTimes = {
     value: 1,
@@ -47,7 +47,7 @@ const minedTxTracker = async (queryData: ITrackerFn) => {
       hash,
       blockHash,
       blockNumber,
-    } = tx;
+    } = tx.transaction;
 
     const shouldOff: boolean = await callback(
       {
@@ -56,7 +56,7 @@ const minedTxTracker = async (queryData: ITrackerFn) => {
         Fiscal: { value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas },
         Sign: { nonce, v, r, s },
         TxInfo: { type, accessList, hash },
-        BlockInfo: { blockHash, blockNumber }
+        BlockInfo: { blockHash, blockNumber },
       },
       calledTimes
     );
