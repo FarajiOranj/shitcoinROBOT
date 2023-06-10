@@ -35,9 +35,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const provider_1 = require("./provider");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
+const { UNI_ROUTE2, ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
+// interface RouteObj {
+//   from?: string;
+//   to?: string;
+// }
 const eventName = { method: provider_1.AlchemySubscription.MINED_TRANSACTIONS };
 const minedTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
-    const { /* from, */ to /* , isPaired */, callback } = queryData;
+    const { /* from, */ to, /* isPaired, */ callback } = queryData;
+    let shouldOff;
     let calledTimes = {
         value: 1,
     };
@@ -49,17 +55,46 @@ const minedTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function
         ],
     });
     provider_1.alchemy.ws.on(eventName, (tx) => __awaiter(void 0, void 0, void 0, function* () {
-        const { input, from, to, value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas, nonce, v, r, s, type, accessList, hash, blockHash, blockNumber, } = tx;
-        const shouldOff = yield callback({
+        if (shouldOff)
+            yield provider_1.alchemy.ws.off(eventName);
+        const { input, from, to, value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas, nonce, v, r, s, type, accessList, hash, blockHash, blockNumber, } = tx.transaction;
+        shouldOff = yield callback({
             Input: { input },
             Route: { from, to },
             Fiscal: { value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas },
             Sign: { nonce, v, r, s },
             TxInfo: { type, accessList, hash },
-            BlockInfo: { blockHash, blockNumber }
+            BlockInfo: { blockHash, blockNumber },
         }, calledTimes);
-        if (shouldOff)
-            yield provider_1.alchemy.ws.off(eventName);
     }));
 });
+// ---------test-------
+minedTxTracker({
+    to: UNI_ROUTE2,
+    callback: (txData, calledTimes) => logCreatedPair(txData, calledTimes),
+});
+const logCreatedPair = (txData, calledTimes) => {
+    var _a;
+    const input = (_a = txData.Input.input) !== null && _a !== void 0 ? _a : "";
+    let shouldOff;
+    if (input.includes(ADDLIQETH_MID)) {
+        provider_1.alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
+            res.logs.map((log) => {
+                if (log.topics[0] === PAIR_EID) {
+                    console.log(txData.TxInfo.hash);
+                    if (log.topics[1] === WETH)
+                        console.log(log.topics[2]);
+                    else
+                        console.log(log.topics[1]);
+                    if (calledTimes.value === 3) {
+                        shouldOff = true;
+                    }
+                    else
+                        calledTimes.value++;
+                }
+            });
+        });
+    }
+    return shouldOff;
+};
 exports.default = minedTxTracker;

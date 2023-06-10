@@ -36,13 +36,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const minedTracker_1 = __importDefault(require("../../provider/minedTracker"));
-const uniPairV2_reply_1 = require("../../bot/server-reply/uniPairV2.reply");
+const uniPairV2_reply_1 = __importDefault(require("../../bot/server-reply/uniPairV2.reply"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const findUniV2Pairs = (chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
     (0, minedTracker_1.default)({
         to: process.env.UNI_ROUTE2,
-        callback: (txData, calledTimes) => (0, uniPairV2_reply_1.uniPairV2)(txData, calledTimes, chatId, totalPairs),
+        callback: (txData, calledTimes) => (0, uniPairV2_reply_1.default)(txData, calledTimes, chatId, totalPairs),
     });
 });
 exports.default = findUniV2Pairs;
