@@ -1,8 +1,13 @@
 import bot from "../bot.instance";
 import ITxData from "../../../public/types/transaction";
 import { ITrackerFn } from "../../../public/types/transaction";
-import getPairAddress from "../../helper/pairGetter";
+import { alchemy } from "../../provider/provider";
+// import getPairAddress from "../../helper/pairGetter";
 // import { pendMsg } from "../../../public/static/trackUx";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
 
 const uniPairV2: ITrackerFn["callback"] = (
   txData: ITxData,
@@ -11,22 +16,27 @@ const uniPairV2: ITrackerFn["callback"] = (
   totalPairs: number
 ): boolean => {
   const input = txData.Input.input ?? "";
+  let shouldOff: boolean;
 
-  if (input.includes("0xf305d719")) {
-    const pairAddr: string = getPairAddress(txData.TxInfo.hash);
-    bot.telegram.sendMessage(chatId, pairAddr);
+  if (input.includes(ADDLIQETH_MID)) {
+    alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
+      res.logs.map((log) => {
+        if (log.topics[0] === PAIR_EID) {
+          console.log(txData.TxInfo.hash);
+          const mainToken: string = log.topics[1].includes(WETH)
+            ? log.topics[2]
+            : log.topics[1];
 
-    if (pairAddr) {
+          bot.telegram.sendMessage(chatId, mainToken);
+          if (calledTimes.value >= totalPairs) {
+            shouldOff = true;
+          } else calledTimes.value++;
+        }
+      });
+    });
+  }
 
-
-      if (totalPairs >= calledTimes.value) return true;
-      else {
-        calledTimes.value++;
-        return false;
-      }
-    } else return false;
-  } else return false;
-
+  return shouldOff;
 };
 
-export { uniPairV2 };
+export default uniPairV2;

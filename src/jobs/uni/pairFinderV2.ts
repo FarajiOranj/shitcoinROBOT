@@ -1,6 +1,6 @@
 import minedTxTracker from "../../provider/minedTracker";
 import ITxData from "../../../public/types/transaction";
-import { uniPairV2 } from "../../bot/server-reply/uniPairV2.reply";
+import uniPairV2  from "../../bot/server-reply/uniPairV2.reply";
 import * as dotenv from "dotenv";
 dotenv.config();
 

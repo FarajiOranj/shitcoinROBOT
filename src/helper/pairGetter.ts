@@ -15,6 +15,7 @@ const getPairAddress = (txHash: string): string => {
         if (obj.type === "create2") create2Data = obj.contractAddress;
       });
 
+      console.log(data);
       console.log(create2Data);
     })
     .catch((error) => {
@@ -24,8 +25,8 @@ const getPairAddress = (txHash: string): string => {
   return create2Data;
 };
 
-// const txHash =
-//   "0x5b04ee73e9c4d78eb3ee376c5d52e20105e7400ace7891d5156587d42e5bcd5f";
-// getPairAddress(txHash);
+const txHash =
+  "0x5b04ee73e9c4d78eb3ee376c5d52e20105e7400ace7891d5156587d42e5bcd5f";
+getPairAddress(txHash);
 
 export default getPairAddress;
