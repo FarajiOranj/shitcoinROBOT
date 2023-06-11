@@ -1,22 +1,20 @@
-import { ITrackerFn } from "../../public/types/transaction";
+import { AlchemyEventFilter } from "alchemy-sdk";
 import { alchemy, AlchemySubscription } from "./provider";
+import { ITrackerFn } from "../../public/types/transaction";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const eventName: {
-  method: AlchemySubscription;
-  fromAddress?: string;
-  toAddress?: string;
-} = { method: AlchemySubscription.PENDING_TRANSACTIONS };
-
 const pendingTxTracker = async (queryData: ITrackerFn) => {
+  const event: AlchemyEventFilter = {
+    method: AlchemySubscription.PENDING_TRANSACTIONS,
+  };
   const { from, to, isPaired, callback } = queryData;
 
   isPaired
-    ? Object.assign(eventName, {
+    ? Object.assign(event, {
         toAddress: to,
       })
-    : Object.assign(eventName, {
+    : Object.assign(event, {
         fromAddress: from,
       });
 
@@ -24,7 +22,7 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
     value: 1,
   };
 
-  alchemy.ws.on(eventName, async (tx) => {
+  alchemy.ws.on(event, async (tx) => {
     if (isPaired && tx.from !== from) {
       return;
     } else {
@@ -45,8 +43,8 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
         accessList,
         hash,
       } = tx;
-      
-      const shouldOff: boolean = await callback(
+
+      await callback(
         {
           Input: { input },
           Route: { from, to },
@@ -54,13 +52,13 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
           Sign: { nonce, v, r, s },
           TxInfo: { type, accessList, hash },
         },
-        calledTimes
-        );
-        
-        if (shouldOff) await alchemy.ws.off(eventName);
-      }
-    });
-  };
-  
-  export default pendingTxTracker;
-  
+        {
+          calledTimes,
+          event,
+        }
+      );
+    }
+  });
+};
+
+export default pendingTxTracker;

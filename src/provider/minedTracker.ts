@@ -1,32 +1,20 @@
-import ITxData, {
-  ITrackerFn /* , Route */,
-} from "../../public/types/transaction";
+import { AlchemyEventFilter } from "alchemy-sdk";
 import { alchemy, AlchemySubscription } from "./provider";
+import { ITrackerFn } from "../../public/types/transaction";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const { UNI_ROUTE2, ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
-
-// interface RouteObj {
-//   from?: string;
-//   to?: string;
-// }
-
-const eventName: {
-  method: AlchemySubscription;
-  //   addresses?: Array<RouteObj>,
-} = { method: AlchemySubscription.MINED_TRANSACTIONS };
-
 const minedTxTracker = async (queryData: ITrackerFn) => {
+  const event: AlchemyEventFilter = {
+    method: AlchemySubscription.MINED_TRANSACTIONS,
+  };
   const { /* from, */ to, /* isPaired, */ callback } = queryData;
-
-  let shouldOff: boolean;
 
   let calledTimes = {
     value: 1,
   };
 
-  Object.assign(eventName, {
+  Object.assign(event, {
     addresses: [
       {
         to,
@@ -34,9 +22,7 @@ const minedTxTracker = async (queryData: ITrackerFn) => {
     ],
   });
 
-  alchemy.ws.on(eventName, async (tx) => {
-    if (shouldOff) await alchemy.ws.off(eventName);
-
+  alchemy.ws.on(event, async (tx) => {
     const {
       input,
       from,
@@ -57,7 +43,7 @@ const minedTxTracker = async (queryData: ITrackerFn) => {
       blockNumber,
     } = tx.transaction;
 
-    shouldOff = await callback(
+    await callback(
       {
         Input: { input },
         Route: { from, to },
@@ -66,44 +52,54 @@ const minedTxTracker = async (queryData: ITrackerFn) => {
         TxInfo: { type, accessList, hash },
         BlockInfo: { blockHash, blockNumber },
       },
-      calledTimes
+      {
+        calledTimes,
+        event,
+      }
     );
   });
 };
 
 // ---------test-------
 
-minedTxTracker({
-  to: UNI_ROUTE2,
-  callback: (txData: ITxData, calledTimes?: { value: number }): boolean =>
-    logCreatedPair(txData, calledTimes),
-});
+// minedTxTracker({
+//   to: UNI_ROUTE2,
+//   callback: (txData: ITxData, calledTimes?: { value: number }) =>
+//     uniPairV2(txData, calledTimes, 2),
+// });
 
-const logCreatedPair = (
-  txData: ITxData,
-  calledTimes: { value: number }
-): boolean => {
-  const input = txData.Input.input ?? "";
+// const uniPairV2: ITrackerFn["callback"] = (
+//   txData: ITxData,
+//   calledTimes: { value: number },
+//   // chatId: number,
+//   totalPairs: number
+// ) => {
+//   const input = txData.Input.input ?? "";
 
-  let shouldOff: boolean;
+//   console.log(calledTimes.value)
 
-  if (input.includes(ADDLIQETH_MID)) {
-    alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
-      res.logs.map((log) => {
-        if (log.topics[0] === PAIR_EID) {
-          console.log(txData.TxInfo.hash);
-          if (log.topics[1] === WETH) console.log(log.topics[2]);
-          else console.log(log.topics[1]);
+//   if (input.includes(ADDLIQETH_MID)) {
+//     alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
+//       res.logs.map((log) => {
+//         if (log.topics[0] === PAIR_EID) {
+//           console.log(txData.TxInfo.hash);
+//           const mainToken: string = log.topics[1].includes(WETH)
+//             ? log.topics[2]
+//             : log.topics[1];
 
-          if (calledTimes.value === 3) {
-            shouldOff = true;
-          } else calledTimes.value++;
-        }
-      });
-    });
-  }
-
-  return shouldOff;
-};
+//             console.log(mainToken);
+//           // bot.telegram.sendMessage(chatId, mainToken);
+//           if (calledTimes.value >= totalPairs) {
+//             // return true;
+//             alchemy.ws.off(event);
+//           } else {
+//             calledTimes.value++;
+//             // return false;
+//           }
+//         }
+//       });
+//     });
+//   } /* else return false; */
+// };
 
 export default minedTxTracker;

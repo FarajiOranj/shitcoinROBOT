@@ -1,6 +1,6 @@
 import pendingTxTracker from "../../provider/pendingTracker";
 import { TrackSession } from "../../../public/types/sessionTypes";
-import ITxData from "../../../public/types/transaction";
+import ITxData, { IWsData } from "../../../public/types/transaction";
 import { pendTxResToUser } from "../../bot/server-reply/track.reply";
 
 const singlePendingTxFinder = async (
@@ -14,8 +14,8 @@ const singlePendingTxFinder = async (
     isPaired: triggerType === "bothPaired",
     from: fromAddr?.toLowerCase(),
     to: toAddr?.toLowerCase(),
-    callback: (txData: ITxData, calledTimes: {value:number}): boolean =>
-      pendTxResToUser(txData, calledTimes, chatId, replyMsgId),
+    callback: (txData: ITxData, wsData: IWsData) =>
+      pendTxResToUser(txData, wsData, chatId, replyMsgId),
   });
 };
 

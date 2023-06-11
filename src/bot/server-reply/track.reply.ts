@@ -1,19 +1,19 @@
 import bot from "../bot.instance";
-import ITxData from "../../../public/types/transaction";
+import ITxData, { IWsData } from "../../../public/types/transaction";
 import { pendMsg } from "../../../public/static/trackUx";
 import { ITrackerFn } from "../../../public/types/transaction";
+import { alchemy } from "../../provider/provider";
 
-
-const pendTxResToUser :ITrackerFn["callback"] = (
+const pendTxResToUser: ITrackerFn["callback"] = (
   txData: ITxData,
-  calledTimes: {value: number},
+  wsData: IWsData,
   chatId: number,
   replyMsgId: number
-) :boolean => {
+): void => {
   bot.telegram.sendMessage(chatId, pendMsg(txData), {
     reply_to_message_id: replyMsgId,
   });
-  return true;
+  alchemy.ws.off(wsData.event);
 };
 
 export { pendTxResToUser };
