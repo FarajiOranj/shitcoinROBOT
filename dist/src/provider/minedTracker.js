@@ -35,66 +35,70 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const provider_1 = require("./provider");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const { UNI_ROUTE2, ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
-// interface RouteObj {
-//   from?: string;
-//   to?: string;
-// }
-const eventName = { method: provider_1.AlchemySubscription.MINED_TRANSACTIONS };
 const minedTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
+    const event = {
+        method: provider_1.AlchemySubscription.MINED_TRANSACTIONS,
+    };
     const { /* from, */ to, /* isPaired, */ callback } = queryData;
-    let shouldOff;
     let calledTimes = {
         value: 1,
     };
-    Object.assign(eventName, {
+    Object.assign(event, {
         addresses: [
             {
                 to,
             },
         ],
     });
-    provider_1.alchemy.ws.on(eventName, (tx) => __awaiter(void 0, void 0, void 0, function* () {
-        if (shouldOff)
-            yield provider_1.alchemy.ws.off(eventName);
+    provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
         const { input, from, to, value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas, nonce, v, r, s, type, accessList, hash, blockHash, blockNumber, } = tx.transaction;
-        shouldOff = yield callback({
+        yield callback({
             Input: { input },
             Route: { from, to },
             Fiscal: { value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas },
             Sign: { nonce, v, r, s },
             TxInfo: { type, accessList, hash },
             BlockInfo: { blockHash, blockNumber },
-        }, calledTimes);
+        }, {
+            calledTimes,
+            event,
+        });
     }));
 });
 // ---------test-------
-minedTxTracker({
-    to: UNI_ROUTE2,
-    callback: (txData, calledTimes) => logCreatedPair(txData, calledTimes),
-});
-const logCreatedPair = (txData, calledTimes) => {
-    var _a;
-    const input = (_a = txData.Input.input) !== null && _a !== void 0 ? _a : "";
-    let shouldOff;
-    if (input.includes(ADDLIQETH_MID)) {
-        provider_1.alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
-            res.logs.map((log) => {
-                if (log.topics[0] === PAIR_EID) {
-                    console.log(txData.TxInfo.hash);
-                    if (log.topics[1] === WETH)
-                        console.log(log.topics[2]);
-                    else
-                        console.log(log.topics[1]);
-                    if (calledTimes.value === 3) {
-                        shouldOff = true;
-                    }
-                    else
-                        calledTimes.value++;
-                }
-            });
-        });
-    }
-    return shouldOff;
-};
+// minedTxTracker({
+//   to: UNI_ROUTE2,
+//   callback: (txData: ITxData, calledTimes?: { value: number }) =>
+//     uniPairV2(txData, calledTimes, 2),
+// });
+// const uniPairV2: ITrackerFn["callback"] = (
+//   txData: ITxData,
+//   calledTimes: { value: number },
+//   // chatId: number,
+//   totalPairs: number
+// ) => {
+//   const input = txData.Input.input ?? "";
+//   console.log(calledTimes.value)
+//   if (input.includes(ADDLIQETH_MID)) {
+//     alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
+//       res.logs.map((log) => {
+//         if (log.topics[0] === PAIR_EID) {
+//           console.log(txData.TxInfo.hash);
+//           const mainToken: string = log.topics[1].includes(WETH)
+//             ? log.topics[2]
+//             : log.topics[1];
+//             console.log(mainToken);
+//           // bot.telegram.sendMessage(chatId, mainToken);
+//           if (calledTimes.value >= totalPairs) {
+//             // return true;
+//             alchemy.ws.off(event);
+//           } else {
+//             calledTimes.value++;
+//             // return false;
+//           }
+//         }
+//       });
+//     });
+//   } /* else return false; */
+// };
 exports.default = minedTxTracker;

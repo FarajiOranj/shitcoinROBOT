@@ -35,34 +35,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const provider_1 = require("./provider");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const eventName = { method: provider_1.AlchemySubscription.PENDING_TRANSACTIONS };
 const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
+    const event = {
+        method: provider_1.AlchemySubscription.PENDING_TRANSACTIONS,
+    };
     const { from, to, isPaired, callback } = queryData;
     isPaired
-        ? Object.assign(eventName, {
+        ? Object.assign(event, {
             toAddress: to,
         })
-        : Object.assign(eventName, {
+        : Object.assign(event, {
             fromAddress: from,
         });
     let calledTimes = {
         value: 1,
     };
-    provider_1.alchemy.ws.on(eventName, (tx) => __awaiter(void 0, void 0, void 0, function* () {
+    provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
         if (isPaired && tx.from !== from) {
             return;
         }
         else {
             const { input, from, to, value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas, nonce, v, r, s, type, accessList, hash, } = tx;
-            const shouldOff = yield callback({
+            yield callback({
                 Input: { input },
                 Route: { from, to },
                 Fiscal: { value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas },
                 Sign: { nonce, v, r, s },
                 TxInfo: { type, accessList, hash },
-            }, calledTimes);
-            if (shouldOff)
-                yield provider_1.alchemy.ws.off(eventName);
+            }, {
+                calledTimes,
+                event,
+            });
         }
     }));
 });

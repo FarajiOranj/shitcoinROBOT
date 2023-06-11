@@ -28,16 +28,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bot_instance_1 = __importDefault(require("../bot.instance"));
 const provider_1 = require("../../provider/provider");
-// import getPairAddress from "../../helper/pairGetter";
 // import { pendMsg } from "../../../public/static/trackUx";
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
-const uniPairV2 = (txData, calledTimes, chatId, totalPairs) => {
+const uniPairV2 = (txData, wsData, chatId, totalPairs) => {
     var _a;
     const input = (_a = txData.Input.input) !== null && _a !== void 0 ? _a : "";
-    let shouldOff;
     if (input.includes(ADDLIQETH_MID)) {
+        const { calledTimes } = wsData;
         provider_1.alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
             res.logs.map((log) => {
                 if (log.topics[0] === PAIR_EID) {
@@ -45,9 +44,9 @@ const uniPairV2 = (txData, calledTimes, chatId, totalPairs) => {
                     const mainToken = log.topics[1].includes(WETH)
                         ? log.topics[2]
                         : log.topics[1];
-                    bot_instance_1.default.telegram.sendMessage(chatId, mainToken);
+                    bot_instance_1.default.telegram.sendMessage(chatId, `0x${mainToken.slice(26)}`);
                     if (calledTimes.value >= totalPairs) {
-                        shouldOff = true;
+                        provider_1.alchemy.ws.off(wsData.event);
                     }
                     else
                         calledTimes.value++;
@@ -55,6 +54,5 @@ const uniPairV2 = (txData, calledTimes, chatId, totalPairs) => {
             });
         });
     }
-    return shouldOff;
 };
 exports.default = uniPairV2;

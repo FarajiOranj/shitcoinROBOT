@@ -42,7 +42,7 @@ dotenv.config();
 const findUniV2Pairs = (chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
     (0, minedTracker_1.default)({
         to: process.env.UNI_ROUTE2,
-        callback: (txData, calledTimes) => (0, uniPairV2_reply_1.default)(txData, calledTimes, chatId, totalPairs),
+        callback: (txData, wsData) => (0, uniPairV2_reply_1.default)(txData, wsData, chatId, totalPairs),
     });
 });
 exports.default = findUniV2Pairs;

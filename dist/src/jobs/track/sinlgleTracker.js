@@ -21,7 +21,7 @@ const singlePendingTxFinder = (chatId, replyMsgId, trackBackData) => __awaiter(v
         isPaired: triggerType === "bothPaired",
         from: fromAddr === null || fromAddr === void 0 ? void 0 : fromAddr.toLowerCase(),
         to: toAddr === null || toAddr === void 0 ? void 0 : toAddr.toLowerCase(),
-        callback: (txData, calledTimes) => (0, track_reply_1.pendTxResToUser)(txData, calledTimes, chatId, replyMsgId),
+        callback: (txData, wsData) => (0, track_reply_1.pendTxResToUser)(txData, wsData, chatId, replyMsgId),
     });
 });
 exports.singlePendingTxFinder = singlePendingTxFinder;
