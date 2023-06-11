@@ -1,3 +1,5 @@
+import { AlchemyEventFilter, AlchemySubscription } from "alchemy-sdk";
+
 declare type TxTypes = "0x0" | "0x2";
 
 declare type Input = {
@@ -36,11 +38,16 @@ declare type BlockInfo = {
   readonly blockNumber?: number | null;
 };
 
+declare interface IWsData {
+  event: AlchemyEventFilter
+  calledTimes?: { value: number };
+}
+
 declare interface ITrackerFn {
-  isPaired? :boolean;
+  isPaired?: boolean;
   from?: string /* | Array<string> */;
   to?: string /* | Array<string> */;
-  callback: (TxData?: ITxData, calledTimes?: {value: number} ,...args: Array<any>) => boolean;
+  callback: (txData: ITxData, wsData: IWsData, ...args: Array<any>) => void;
 }
 
 // declare function pendingTxTracker(queryData:ITrackerFn ) :void;
@@ -75,6 +82,7 @@ declare interface ITxData {
 export default ITxData;
 export {
   ITrackerFn,
+  IWsData,
   TxTypes,
   Input,
   Route,
