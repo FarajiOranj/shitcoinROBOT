@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "description": "shitcoin spotter with real time reaction",
     "main": "app.js",
-     
     "scripts": {
         "start": "node dist/app.js",
         "track": "npx nodemon tests/provider/routeTracker.test.ts",
