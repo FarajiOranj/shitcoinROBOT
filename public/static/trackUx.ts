@@ -51,6 +51,10 @@ const pendMsg = (txData: ITxData): string => {
   https://etherscan.io/tx/${hash}`;
 };
 
+const willSentPairs = (totalPairs: number) :string => {
+  return `❇️ به تعداد${totalPairs} بار، میم کوین های جدید برای شما ارسال خواهند شد.`;
+}
+
 const uniPairFound = (
   name: string,
   symbol: string,
@@ -74,5 +78,6 @@ export {
   uniPairNums,
   resWillReply,
   pendMsg,
+  willSentPairs,
   uniPairFound,
 };
