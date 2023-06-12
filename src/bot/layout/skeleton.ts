@@ -1,4 +1,5 @@
-type btn = { text: string; callback_data: string };
+type btn = { text: string; callback_data?: string, url?: string };
+
 type Keyboard = Array<Array<btn>>;
 
 class Skeleton {
