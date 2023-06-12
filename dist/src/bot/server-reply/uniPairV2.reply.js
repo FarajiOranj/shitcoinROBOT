@@ -38,10 +38,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bot_instance_1 = __importDefault(require("../bot.instance"));
 const provider_1 = require("../../provider/provider");
 const tokenMetadata_1 = __importDefault(require("../../utils/tokenMetadata"));
-// import { pendMsg } from "../../../public/static/trackUx";
-const dotenv = __importStar(require("dotenv"));
 const trackUx_1 = require("../../../public/static/trackUx");
 const linker_1 = require("../layout/linker");
+const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
 const uniPairV2 = (txData, wsData, chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
