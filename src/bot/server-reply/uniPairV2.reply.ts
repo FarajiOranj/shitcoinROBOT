@@ -2,8 +2,11 @@ import bot from "../bot.instance";
 import ITxData, { IWsData } from "../../../public/types/transaction";
 import { ITrackerFn } from "../../../public/types/transaction";
 import { alchemy } from "../../provider/provider";
+import getTokenMetadata, { ITokenMetadata } from "../../utils/tokenMetadata";
 // import { pendMsg } from "../../../public/static/trackUx";
 import * as dotenv from "dotenv";
+import { uniPairFound } from "../../../public/static/trackUx";
+import { uniPairURLs } from "../layout/linker";
 dotenv.config();
 
 const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
@@ -22,12 +25,29 @@ const uniPairV2: ITrackerFn["callback"] = (
     alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
       res.logs.map((log) => {
         if (log.topics[0] === PAIR_EID) {
-          console.log(txData.TxInfo.hash);
           const mainToken: string = log.topics[1].includes(WETH)
-            ? log.topics[2]
-            : log.topics[1];
+            ? `0x${log.topics[2].slice(26)}`
+            : `0x${log.topics[1].slice(26)}`;
 
-          bot.telegram.sendMessage(chatId, `0x${mainToken.slice(26)}`);
+          let tokenMetadata: ITokenMetadata;
+          getTokenMetadata(mainToken).then((res) => (tokenMetadata = res));
+
+          const uniPair: string = `0x${log.data.slice(26, 66)}`;
+
+          bot.telegram.sendMessage(
+            chatId,
+            uniPairFound(
+              tokenMetadata.name,
+              tokenMetadata.symbol,
+              mainToken,
+              uniPair,
+              0,
+              0,
+              calledTimes.value
+            ),
+            uniPairURLs(mainToken).keyboardLayout
+          );
+
           if (calledTimes.value >= totalPairs) {
             alchemy.ws.off(wsData.event);
           } else calledTimes.value++;
