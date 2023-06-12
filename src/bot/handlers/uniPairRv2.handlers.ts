@@ -18,18 +18,18 @@ const newUniPair = (ctx: SessionContext<any>) => {
     .then(storeKeyID(ctx));
 };
 
-const givenPairNum = (ctx: SessionContext<any>) => {
+const givenPairNum = async (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
 
   const chatId: number = ctx.chat.id;
   const totalPairs: number = Number(ctx.message["text"]);
 
-  ctx.telegram
+  await ctx.telegram
   .sendMessage(chatId, reqSent, {
     reply_to_message_id: ctx.message.message_id,
   });
 
-  ctx.telegram
+  await ctx.telegram
   .sendMessage(chatId, willSentPairs(totalPairs));
 
   findUniV2Pairs(chatId, totalPairs);
