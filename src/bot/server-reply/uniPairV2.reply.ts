@@ -1,13 +1,11 @@
 import bot from "../bot.instance";
-import ITxData, { IWsData } from "../../../public/types/transaction";
-import { ITrackerFn } from "../../../public/types/transaction";
 import { alchemy } from "../../provider/provider";
-import getTokenMetadata, { ITokenMetadata } from "../../utils/tokenMetadata";
-// import { pendMsg } from "../../../public/static/trackUx";
-import * as dotenv from "dotenv";
+import getTokenMetadata from "../../utils/tokenMetadata";
+import ITxData, { IWsData, ITrackerFn } from "../../../public/types/transaction";
 import { uniPairFound } from "../../../public/static/trackUx";
 import { uniPairURLs } from "../layout/linker";
 import { Log } from "alchemy-sdk";
+import * as dotenv from "dotenv";
 dotenv.config();
 
 const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
