@@ -1,7 +1,11 @@
+import { exit } from "process";
 import bot from "../bot.instance";
 import { alchemy } from "../../provider/provider";
 import getTokenMetadata from "../../utils/tokenMetadata";
-import ITxData, { IWsData, ITrackerFn } from "../../../public/types/transaction";
+import ITxData, {
+  IWsData,
+  ITrackerFn,
+} from "../../../public/types/transaction";
 import { uniPairFound } from "../../../public/static/trackUx";
 import { uniPairURLs } from "../layout/linker";
 import { Log } from "alchemy-sdk";
@@ -42,9 +46,10 @@ const uniPairV2: ITrackerFn["callback"] = async (
         uniPairURLs(mainToken).keyboardLayout
       );
 
-      calledTimes.value >= totalPairs
-        ? await alchemy.ws.off(wsData.event)
-        : calledTimes.value++;
+      if (calledTimes.value >= totalPairs) {
+        await alchemy.ws.off(wsData.event);
+        exit(1);
+      } else calledTimes.value++;
     }
   }
 };
