@@ -4,7 +4,7 @@ import storeKeyID from "../../helper/sessionKey.store";
 import deleteAvailableMsg from "../../helper/deleteMsg";
 import findUniV2Pairs from "../../jobs/uni/pairFinderV2";
 import { menuMessage } from "../../../public/static/starterUserUx";
-import { uniPairNums } from "../../../public/static/trackUx";
+import { uniPairNums, reqSent, willSentPairs } from "../../../public/static/trackUx";
 import CommonStatus from "../../../public/types/commonStatus";
 
 const newUniPair = (ctx: SessionContext<any>) => {
@@ -22,11 +22,17 @@ const givenPairNum = (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
 
   const chatId: number = ctx.chat.id;
+  const totalPairs: number = Number(ctx.message["text"]);
 
-  // ctx.telegram
-  // .sendMessage(chatId, )
+  ctx.telegram
+  .sendMessage(chatId, reqSent, {
+    reply_to_message_id: ctx.message.message_id,
+  });
 
-  findUniV2Pairs(chatId, Number(ctx.message["text"]));
+  ctx.telegram
+  .sendMessage(chatId, willSentPairs(totalPairs));
+
+  findUniV2Pairs(chatId, totalPairs);
 
   ctx.telegram.sendMessage(chatId, menuMessage, mainMenu).then(storeKeyID(ctx));
 };
