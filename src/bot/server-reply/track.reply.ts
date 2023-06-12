@@ -4,16 +4,16 @@ import { pendMsg } from "../../../public/static/trackUx";
 import { ITrackerFn } from "../../../public/types/transaction";
 import { alchemy } from "../../provider/provider";
 
-const pendTxResToUser: ITrackerFn["callback"] = (
+const pendTxResToUser: ITrackerFn["callback"] = async (
   txData: ITxData,
   wsData: IWsData,
   chatId: number,
   replyMsgId: number
-): void => {
+): Promise<void> => {
   bot.telegram.sendMessage(chatId, pendMsg(txData), {
     reply_to_message_id: replyMsgId,
   });
-  alchemy.ws.off(wsData.event);
+  await alchemy.ws.off(wsData.event);
 };
 
 export { pendTxResToUser };
