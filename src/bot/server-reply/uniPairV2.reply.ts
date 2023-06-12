@@ -19,7 +19,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
   wsData: IWsData,
   chatId: number,
   totalPairs: number
-): Promise<WebSocketNamespace> => {
+): Promise<WebSocketNamespace | void> => {
   const input = txData.Input.input ?? "";
 
   if (input.includes(ADDLIQETH_MID)) {
@@ -38,9 +38,8 @@ const uniPairV2: ITrackerFn["callback"] = async (
       const uniPair: string = `0x${log.data.slice(26, 66)}`;
 
       const { name, symbol, decimals } = await getTokenMetadata(mainToken);
-      // alchemy.nft
 
-      bot.telegram.sendMessage(
+      await bot.telegram.sendMessage(
         chatId,
         uniPairFound(name, symbol, mainToken, uniPair, 0, 0, calledTimes.value),
         uniPairURLs(mainToken).keyboardLayout
