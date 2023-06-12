@@ -35,6 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const process_1 = require("process");
 const bot_instance_1 = __importDefault(require("../bot.instance"));
 const provider_1 = require("../../provider/provider");
 const tokenMetadata_1 = __importDefault(require("../../utils/tokenMetadata"));
@@ -60,9 +61,12 @@ const uniPairV2 = (txData, wsData, chatId, totalPairs) => __awaiter(void 0, void
             const { name, symbol, decimals } = yield (0, tokenMetadata_1.default)(mainToken);
             // alchemy.nft
             bot_instance_1.default.telegram.sendMessage(chatId, (0, trackUx_1.uniPairFound)(name, symbol, mainToken, uniPair, 0, 0, calledTimes.value), (0, linker_1.uniPairURLs)(mainToken).keyboardLayout);
-            calledTimes.value >= totalPairs
-                ? yield provider_1.alchemy.ws.off(wsData.event)
-                : calledTimes.value++;
+            if (calledTimes.value >= totalPairs) {
+                yield provider_1.alchemy.ws.off(wsData.event);
+                (0, process_1.exit)(1);
+            }
+            else
+                calledTimes.value++;
         }
     }
 });
