@@ -34,6 +34,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
       const uniPair: string = `0x${log.data.slice(26, 66)}`;
 
       const { name, symbol, decimals } = await getTokenMetadata(mainToken);
+      // alchemy.nft
 
       bot.telegram.sendMessage(
         chatId,
