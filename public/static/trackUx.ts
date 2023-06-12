@@ -51,6 +51,18 @@ const pendMsg = (txData: ITxData): string => {
   https://etherscan.io/tx/${hash}`;
 };
 
+const uniPairFound = (
+  name: string,
+  symbol: string,
+  tokenAddress: string,
+  tokenPairAddres: string,
+  marketCap: number,
+  liquidity: number,
+  reqNum: number
+): string => {
+  return `🅰️ نام توکن: ${name}\n🅱️ نماد توکن: ${symbol}\n\n🆔 آدرس میم کوین: ${tokenAddress}\n⛓ آدرس جفت ارز توکن: ${tokenPairAddres}\n\n💰 نقدینگی: ${liquidity}\n💵 ارزش بازار: ${marketCap}\n\n❕نتیجه شماره ${reqNum}`;
+};
+
 export {
   trackOpts,
   fromAddres,
@@ -62,4 +74,5 @@ export {
   uniPairNums,
   resWillReply,
   pendMsg,
+  uniPairFound,
 };
