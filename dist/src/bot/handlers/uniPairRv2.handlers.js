@@ -21,9 +21,14 @@ const newUniPair = (ctx) => {
 const givenPairNum = (ctx) => {
     (0, deleteMsg_1.default)(ctx);
     const chatId = ctx.chat.id;
-    // ctx.telegram
-    // .sendMessage(chatId, )
-    (0, pairFinderV2_1.default)(chatId, Number(ctx.message["text"]));
+    const totalPairs = Number(ctx.message["text"]);
+    ctx.telegram
+        .sendMessage(chatId, trackUx_1.reqSent, {
+        reply_to_message_id: ctx.message.message_id,
+    });
+    ctx.telegram
+        .sendMessage(chatId, (0, trackUx_1.willSentPairs)(totalPairs));
+    (0, pairFinderV2_1.default)(chatId, totalPairs);
     ctx.telegram.sendMessage(chatId, starterUserUx_1.menuMessage, layout_1.mainMenu).then((0, sessionKey_store_1.default)(ctx));
 };
 exports.givenPairNum = givenPairNum;
