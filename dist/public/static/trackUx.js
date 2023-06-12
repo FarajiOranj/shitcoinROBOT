@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pendMsg = exports.resWillReply = exports.uniPairNums = exports.reqSent = exports.invalidAddress = exports.bothPairedWarn = exports.fromSubmitted = exports.toAddress = exports.fromAddres = exports.trackOpts = void 0;
+exports.uniPairFound = exports.pendMsg = exports.resWillReply = exports.uniPairNums = exports.reqSent = exports.invalidAddress = exports.bothPairedWarn = exports.fromSubmitted = exports.toAddress = exports.fromAddres = exports.trackOpts = void 0;
 const web3_1 = __importDefault(require("web3"));
 const trackOpts = "🖲 یکی از گزینه های مدنظر را انتخاب کرده و منتظر باشید.\n💡 در صورت نیاز به راهنمایی میتوانید به منو مراجعه کنید.";
 exports.trackOpts = trackOpts;
@@ -47,3 +47,7 @@ const pendMsg = (txData) => {
   https://etherscan.io/tx/${hash}`;
 };
 exports.pendMsg = pendMsg;
+const uniPairFound = (name, symbol, tokenAddress, tokenPairAddres, marketCap, liquidity, reqNum) => {
+    return `🅰️ نام توکن: ${name}\n🅱️ نماد توکن: ${symbol}\n\n🆔 آدرس میم کوین: ${tokenAddress}\n⛓ آدرس جفت ارز توکن: ${tokenPairAddres}\n\n💰 نقدینگی: ${liquidity}\n💵 ارزش بازار: ${marketCap}\n\n❕نتیجه شماره ${reqNum}`;
+};
+exports.uniPairFound = uniPairFound;

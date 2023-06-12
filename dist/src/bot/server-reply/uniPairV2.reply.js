@@ -28,8 +28,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bot_instance_1 = __importDefault(require("../bot.instance"));
 const provider_1 = require("../../provider/provider");
+const tokenMetadata_1 = __importDefault(require("../../utils/tokenMetadata"));
 // import { pendMsg } from "../../../public/static/trackUx";
 const dotenv = __importStar(require("dotenv"));
+const trackUx_1 = require("../../../public/static/trackUx");
+const linker_1 = require("../layout/linker");
 dotenv.config();
 const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
 const uniPairV2 = (txData, wsData, chatId, totalPairs) => {
@@ -40,11 +43,13 @@ const uniPairV2 = (txData, wsData, chatId, totalPairs) => {
         provider_1.alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
             res.logs.map((log) => {
                 if (log.topics[0] === PAIR_EID) {
-                    console.log(txData.TxInfo.hash);
                     const mainToken = log.topics[1].includes(WETH)
-                        ? log.topics[2]
-                        : log.topics[1];
-                    bot_instance_1.default.telegram.sendMessage(chatId, `0x${mainToken.slice(26)}`);
+                        ? `0x${log.topics[2].slice(26)}`
+                        : `0x${log.topics[1].slice(26)}`;
+                    let tokenMetadata;
+                    (0, tokenMetadata_1.default)(mainToken).then((res) => (tokenMetadata = res));
+                    const uniPair = `0x${log.data.slice(26, 66)}`;
+                    bot_instance_1.default.telegram.sendMessage(chatId, (0, trackUx_1.uniPairFound)(tokenMetadata.name, tokenMetadata.symbol, mainToken, uniPair, 0, 0, calledTimes.value), (0, linker_1.uniPairURLs)(mainToken).keyboardLayout);
                     if (calledTimes.value >= totalPairs) {
                         provider_1.alchemy.ws.off(wsData.event);
                     }
