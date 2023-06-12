@@ -47,7 +47,7 @@ declare interface ITrackerFn {
   isPaired?: boolean;
   from?: string /* | Array<string> */;
   to?: string /* | Array<string> */;
-  callback: (txData: ITxData, wsData: IWsData, ...args: Array<any>) => void;
+  async callback: (txData: ITxData, wsData: IWsData, ...args: Array<any>) => void;
 }
 
 // declare function pendingTxTracker(queryData:ITrackerFn ) :void;
