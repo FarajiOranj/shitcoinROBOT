@@ -48,10 +48,10 @@ const pendMsg = (txData) => {
 };
 exports.pendMsg = pendMsg;
 const willSentPairs = (totalPairs) => {
-    return `❇️ به تعداد${totalPairs} بار، میم کوین های جدید برای شما ارسال خواهند شد.`;
+    return `❇️ به تعداد ${totalPairs} بار، میم کوین های جدید برای شما ارسال خواهند شد.`;
 };
 exports.willSentPairs = willSentPairs;
-const uniPairFound = (name, symbol, tokenAddress, tokenPairAddres, marketCap, liquidity, reqNum) => {
-    return `🅰️ نام توکن: ${name}\n🅱️ نماد توکن: ${symbol}\n\n🆔 آدرس میم کوین: ${tokenAddress}\n⛓ آدرس جفت ارز توکن: ${tokenPairAddres}\n\n💰 نقدینگی: ${liquidity}\n💵 ارزش بازار: ${marketCap}\n\n❕نتیجه شماره ${reqNum}`;
+const uniPairFound = (name, symbol, tokenAddress, pairAddress, marketCap, liquidity, reqNum) => {
+    return `${name} | ${symbol}\n\n🔰 Token:\n${tokenAddress}\n\n⛓ Pair pool:\n${pairAddress}\n\n💵 Market Cap: ${marketCap}\n💰 Liquidity: ${liquidity}\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
 };
 exports.uniPairFound = uniPairFound;
