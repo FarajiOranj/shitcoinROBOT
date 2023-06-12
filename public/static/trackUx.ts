@@ -52,19 +52,19 @@ const pendMsg = (txData: ITxData): string => {
 };
 
 const willSentPairs = (totalPairs: number) :string => {
-  return `❇️ به تعداد${totalPairs} بار، میم کوین های جدید برای شما ارسال خواهند شد.`;
+  return `❇️ به تعداد ${totalPairs} بار، میم کوین های جدید برای شما ارسال خواهند شد.`;
 }
 
 const uniPairFound = (
   name: string,
   symbol: string,
   tokenAddress: string,
-  tokenPairAddres: string,
+  pairAddress: string,
   marketCap: number,
   liquidity: number,
   reqNum: number
 ): string => {
-  return `🅰️ نام توکن: ${name}\n🅱️ نماد توکن: ${symbol}\n\n🆔 آدرس میم کوین: ${tokenAddress}\n⛓ آدرس جفت ارز توکن: ${tokenPairAddres}\n\n💰 نقدینگی: ${liquidity}\n💵 ارزش بازار: ${marketCap}\n\n❕نتیجه شماره ${reqNum}`;
+  return `${name} | ${symbol}\n\n🔰 Token:\n${tokenAddress}\n\n⛓ Pair pool:\n${pairAddress}\n\n💵 Market Cap: ${marketCap}\n💰 Liquidity: ${liquidity}\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
 };
 
 export {
