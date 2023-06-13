@@ -13,19 +13,19 @@ dotenv.config();
 
 const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
 
-const uniPairV2: ITrackerFn["callback"] = (
+const uniPairV2: ITrackerFn["callback"] = async (
   txData: ITxData,
   wsData: IWsData,
   chatId: number,
   totalPairs: number
-): void => {
+): Promise<WebSocketNamespace | void> => {
   const input = txData.Input.input ?? "";
 
   if (input.includes(ADDLIQETH_MID)) {
     const { calledTimes } = wsData;
 
     let log: Log;
-    alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
+    await alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
       log = res.logs.find((log) => log.topics[0] === PAIR_EID);
     });
 
@@ -36,24 +36,17 @@ const uniPairV2: ITrackerFn["callback"] = (
 
       const uniPair: string = `0x${log.data.slice(26, 66)}`;
 
-      let  name: string, symbol: string, decimals: number;
+      const { name, symbol, decimals } = await getTokenMetadata(mainToken);
 
-      getTokenMetadata(mainToken).then(
-        res=> {
-          name = res.name;
-          symbol = res.symbol;
-          decimals = res.decimals;
-        }
-      );
-
-      bot.telegram.sendMessage(
+      await bot.telegram.sendMessage(
         chatId,
         uniPairFound(name, symbol, mainToken, uniPair, 0, 0, calledTimes.value),
         uniPairURLs(mainToken).keyboardLayout
       );
 
-      if (calledTimes.value >= totalPairs) alchemy.ws.off(wsData.event);
-      else calledTimes.value++;
+      if (calledTimes.value >= totalPairs) {
+        return alchemy.ws.off(wsData.event);
+      } else calledTimes.value++;
     }
   }
 };
