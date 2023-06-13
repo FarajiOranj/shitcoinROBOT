@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -43,13 +34,13 @@ const linker_1 = require("../layout/linker");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
-const uniPairV2 = (txData, wsData, chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
+const uniPairV2 = (txData, wsData, chatId, totalPairs) => {
     var _a;
     const input = (_a = txData.Input.input) !== null && _a !== void 0 ? _a : "";
     if (input.includes(ADDLIQETH_MID)) {
         const { calledTimes } = wsData;
         let log;
-        yield provider_1.alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
+        provider_1.alchemy.core.getTransactionReceipt(txData.TxInfo.hash).then((res) => {
             log = res.logs.find((log) => log.topics[0] === PAIR_EID);
         });
         if (log) {
@@ -57,14 +48,18 @@ const uniPairV2 = (txData, wsData, chatId, totalPairs) => __awaiter(void 0, void
                 ? `0x${log.topics[2].slice(26)}`
                 : `0x${log.topics[1].slice(26)}`;
             const uniPair = `0x${log.data.slice(26, 66)}`;
-            const { name, symbol, decimals } = yield (0, tokenMetadata_1.default)(mainToken);
-            yield bot_instance_1.default.telegram.sendMessage(chatId, (0, trackUx_1.uniPairFound)(name, symbol, mainToken, uniPair, 0, 0, calledTimes.value), (0, linker_1.uniPairURLs)(mainToken).keyboardLayout);
-            if (calledTimes.value >= totalPairs) {
-                return provider_1.alchemy.ws.off(wsData.event);
-            }
+            let name, symbol, decimals;
+            (0, tokenMetadata_1.default)(mainToken).then(res => {
+                name = res.name;
+                symbol = res.symbol;
+                decimals = res.decimals;
+            });
+            bot_instance_1.default.telegram.sendMessage(chatId, (0, trackUx_1.uniPairFound)(name, symbol, mainToken, uniPair, 0, 0, calledTimes.value), (0, linker_1.uniPairURLs)(mainToken).keyboardLayout);
+            if (calledTimes.value >= totalPairs)
+                provider_1.alchemy.ws.off(wsData.event);
             else
                 calledTimes.value++;
         }
     }
-});
+};
 exports.default = uniPairV2;
