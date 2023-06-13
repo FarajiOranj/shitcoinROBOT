@@ -1,4 +1,3 @@
-import { exit } from "process";
 import bot from "../bot.instance";
 import { alchemy } from "../../provider/provider";
 import getTokenMetadata from "../../utils/tokenMetadata";
