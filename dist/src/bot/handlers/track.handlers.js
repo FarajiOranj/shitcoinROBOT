@@ -27,12 +27,11 @@ const trackCB = (ctx) => {
 };
 //TODO! change "any" type later to an accurate type
 const pairOptSaver = (ctx) => {
-    var _a;
     (0, deleteMsg_1.default)(ctx);
     const chatId = ctx.chat.id;
-    const data = (_a = ctx.callbackQuery) === null || _a === void 0 ? void 0 : _a["data"];
+    const data = ctx.callbackQuery["data"];
     //* maybe should change or move
-    // ctx.session.trackSession = {} as TrackSession;
+    ctx.session.trackSession = {};
     ctx.session.trackSession.triggerType = data;
     ctx.session.trackSession.commonStat = "trackNotifier";
     /* TODO

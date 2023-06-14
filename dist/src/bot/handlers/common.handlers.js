@@ -11,8 +11,10 @@ const deleteMsg_1 = __importDefault(require("../../helper/deleteMsg"));
 const menuCB = (ctx) => {
     var _a, _b;
     (0, deleteMsg_1.default)(ctx);
-    if (!(ctx === null || ctx === void 0 ? void 0 : ctx.session))
+    if (!(ctx === null || ctx === void 0 ? void 0 : ctx.session)) {
         ctx.session = {};
+        ctx.session.underProcesses = {};
+    }
     const message = ((_b = (_a = ctx.update) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.text) === "/start"
         ? (0, starterUserUx_1.starterMessage)(ctx.from.first_name)
         : starterUserUx_1.menuMessage;

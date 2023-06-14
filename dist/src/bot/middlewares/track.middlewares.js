@@ -9,14 +9,10 @@ const layout_1 = require("../layout/layout");
 const trackUx_1 = require("../../../public/static/trackUx");
 const sessionKey_store_1 = __importDefault(require("../../helper/sessionKey.store"));
 const deleteMsg_1 = __importDefault(require("../../helper/deleteMsg"));
+const compeletion_checker_1 = __importDefault(require("../../helper/compeletion.checker"));
 const hasTrackNotifierStat = (ctx, next) => {
-    var _a, _b;
-    if (((_b = (_a = ctx.session) === null || _a === void 0 ? void 0 : _a.trackSession) === null || _b === void 0 ? void 0 : _b.commonStat) === "trackNotifier")
-        next();
-    return;
-};
-const isCompleted = (ctx, next) => {
-    if (!ctx.session.trackSession.completed)
+    var _a;
+    if (((_a = ctx.session.trackSession) === null || _a === void 0 ? void 0 : _a.commonStat) === "trackNotifier")
         next();
     return;
 };
@@ -30,7 +26,7 @@ const addressCheck = (ctx, next) => {
 };
 const composedAddrMiddleware = telegraf_1.Telegraf.compose([
     hasTrackNotifierStat,
-    isCompleted,
+    compeletion_checker_1.default,
     addressCheck,
 ]);
 exports.default = composedAddrMiddleware;

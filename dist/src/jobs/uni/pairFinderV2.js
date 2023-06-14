@@ -39,10 +39,10 @@ const minedTracker_1 = __importDefault(require("../../provider/minedTracker"));
 const uniPairV2_reply_1 = __importDefault(require("../../bot/server-reply/uniPairV2.reply"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const findUniV2Pairs = (chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
+const findUniV2Pairs = (ctx, chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
     (0, minedTracker_1.default)({
         to: process.env.UNI_ROUTE2,
-        callback: (txData, wsData) => (0, uniPairV2_reply_1.default)(txData, wsData, chatId, totalPairs),
+        callback: (txData, wsData) => (0, uniPairV2_reply_1.default)(txData, wsData, ctx, chatId, totalPairs),
     });
 });
 exports.default = findUniV2Pairs;
