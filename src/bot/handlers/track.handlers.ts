@@ -30,7 +30,7 @@ const pairOptSaver = (ctx: SessionContext<any>) => {
   const data: string = ctx.callbackQuery?.["data"];
 
   //* maybe should change or move
-  ctx.session.trackSession = {} as TrackSession;
+  // ctx.session.trackSession = {} as TrackSession;
 
   ctx.session.trackSession.triggerType = data;
   ctx.session.trackSession.commonStat = "trackNotifier";
