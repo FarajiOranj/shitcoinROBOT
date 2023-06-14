@@ -8,10 +8,12 @@ const layout_1 = require("../layout/layout");
 const starterUserUx_1 = require("../../../public/static/starterUserUx");
 const sessionKey_store_1 = __importDefault(require("../../helper/sessionKey.store"));
 const deleteMsg_1 = __importDefault(require("../../helper/deleteMsg"));
+require("./src/bot/session/default.session");
 const menuCB = (ctx) => {
     var _a, _b;
     (0, deleteMsg_1.default)(ctx);
-    ctx.session = {};
+    // if(!ctx?.session) ctx.session = {} as Object;
+    // ctx.session = {} as Object;
     const message = ((_b = (_a = ctx.update) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.text) === "/start"
         ? (0, starterUserUx_1.starterMessage)(ctx.from.first_name)
         : starterUserUx_1.menuMessage;
