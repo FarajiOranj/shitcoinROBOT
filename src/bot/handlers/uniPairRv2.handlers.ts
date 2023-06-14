@@ -22,7 +22,7 @@ const givenPairNum = async (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
 
   ctx.session.trackSession.completed = true;
-  ctx.session.underProccess["uniNewPair"] = true;
+  ctx.session.underProcesses["uniNewPair"] = true;
 
   const chatId: number = ctx.chat.id;
   const totalPairs: number = Number(ctx.message["text"]);
