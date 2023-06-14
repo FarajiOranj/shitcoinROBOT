@@ -8,7 +8,7 @@ const layout_1 = require("../layout/layout");
 const starterUserUx_1 = require("../../../public/static/starterUserUx");
 const sessionKey_store_1 = __importDefault(require("../../helper/sessionKey.store"));
 const deleteMsg_1 = __importDefault(require("../../helper/deleteMsg"));
-require("./src/bot/session/default.session");
+require("../session/default.session");
 const menuCB = (ctx) => {
     var _a, _b;
     (0, deleteMsg_1.default)(ctx);

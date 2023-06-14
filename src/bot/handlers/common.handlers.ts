@@ -6,7 +6,7 @@ import {
 } from "../../../public/static/starterUserUx";
 import storeKeyID from "../../helper/sessionKey.store";
 import deleteAvailableMsg from "../../helper/deleteMsg";
-import './src/bot/session/default.session';
+import '../session/default.session';
 
 const menuCB = (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
