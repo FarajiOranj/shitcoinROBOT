@@ -5,13 +5,13 @@ import deleteAvailableMsg from "../../helper/deleteMsg";
 import findUniV2Pairs from "../../jobs/uni/pairFinderV2";
 import { menuMessage } from "../../../public/static/starterUserUx";
 import { uniPairNums, reqSent, willSentPairs } from "../../../public/static/trackUx";
-import CommonStatus from "../../../public/types/commonStatus";
+import { TrackSession } from "../../../public/types/sessionTypes";
 
 const newUniPair = (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
 
-  ctx.session.commonStat = {} as CommonStatus;
-  ctx.session.commonStat = "uniPair";
+  ctx.session.trackSession = {} as TrackSession;
+  ctx.session.trackSession.commonStat = "uniPair";
 
   ctx.telegram
     .sendMessage(ctx.chat.id, uniPairNums, backToMenu)
@@ -20,6 +20,9 @@ const newUniPair = (ctx: SessionContext<any>) => {
 
 const givenPairNum = async (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
+
+  ctx.session.trackSession.completed = true;
+  ctx.session.underProccess["uniNewPair"] = true;
 
   const chatId: number = ctx.chat.id;
   const totalPairs: number = Number(ctx.message["text"]);
@@ -32,7 +35,7 @@ const givenPairNum = async (ctx: SessionContext<any>) => {
   await ctx.telegram
   .sendMessage(chatId, willSentPairs(totalPairs));
 
-  findUniV2Pairs(chatId, totalPairs);
+  findUniV2Pairs(ctx, chatId, totalPairs);
 
   ctx.telegram.sendMessage(chatId, menuMessage, mainMenu).then(storeKeyID(ctx));
 };
