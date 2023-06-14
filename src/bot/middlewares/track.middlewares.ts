@@ -5,14 +5,10 @@ import { backToMenu } from "../layout/layout";
 import { invalidAddress } from "../../../public/static/trackUx";
 import storeKeyID from "../../helper/sessionKey.store";
 import deleteAvailableMsg from "../../helper/deleteMsg";
+import isCompleted from "../../helper/compeletion.checker";
 
 const hasTrackNotifierStat = (ctx: SessionContext<any>, next: () => void) => {
-  if (ctx.session?.trackSession?.commonStat === "trackNotifier") next();
-  return;
-};
-
-const isCompleted = (ctx: SessionContext<any>, next: () => void) => {
-  if (!ctx.session.trackSession.completed) next();
+  if (ctx.session.trackSession?.commonStat === "trackNotifier") next();
   return;
 };
 
