@@ -7,7 +7,7 @@ import ITxData, {
 } from "../../../public/types/transaction";
 import { uniPairFound } from "../../../public/static/trackUx";
 import { uniPairURLs } from "../layout/linker";
-import { Log, WebSocketNamespace } from "alchemy-sdk";
+import { Log } from "alchemy-sdk";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -18,7 +18,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
   wsData: IWsData,
   chatId: number,
   totalPairs: number
-): Promise<WebSocketNamespace | void> => {
+): Promise<void> => {
   const input = txData.Input.input ?? "";
 
   if (input.includes(ADDLIQETH_MID)) {
@@ -45,7 +45,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
       );
 
       if (calledTimes.value >= totalPairs) {
-        return alchemy.ws.off(wsData.event);
+        await wsData.transcat.off(wsData.event);
       } else calledTimes.value++;
     }
   }

@@ -22,7 +22,7 @@ const minedTxTracker = async (queryData: ITrackerFn) => {
     ],
   });
 
-  alchemy.ws.on(event, async (tx) => {
+  const transcat = alchemy.ws.on(event, async (tx) => {
     const {
       input,
       from,
@@ -53,8 +53,9 @@ const minedTxTracker = async (queryData: ITrackerFn) => {
         BlockInfo: { blockHash, blockNumber },
       },
       {
-        calledTimes,
+        transcat,
         event,
+        calledTimes,
       }
     );
   });

@@ -22,7 +22,7 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
     value: 1,
   };
 
-  alchemy.ws.on(event, async (tx) => {
+  const transcat = alchemy.ws.on(event, async (tx) => {
     if (isPaired && tx.from !== from) {
       return;
     } else {
@@ -53,8 +53,9 @@ const pendingTxTracker = async (queryData: ITrackerFn) => {
           TxInfo: { type, accessList, hash },
         },
         {
-          calledTimes,
+          transcat,
           event,
+          calledTimes,
         }
       );
     }

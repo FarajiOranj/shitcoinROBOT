@@ -1,4 +1,4 @@
-import { AlchemyEventFilter, AlchemySubscription } from "alchemy-sdk";
+import { AlchemyEventFilter, AlchemySubscription, WebSocketNamespace } from "alchemy-sdk";
 
 declare type TxTypes = "0x0" | "0x2";
 
@@ -39,7 +39,8 @@ declare type BlockInfo = {
 };
 
 declare interface IWsData {
-  event: AlchemyEventFilter
+  transcat: WebSocketNamespace;
+  event: AlchemyEventFilter;
   calledTimes?: { value: number };
 }
 
