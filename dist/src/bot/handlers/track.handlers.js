@@ -32,7 +32,7 @@ const pairOptSaver = (ctx) => {
     const chatId = ctx.chat.id;
     const data = (_a = ctx.callbackQuery) === null || _a === void 0 ? void 0 : _a["data"];
     //* maybe should change or move
-    ctx.session.trackSession = {};
+    // ctx.session.trackSession = {} as TrackSession;
     ctx.session.trackSession.triggerType = data;
     ctx.session.trackSession.commonStat = "trackNotifier";
     /* TODO
