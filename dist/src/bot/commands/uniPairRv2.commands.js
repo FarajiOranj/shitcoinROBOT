@@ -26,9 +26,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const underProccess_checker_1 = __importDefault(require("../../helper/underProccess.checker"));
+const underProcess_checker_1 = __importDefault(require("../../helper/underProcess.checker"));
 const bot_instance_1 = __importDefault(require("../bot.instance"));
 const uniPairRv2_handlers_1 = __importStar(require("../handlers/uniPairRv2.handlers"));
 const uniPairRv2_middlewares_1 = __importDefault(require("../middlewares/uniPairRv2.middlewares"));
-bot_instance_1.default.action("uniNewPair", underProccess_checker_1.default, uniPairRv2_handlers_1.default);
+bot_instance_1.default.action("uniNewPair", underProcess_checker_1.default, uniPairRv2_handlers_1.default);
 bot_instance_1.default.hears(/^(10|[1-9])$/, uniPairRv2_middlewares_1.default, uniPairRv2_handlers_1.givenPairNum);

@@ -30,7 +30,7 @@ const newUniPair = (ctx) => {
 const givenPairNum = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     (0, deleteMsg_1.default)(ctx);
     ctx.session.trackSession.completed = true;
-    ctx.session.underProccess["uniNewPair"] = true;
+    ctx.session.underProcesses["uniNewPair"] = true;
     const chatId = ctx.chat.id;
     const totalPairs = Number(ctx.message["text"]);
     yield ctx.telegram
