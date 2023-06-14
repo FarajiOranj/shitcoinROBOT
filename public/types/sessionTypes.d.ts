@@ -2,7 +2,7 @@ import CommonStatus from "./commonStatus";
 
 export interface TrackSession {
   commonStat: CommonStatus;
-  triggerType: string;
+  triggerType?: string;
   fromAddr?: string;
   toAddr?: string;
   completed?: boolean;
