@@ -60,7 +60,7 @@ const uniPairV2 = (txData, wsData, chatId, totalPairs) => __awaiter(void 0, void
             const { name, symbol, decimals } = yield (0, tokenMetadata_1.default)(mainToken);
             yield bot_instance_1.default.telegram.sendMessage(chatId, (0, trackUx_1.uniPairFound)(name, symbol, mainToken, uniPair, 0, 0, calledTimes.value), (0, linker_1.uniPairURLs)(mainToken).keyboardLayout);
             if (calledTimes.value >= totalPairs) {
-                return provider_1.alchemy.ws.off(wsData.event);
+                yield wsData.transcat.off(wsData.event);
             }
             else
                 calledTimes.value++;

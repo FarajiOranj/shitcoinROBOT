@@ -50,7 +50,7 @@ const minedTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function
             },
         ],
     });
-    provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const transcat = provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
         const { input, from, to, value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas, nonce, v, r, s, type, accessList, hash, blockHash, blockNumber, } = tx.transaction;
         yield callback({
             Input: { input },
@@ -60,8 +60,9 @@ const minedTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function
             TxInfo: { type, accessList, hash },
             BlockInfo: { blockHash, blockNumber },
         }, {
-            calledTimes,
+            transcat,
             event,
+            calledTimes,
         });
     }));
 });

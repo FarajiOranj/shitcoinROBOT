@@ -50,7 +50,7 @@ const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, functi
     let calledTimes = {
         value: 1,
     };
-    provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const transcat = provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
         if (isPaired && tx.from !== from) {
             return;
         }
@@ -63,8 +63,9 @@ const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, functi
                 Sign: { nonce, v, r, s },
                 TxInfo: { type, accessList, hash },
             }, {
-                calledTimes,
+                transcat,
                 event,
+                calledTimes,
             });
         }
     }));

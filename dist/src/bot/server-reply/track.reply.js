@@ -15,11 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.pendTxResToUser = void 0;
 const bot_instance_1 = __importDefault(require("../bot.instance"));
 const trackUx_1 = require("../../../public/static/trackUx");
-const provider_1 = require("../../provider/provider");
 const pendTxResToUser = (txData, wsData, chatId, replyMsgId) => __awaiter(void 0, void 0, void 0, function* () {
     bot_instance_1.default.telegram.sendMessage(chatId, (0, trackUx_1.pendMsg)(txData), {
         reply_to_message_id: replyMsgId,
     });
-    yield provider_1.alchemy.ws.off(wsData.event);
+    yield wsData.transcat.off(wsData.event);
 });
 exports.pendTxResToUser = pendTxResToUser;
