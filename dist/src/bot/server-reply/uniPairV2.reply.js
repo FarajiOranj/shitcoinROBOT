@@ -62,7 +62,7 @@ const uniPairV2 = (txData, wsData, ctx, chatId, totalPairs) => __awaiter(void 0,
             if (calledTimes.value >= totalPairs) {
                 yield wsData.transcat.off(wsData.event);
                 try {
-                    delete ctx.session.underProcesses["uniPair"];
+                    delete ctx.session.underProcesses["uniNewPair"];
                 }
                 catch (_b) { }
             }
