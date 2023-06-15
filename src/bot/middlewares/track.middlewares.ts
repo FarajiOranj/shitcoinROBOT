@@ -15,8 +15,8 @@ const hasTrackNotifierStat = (ctx: SessionContext<any>, next: () => void) => {
 const addressCheck = (ctx: Context, next: () => void) => {
   if (!Web3.utils.checkAddressChecksum(ctx.message["text"])) {
     deleteAvailableMsg(ctx);
-    ctx.reply(invalidAddress, backToMenu).then(storeKeyID(ctx));
-  } else next();
+    return ctx.reply(invalidAddress, backToMenu).then(storeKeyID(ctx));
+  } else return next();
 };
 
 const composedAddrMiddleware = Telegraf.compose([

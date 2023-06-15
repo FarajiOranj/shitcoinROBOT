@@ -3,7 +3,7 @@ import { SessionContext } from "telegraf/typings/session";
 import isCompleted from "../../helper/compeletion.checker";
 
 const hasUniPairStat = (ctx: SessionContext<any>, next: () => void) => {
-  if (ctx.session.trackSession?.commonStat === "uniPair") next();
+  if (ctx.session.trackSession?.commonStat === "uniPair") return next();
   return;
 };
 

@@ -1,10 +1,13 @@
 import { SessionContext } from "telegraf/typings/session";
-import { mainMenu, backToMenu } from "../layout/layout";
+import { backToMenu } from "../layout/layout";
 import storeKeyID from "../../helper/sessionKey.store";
 import deleteAvailableMsg from "../../helper/deleteMsg";
 import findUniV2Pairs from "../../jobs/uni/pairFinderV2";
-import { menuMessage } from "../../../public/static/starterUserUx";
-import { uniPairNums, reqSent, willSentPairs } from "../../../public/static/trackUx";
+import {
+  uniPairNums,
+  reqSent,
+  willSentPairs,
+} from "../../../public/static/trackUx";
 import { TrackSession } from "../../../public/types/sessionTypes";
 
 const newUniPair = (ctx: SessionContext<any>) => {
@@ -27,17 +30,15 @@ const givenPairNum = async (ctx: SessionContext<any>) => {
   const chatId: number = ctx.chat.id;
   const totalPairs: number = Number(ctx.message["text"]);
 
-  await ctx.telegram
-  .sendMessage(chatId, reqSent, {
+  await ctx.telegram.sendMessage(chatId, reqSent, {
     reply_to_message_id: ctx.message.message_id,
   });
 
   await ctx.telegram
-  .sendMessage(chatId, willSentPairs(totalPairs));
+    .sendMessage(chatId, willSentPairs(totalPairs), backToMenu)
+    .then(storeKeyID(ctx));
 
   findUniV2Pairs(ctx, chatId, totalPairs);
-
-  ctx.telegram.sendMessage(chatId, menuMessage, mainMenu).then(storeKeyID(ctx));
 };
 
 export default newUniPair;
