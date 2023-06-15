@@ -17,7 +17,6 @@ const layout_1 = require("../layout/layout");
 const sessionKey_store_1 = __importDefault(require("../../helper/sessionKey.store"));
 const deleteMsg_1 = __importDefault(require("../../helper/deleteMsg"));
 const pairFinderV2_1 = __importDefault(require("../../jobs/uni/pairFinderV2"));
-const starterUserUx_1 = require("../../../public/static/starterUserUx");
 const trackUx_1 = require("../../../public/static/trackUx");
 const newUniPair = (ctx) => {
     (0, deleteMsg_1.default)(ctx);
@@ -33,14 +32,13 @@ const givenPairNum = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     ctx.session.underProcesses["uniNewPair"] = true;
     const chatId = ctx.chat.id;
     const totalPairs = Number(ctx.message["text"]);
-    yield ctx.telegram
-        .sendMessage(chatId, trackUx_1.reqSent, {
+    yield ctx.telegram.sendMessage(chatId, trackUx_1.reqSent, {
         reply_to_message_id: ctx.message.message_id,
     });
     yield ctx.telegram
-        .sendMessage(chatId, (0, trackUx_1.willSentPairs)(totalPairs));
+        .sendMessage(chatId, (0, trackUx_1.willSentPairs)(totalPairs), layout_1.backToMenu)
+        .then((0, sessionKey_store_1.default)(ctx));
     (0, pairFinderV2_1.default)(ctx, chatId, totalPairs);
-    ctx.telegram.sendMessage(chatId, starterUserUx_1.menuMessage, layout_1.mainMenu).then((0, sessionKey_store_1.default)(ctx));
 });
 exports.givenPairNum = givenPairNum;
 exports.default = newUniPair;

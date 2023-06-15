@@ -19,10 +19,10 @@ const hasTrackNotifierStat = (ctx, next) => {
 const addressCheck = (ctx, next) => {
     if (!web3_1.default.utils.checkAddressChecksum(ctx.message["text"])) {
         (0, deleteMsg_1.default)(ctx);
-        ctx.reply(trackUx_1.invalidAddress, layout_1.backToMenu).then((0, sessionKey_store_1.default)(ctx));
+        return ctx.reply(trackUx_1.invalidAddress, layout_1.backToMenu).then((0, sessionKey_store_1.default)(ctx));
     }
     else
-        next();
+        return next();
 };
 const composedAddrMiddleware = telegraf_1.Telegraf.compose([
     hasTrackNotifierStat,

@@ -8,7 +8,7 @@ const compeletion_checker_1 = __importDefault(require("../../helper/compeletion.
 const hasUniPairStat = (ctx, next) => {
     var _a;
     if (((_a = ctx.session.trackSession) === null || _a === void 0 ? void 0 : _a.commonStat) === "uniPair")
-        next();
+        return next();
     return;
 };
 const composedUniMiddleware = telegraf_1.Telegraf.compose([

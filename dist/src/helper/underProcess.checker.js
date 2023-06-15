@@ -9,9 +9,9 @@ const layout_1 = require("../bot/layout/layout");
 const isUnderProcess = (ctx, next) => {
     if (ctx.session.underProcesses[`${ctx.callbackQuery["data"]}`]) {
         (0, deleteMsg_1.default)(ctx);
-        ctx.reply("⛔️ تا دریافت کامل نتیجه درخواست داده شده پیشین، این گزینه غیرقابل استفاده میباشد.", layout_1.backToMenu).then((0, sessionKey_store_1.default)(ctx));
+        return ctx.reply("⛔️ تا دریافت کامل نتیجه درخواست داده شده پیشین، این گزینه غیرقابل استفاده میباشد.", layout_1.backToMenu).then((0, sessionKey_store_1.default)(ctx));
     }
     else
-        next();
+        return next();
 };
 exports.default = isUnderProcess;
