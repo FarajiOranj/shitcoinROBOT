@@ -45,5 +45,8 @@ const findUniV2Pairs = (ctx, chatId, totalPairs) => __awaiter(void 0, void 0, vo
     detached: true,
     stdio: "pipe"
   } */);
+    childProcess.on("exit", () => {
+        delete ctx.session.underProcesses["uniNewPair"];
+    });
 });
 exports.default = findUniV2Pairs;

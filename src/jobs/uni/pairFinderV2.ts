@@ -20,6 +20,10 @@ const findUniV2Pairs = async (
     stdio: "pipe"
   } */
   );
+
+  childProcess.on("exit", ()=> {
+    delete ctx.session.underProcesses["uniNewPair"];
+  })
 };
 
 export default findUniV2Pairs;
