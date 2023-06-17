@@ -9,10 +9,9 @@ const findUniV2Pairs = async (
   totalPairs: number
 ) => {
   const childProcess = spawn(
-    "npx",
+    "node",
     [
-      "ts-node",
-      "../../cluster-thread/uniPairV2.thread.ts",
+      "dist/cluster-thread/uniPairV2.thread.js",
       JSON.stringify(ctx),
       chatId.toString(),
       totalPairs.toString(),
