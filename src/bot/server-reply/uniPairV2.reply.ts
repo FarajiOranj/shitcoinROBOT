@@ -9,7 +9,6 @@ import { uniPairFound } from "../../../public/static/trackUx";
 import { uniPairURLs } from "../layout/linker";
 import { Log } from "alchemy-sdk";
 import * as dotenv from "dotenv";
-import { SessionContext } from "telegraf/typings/session";
 dotenv.config();
 
 const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
@@ -17,7 +16,6 @@ const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
 const uniPairV2: ITrackerFn["callback"] = async (
   txData: ITxData,
   wsData: IWsData,
-  ctx: SessionContext<any>,
   chatId: number,
   totalPairs: number
 ): Promise<void> => {

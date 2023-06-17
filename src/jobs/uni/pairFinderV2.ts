@@ -12,7 +12,6 @@ const findUniV2Pairs = async (
     "node",
     [
       "dist/src/cluster-thread/uniPairV2.thread.js",
-      JSON.stringify(ctx),
       chatId.toString(),
       totalPairs.toString(),
     ] /* {
@@ -21,9 +20,9 @@ const findUniV2Pairs = async (
   } */
   );
 
-  childProcess.on("exit", ()=> {
+  childProcess.on("exit", () => {
     delete ctx.session.underProcesses["uniNewPair"];
-  })
+  });
 };
 
 export default findUniV2Pairs;
