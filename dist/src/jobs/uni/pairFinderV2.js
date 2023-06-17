@@ -36,7 +36,7 @@ const child_process_1 = require("child_process");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const findUniV2Pairs = (ctx, chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
-    const childProcess = (0, child_process_1.spawn)("node", [
+    const pairFinderProcess = (0, child_process_1.spawn)("node", [
         "dist/src/cluster-thread/uniPairV2.thread.js",
         chatId.toString(),
         totalPairs.toString(),
@@ -44,7 +44,7 @@ const findUniV2Pairs = (ctx, chatId, totalPairs) => __awaiter(void 0, void 0, vo
     detached: true,
     stdio: "pipe"
   } */);
-    childProcess.on("exit", () => {
+    pairFinderProcess.on("exit", () => {
         delete ctx.session.underProcesses["uniNewPair"];
     });
 });

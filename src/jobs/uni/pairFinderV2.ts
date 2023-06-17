@@ -8,7 +8,7 @@ const findUniV2Pairs = async (
   chatId: number,
   totalPairs: number
 ) => {
-  const childProcess = spawn(
+  const pairFinderProcess = spawn(
     "node",
     [
       "dist/src/cluster-thread/uniPairV2.thread.js",
@@ -20,7 +20,7 @@ const findUniV2Pairs = async (
   } */
   );
 
-  childProcess.on("exit", () => {
+  pairFinderProcess.on("exit", () => {
     delete ctx.session.underProcesses["uniNewPair"];
   });
 };
