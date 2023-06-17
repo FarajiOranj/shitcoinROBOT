@@ -51,6 +51,8 @@ const uniPairV2: ITrackerFn["callback"] = async (
         try {
           delete ctx.session.underProcesses["uniNewPair"];
         } catch {}
+
+        process.exit();
       } else calledTimes.value++;
     }
   }
