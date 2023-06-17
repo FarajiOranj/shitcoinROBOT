@@ -43,7 +43,7 @@ const linker_1 = require("../layout/linker");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const { ADDLIQETH_MID, PAIR_EID, WETH } = process.env;
-const uniPairV2 = (txData, wsData, ctx, chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
+const uniPairV2 = (txData, wsData, chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const input = (_a = txData.Input.input) !== null && _a !== void 0 ? _a : "";
     if (input.includes(ADDLIQETH_MID)) {
