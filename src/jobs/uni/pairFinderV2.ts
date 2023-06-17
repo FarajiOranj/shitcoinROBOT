@@ -1,16 +1,26 @@
-import minedTxTracker from "../../provider/minedTracker";
-import ITxData, { IWsData } from "../../../public/types/transaction";
-import uniPairV2 from "../../bot/server-reply/uniPairV2.reply";
-import * as dotenv from "dotenv";
+import { spawn } from "child_process";
 import { SessionContext } from "telegraf/typings/session";
+import * as dotenv from "dotenv";
 dotenv.config();
 
-const findUniV2Pairs = async (ctx: SessionContext<any>, chatId: number, totalPairs: number) => {
-  minedTxTracker({
-    to: process.env.UNI_ROUTE2,
-    callback: (txData: ITxData, wsData: IWsData) =>
-      uniPairV2(txData, wsData, ctx, chatId, totalPairs),
-  });
+const findUniV2Pairs = async (
+  ctx: SessionContext<any>,
+  chatId: number,
+  totalPairs: number
+) => {
+  const childProcess = spawn(
+    "npx",
+    [
+      "ts-node",
+      "../../cluster-thread/uniPairV2.thread.ts",
+      JSON.stringify(ctx),
+      chatId.toString(),
+      totalPairs.toString(),
+    ] /* {
+    detached: true,
+    stdio: "pipe"
+  } */
+  );
 };
 
 export default findUniV2Pairs;
