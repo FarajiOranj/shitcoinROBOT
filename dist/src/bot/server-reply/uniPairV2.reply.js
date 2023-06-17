@@ -62,8 +62,7 @@ const uniPairV2 = (txData, wsData, ctx, chatId, totalPairs) => __awaiter(void 0,
             if (calledTimes.value >= totalPairs) {
                 yield wsData.transcat.off(wsData.event);
                 yield delete ctx.session.underProcesses["uniNewPair"];
-                if (ctx.session.underProcesses["uniNewPair"] === null)
-                    process.exit();
+                // if (ctx.session.underProcesses["uniNewPair"] === null) process.exit();
             }
             else
                 calledTimes.value++;
