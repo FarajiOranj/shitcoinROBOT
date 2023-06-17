@@ -65,6 +65,7 @@ const uniPairV2 = (txData, wsData, ctx, chatId, totalPairs) => __awaiter(void 0,
                     delete ctx.session.underProcesses["uniNewPair"];
                 }
                 catch (_b) { }
+                process.exit();
             }
             else
                 calledTimes.value++;

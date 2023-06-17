@@ -31,18 +31,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const minedTracker_1 = __importDefault(require("../../provider/minedTracker"));
-const uniPairV2_reply_1 = __importDefault(require("../../bot/server-reply/uniPairV2.reply"));
+const child_process_1 = require("child_process");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const findUniV2Pairs = (ctx, chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, minedTracker_1.default)({
-        to: process.env.UNI_ROUTE2,
-        callback: (txData, wsData) => (0, uniPairV2_reply_1.default)(txData, wsData, ctx, chatId, totalPairs),
-    });
+    const childProcess = (0, child_process_1.spawn)("npx", [
+        "ts-node",
+        "../../cluster-thread/uniPairV2.thread.ts",
+        JSON.stringify(ctx),
+        chatId.toString(),
+        totalPairs.toString(),
+    ] /* {
+    detached: true,
+    stdio: "pipe"
+  } */);
 });
 exports.default = findUniV2Pairs;
