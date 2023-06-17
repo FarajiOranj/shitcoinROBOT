@@ -19,7 +19,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
   wsData: IWsData,
   ctx: SessionContext<any>,
   chatId: number,
-  totalPairs: number,
+  totalPairs: number
 ): Promise<void> => {
   const input = txData.Input.input ?? "";
 
@@ -48,10 +48,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
 
       if (calledTimes.value >= totalPairs) {
         await wsData.transcat.off(wsData.event);
-        try {
-          delete ctx.session.underProcesses["uniNewPair"];
-        } catch {}
-
+        await delete ctx.session.underProcesses["uniNewPair"];
         process.exit();
       } else calledTimes.value++;
     }

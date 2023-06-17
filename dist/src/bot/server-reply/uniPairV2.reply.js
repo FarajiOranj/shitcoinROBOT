@@ -61,10 +61,7 @@ const uniPairV2 = (txData, wsData, ctx, chatId, totalPairs) => __awaiter(void 0,
             yield bot_instance_1.default.telegram.sendMessage(chatId, (0, trackUx_1.uniPairFound)(name, symbol, mainToken, uniPair, 0, 0, calledTimes.value), (0, linker_1.uniPairURLs)(mainToken).keyboardLayout);
             if (calledTimes.value >= totalPairs) {
                 yield wsData.transcat.off(wsData.event);
-                try {
-                    delete ctx.session.underProcesses["uniNewPair"];
-                }
-                catch (_b) { }
+                yield delete ctx.session.underProcesses["uniNewPair"];
                 process.exit();
             }
             else
