@@ -49,7 +49,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
       if (calledTimes.value >= totalPairs) {
         await wsData.transcat.off(wsData.event);
         await delete ctx.session.underProcesses["uniNewPair"];
-        process.exit();
+        if (ctx.session.underProcesses["uniNewPair"] === null) process.exit();
       } else calledTimes.value++;
     }
   }
