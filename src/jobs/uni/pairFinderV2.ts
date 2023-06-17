@@ -11,7 +11,7 @@ const findUniV2Pairs = async (
   const childProcess = spawn(
     "node",
     [
-      "dist/cluster-thread/uniPairV2.thread.js",
+      "dist/src/cluster-thread/uniPairV2.thread.js",
       JSON.stringify(ctx),
       chatId.toString(),
       totalPairs.toString(),
