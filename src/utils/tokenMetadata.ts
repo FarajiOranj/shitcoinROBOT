@@ -1,4 +1,4 @@
-import { alchemy } from "../provider/provider";
+import { alchemy } from "../provider/sdk-provider";
 
 interface ITokenMetadata {
   name: string;
