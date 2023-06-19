@@ -32,12 +32,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const provider_1 = require("./provider");
+const sdk_provider_1 = require("./sdk-provider");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
     const event = {
-        method: provider_1.AlchemySubscription.PENDING_TRANSACTIONS,
+        method: sdk_provider_1.AlchemySubscription.PENDING_TRANSACTIONS,
     };
     const { from, to, isPaired, callback } = queryData;
     isPaired
@@ -50,7 +50,7 @@ const pendingTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, functi
     let calledTimes = {
         value: 1,
     };
-    const transcat = provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const transcat = sdk_provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
         if (isPaired && tx.from !== from) {
             return;
         }

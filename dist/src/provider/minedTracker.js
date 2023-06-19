@@ -32,12 +32,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const provider_1 = require("./provider");
+const sdk_provider_1 = require("./sdk-provider");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const minedTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
     const event = {
-        method: provider_1.AlchemySubscription.MINED_TRANSACTIONS,
+        method: sdk_provider_1.AlchemySubscription.MINED_TRANSACTIONS,
     };
     const { /* from, */ to, /* isPaired, */ callback } = queryData;
     let calledTimes = {
@@ -50,7 +50,7 @@ const minedTxTracker = (queryData) => __awaiter(void 0, void 0, void 0, function
             },
         ],
     });
-    const transcat = provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const transcat = sdk_provider_1.alchemy.ws.on(event, (tx) => __awaiter(void 0, void 0, void 0, function* () {
         const { input, from, to, value, gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas, nonce, v, r, s, type, accessList, hash, blockHash, blockNumber, } = tx.transaction;
         yield callback({
             Input: { input },

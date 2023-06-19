@@ -51,7 +51,7 @@ const willSentPairs = (totalPairs) => {
     return `❇️ به تعداد ${totalPairs} بار، میم کوین های جدید برای شما ارسال خواهند شد.`;
 };
 exports.willSentPairs = willSentPairs;
-const uniPairFound = (name, symbol, tokenAddress, pairAddress, marketCap, liquidity, reqNum) => {
-    return `${name} | ${symbol}\n\n🔰 Token:\n${tokenAddress}\n\n⛓ Pair pool:\n${pairAddress}\n\n💵 Market Cap: ${marketCap}\n💰 Liquidity: ${liquidity}\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
+const uniPairFound = (name, symbol, tokenAddress, pairAddress, priceInDollar, priceInETH, marketCapInDollar, marketCapInETH, liquidity, perDollar, perETH, reqNum) => {
+    return `${name} | ${symbol}\n\n🔰 Token:\n${tokenAddress}\n\n⛓ Pair pool:\n${pairAddress}\n\n💳 Price:\n${priceInDollar} $\n${priceInETH} ETH\n\n💵 Market Cap:\n${marketCapInDollar} $\n${marketCapInETH} ETH\n\n💰 Liquidity: ${liquidity}\n\n1️⃣ $ ≃ ${perDollar} ${symbol}\n1️⃣ ETH ≃ ${perETH} ${symbol}\n\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
 };
 exports.uniPairFound = uniPairFound;

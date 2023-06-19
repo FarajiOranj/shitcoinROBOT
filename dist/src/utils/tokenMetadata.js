@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const provider_1 = require("../provider/provider");
+const sdk_provider_1 = require("../provider/sdk-provider");
 const getTokenMetadata = (tokenAddress) => __awaiter(void 0, void 0, void 0, function* () {
     let response;
-    yield provider_1.alchemy.core.getTokenMetadata(tokenAddress).then((res) => (response = {
+    yield sdk_provider_1.alchemy.core.getTokenMetadata(tokenAddress).then((res) => (response = {
         name: res.name,
         symbol: res.symbol,
         decimals: res.decimals,
