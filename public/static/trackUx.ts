@@ -60,11 +60,16 @@ const uniPairFound = (
   symbol: string,
   tokenAddress: string,
   pairAddress: string,
-  marketCap: number,
-  liquidity: number,
+  priceInDollar: string,
+  priceInETH: string,
+  marketCapInDollar: string,
+  marketCapInETH: string,
+  liquidity: string,
+  perDollar: string,
+  perETH: string,
   reqNum: number
 ): string => {
-  return `${name} | ${symbol}\n\n🔰 Token:\n${tokenAddress}\n\n⛓ Pair pool:\n${pairAddress}\n\n💵 Market Cap: ${marketCap}\n💰 Liquidity: ${liquidity}\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
+  return `${name} | ${symbol}\n\n🔰 Token:\n${tokenAddress}\n\n⛓ Pair pool:\n${pairAddress}\n\n💳 Price:\n${priceInDollar} $\n${priceInETH} ETH\n\n💵 Market Cap:\n${marketCapInDollar} $\n${marketCapInETH} ETH\n\n💰 Liquidity: ${liquidity}\n\n1️⃣ $ ≃ ${perDollar} ${symbol}\n1️⃣ ETH ≃ ${perETH} ${symbol}\n\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
 };
 
 export {
