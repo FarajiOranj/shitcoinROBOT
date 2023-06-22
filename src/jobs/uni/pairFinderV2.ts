@@ -20,7 +20,7 @@ const findUniV2Pairs = async (
   } */
   );
 
-  pairFinderProcess.on("close", () => {
+  pairFinderProcess.on("exit", () => {
     delete ctx.session.underProcesses["uniNewPair"];
   });
 };
