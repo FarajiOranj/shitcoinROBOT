@@ -8,7 +8,7 @@ minedTxTracker({
     uniPairV2(
       txData,
       wsData,
-      Number(process.argv[3]),
-      Number(process.argv[4])
+      Number(process.argv[2]),
+      Number(process.argv[3])
     ),
 });
