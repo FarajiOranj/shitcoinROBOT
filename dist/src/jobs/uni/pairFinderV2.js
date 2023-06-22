@@ -37,7 +37,7 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const findUniV2Pairs = (ctx, chatId, totalPairs) => __awaiter(void 0, void 0, void 0, function* () {
     const pairFinderProcess = (0, child_process_1.spawn)("node", [
-        "dist/src/cluster-thread/uniPairV2.thread.js",
+        "dist/src/child-process/uniPairV2.thread.js",
         chatId.toString(),
         totalPairs.toString(),
     ] /* {
