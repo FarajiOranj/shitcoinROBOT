@@ -31,9 +31,9 @@ const calculateTokenPrice = (
 
   const rateTypes = {
     priceInETH,
-    priceInDollar: priceInETH * 1730,
+    priceInDollar: priceInETH * 1880,
     perETH,
-    perDollar: perETH / 1730,
+    perDollar: perETH / 1880,
   };
 
   for (const [key, value] of Object.entries(rateTypes)) {
