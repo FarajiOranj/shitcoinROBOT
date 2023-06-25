@@ -51,7 +51,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
         calculateTokenPrice(
           reservedTokens,
           decimals,
-          mainToken === token0Address,
+          mainToken === token0Address
           // etherprice
         );
 
@@ -78,10 +78,11 @@ const uniPairV2: ITrackerFn["callback"] = async (
           perDollar,
           perETH,
           calledTimes.value
-        ),{
+        ),
+        {
           parse_mode: "MarkdownV2",
-          reply_markup: uniPairURLs(mainToken, uniPair).keyboardLayout["reply_markup"]
         }
+        // ,reply_markup: uniPairURLs(mainToken, uniPair).keyboardLayout
       );
 
       if (calledTimes.value >= totalPairs) {
