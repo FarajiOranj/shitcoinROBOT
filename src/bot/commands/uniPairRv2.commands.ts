@@ -5,4 +5,4 @@ import composedUniMiddleware from "../middlewares/uniPairRv2.middlewares";
 
 bot.action("uniNewPair", isUnderProcess, newUniPair);
 
-bot.hears(/^(10|[1-9])$/, composedUniMiddleware, givenPairNum);
+bot.hears(/^(?:[1-9][0-9]?|100)$/, composedUniMiddleware, givenPairNum);
