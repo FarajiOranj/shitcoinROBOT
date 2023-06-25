@@ -11,7 +11,7 @@ const uniPairURLs = (tokenAddress: string, pairAddress: string): Skeleton => {
     ],
     [
       {
-        text: "👁‍🗨Token Sniffer",
+        text: "👁‍🗨 Token Sniffer",
         url: `https://tokensniffer.com/token/eth/${tokenAddress}`,
       },
     ],
