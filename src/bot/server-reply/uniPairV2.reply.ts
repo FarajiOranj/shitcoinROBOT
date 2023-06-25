@@ -78,11 +78,9 @@ const uniPairV2: ITrackerFn["callback"] = async (
           perDollar,
           perETH,
           calledTimes.value
-        ),
-        {
-          reply_markup: uniPairURLs(mainToken, uniPair).keyboardLayout
-          .reply_markup,
-      parse_mode: "MarkdownV2"
+        ),{
+          parse_mode: "MarkdownV2",
+          reply_markup: uniPairURLs(mainToken, uniPair).keyboardLayout["reply_markup"]
         }
       );
 
