@@ -79,7 +79,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
           perETH,
           calledTimes.value
         ),
-        uniPairURLs(mainToken).keyboardLayout
+        uniPairURLs(mainToken, uniPair).keyboardLayout
       );
 
       if (calledTimes.value >= totalPairs) {
