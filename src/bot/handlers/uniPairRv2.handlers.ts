@@ -35,10 +35,7 @@ const givenPairNum = async (ctx: SessionContext<any>) => {
   });
 
   await ctx.telegram
-    .sendMessage(chatId, willSentPairs(totalPairs),{
-      reply_markup: backToMenu.reply_markup,
-      parse_mode: "Markdown"
-    } )
+    .sendMessage(chatId, willSentPairs(totalPairs), backToMenu)
     .then(storeKeyID(ctx));
 
   findUniV2Pairs(ctx, chatId, totalPairs);
