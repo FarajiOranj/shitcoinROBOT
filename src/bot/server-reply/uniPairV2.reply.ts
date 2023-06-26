@@ -86,7 +86,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
             .reply_markup,
           entities: [
             { type: "code", offset: 24 + dynamicNSoffset, length: 42 },
-            { type: "code", offset: 83 + dynamicNSoffset, length: 42 },
+            { type: "code", offset: 84 + dynamicNSoffset, length: 42 },
           ],
         }
       );
