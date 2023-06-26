@@ -80,8 +80,12 @@ const uniPairV2: ITrackerFn["callback"] = async (
           calledTimes.value
         ),
         {
-          parse_mode: "MarkdownV2",
-          reply_markup: uniPairURLs(mainToken, uniPair).keyboardLayout.reply_markup
+          reply_markup: uniPairURLs(mainToken, uniPair).keyboardLayout
+            .reply_markup,
+          entities: [
+            { type: "code", offset: 0, length: 42 },
+            { type: "code", offset: 62, length: 42 },
+          ],
         }
       );
 
