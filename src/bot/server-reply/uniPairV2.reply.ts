@@ -80,9 +80,9 @@ const uniPairV2: ITrackerFn["callback"] = async (
           calledTimes.value
         ),
         {
-          parse_mode: "HTML",
+          parse_mode: "MarkdownV2",
+          reply_markup: uniPairURLs(mainToken, uniPair).keyboardLayout.reply_markup
         }
-        // ,reply_markup: uniPairURLs(mainToken, uniPair).keyboardLayout
       );
 
       if (calledTimes.value >= totalPairs) {
