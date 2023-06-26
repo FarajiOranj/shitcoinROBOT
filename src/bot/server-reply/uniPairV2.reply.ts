@@ -63,6 +63,8 @@ const uniPairV2: ITrackerFn["callback"] = async (
         priceInETH
       );
 
+      const dynamicNSoffset = name.length + symbol.length;
+
       await bot.telegram.sendMessage(
         chatId,
         uniPairFound(
@@ -83,8 +85,8 @@ const uniPairV2: ITrackerFn["callback"] = async (
           reply_markup: uniPairURLs(mainToken, uniPair).keyboardLayout
             .reply_markup,
           entities: [
-            { type: "code", offset: 31, length: 42 },
-            { type: "code", offset: 99, length: 42 },
+            { type: "code", offset: 23 + dynamicNSoffset, length: 42 },
+            { type: "code", offset: 91 + dynamicNSoffset, length: 42 },
           ],
         }
       );
