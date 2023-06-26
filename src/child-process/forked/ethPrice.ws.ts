@@ -1,20 +1,18 @@
 import WebSocket from "ws";
 
-const socket = new WebSocket('wss://stream.binance.com:9443/ws/ethusdt@trade');
+let upcomingETH_Price : string;
 
-let ethPrice : number;
+const socket = new WebSocket('wss://stream.binance.com:9443/ws/ethusdt@trade');
 
 socket.on('open', () => {
   console.log('WebSocket connection established.');
 });
 
 socket.on('message', (data) => {
-    const currentPrice = Number(JSON.parse(data).p);
-    console.log(currentPrice);
-
-    if(ethPrice !== currentPrice) {
-        ethPrice = currentPrice;
-        process.stdout.write(ethPrice.toString());
+    const currentPrice = (Number(JSON.parse(data).p)).toFixed(2);
+    if(upcomingETH_Price !== currentPrice) {
+        upcomingETH_Price = currentPrice;
+        process.send(upcomingETH_Price);
     }
 });
 

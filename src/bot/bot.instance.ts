@@ -5,11 +5,11 @@ dotenv.config();
 
 declare module "telegraf" {
   interface Context {
-    ethPrice: number;
+    ethPrice: { value: number };
   }
 }
 
-const bot: Telegraf = new Telegraf<Context>(process.env.TELEGRAM_BOT_TOKEN, {
+const bot = new Telegraf<Context>(process.env.TELEGRAM_BOT_TOKEN, {
   handlerTimeout: ms("172000s"),
 });
 

@@ -47,7 +47,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
 
       const reservedTokens = decodeReservedTokens(mintLog.data);
 
-      const etherprice = bot.context.ethPrice;
+      const etherprice = bot.context.ethPrice.value;
 
       const { priceInETH, priceInDollar, perETH, perDollar, injectedSupply } =
         calculateTokenPrice(
