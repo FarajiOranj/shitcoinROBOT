@@ -6,6 +6,8 @@ import "./src/bot/commands/common.commands";
 import "./src/bot/commands/track.commands";
 import "./src/bot/commands/uniPairRv2.commands";
 
+bot.launch();
+
 const ETH_PriceFork = fork("dist/src/child-process/forked/ethPrice.ws.js");
 
 ETH_PriceFork.on("message", (price: string) => {
@@ -14,4 +16,3 @@ ETH_PriceFork.on("message", (price: string) => {
   bot.context.ethPrice = {value: Number(price)}
 });
 
-bot.launch();
