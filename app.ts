@@ -11,7 +11,7 @@ const ETH_PriceFork = fork("dist/src/child-process/forked/ethPrice.ws.js");
 ETH_PriceFork.on("message", (price: string) => {
   console.log("bot.context.ethPrice is: ", bot.context.ethPrice);
 
-  bot.context.ethPrice.value = Number(price);
+  bot.context.ethPrice = {value: Number(price)}
 });
 
 bot.launch();
