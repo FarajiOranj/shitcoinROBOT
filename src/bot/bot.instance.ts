@@ -13,6 +13,6 @@ const bot = new Telegraf<Context>(process.env.TELEGRAM_BOT_TOKEN, {
   handlerTimeout: ms("172000s"),
 });
 
-bot.context.ethPrice.value = 0;
+bot.context.ethPrice = {value : 0};
 
 export default bot;
