@@ -5,7 +5,7 @@ const deleteAvailableMsg = (ctx: SessionContext<any>) => {
     ctx.deleteMessage(ctx.session.keyId);
   } catch {}
 
-  if(ctx.session.trackSession?.commonStat) {
+  if(ctx.session?.trackSession?.commonStat) {
     delete ctx.session.trackSession.commonStat;
   }
 };
