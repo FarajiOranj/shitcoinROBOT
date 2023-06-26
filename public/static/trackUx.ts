@@ -60,16 +60,19 @@ const uniPairFound = (
   symbol: string,
   tokenAddress: string,
   pairAddress: string,
-  priceInDollar: string,
-  priceInETH: string,
   marketCapInDollar: string,
   marketCapInETH: string,
   liquidity: string,
+  priceInDollar: string,
+  priceInETH: string,
+  totalSupply: string,
+  injectedSupply: string,
   perDollar: string,
   perETH: string,
+  ethPrice: number,
   reqNum: number
 ): string => {
-  return `${name} | $${symbol}\n\n🔰 Token Address:\n${tokenAddress}\n\n⛓ Pair Address:\n${pairAddress}\n\n💳 Price:\n${priceInDollar} $\n${priceInETH} ETH\n\n💵 Market Cap:\n${marketCapInDollar} $\n${marketCapInETH} ETH\n\n💰 Liquidity: ${liquidity}\n\n1️⃣ $ ≃ ${perDollar} ${symbol}\n1️⃣ ETH ≃ ${perETH} ${symbol}\n\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
+  return `${name} | $${symbol}\n\n🔰 Token Address:\n${tokenAddress}\n\n⛓ Pair Address:\n${pairAddress}\n\n💵 Market Cap:\n${marketCapInDollar} $\n${marketCapInETH} ETH\n\n💰 Liquidity: ${liquidity}\n\n🌐 Total Supply:\n${totalSupply}\n🕸 Injected Supply:\n${injectedSupply}\n\n💳 Price:\n${priceInDollar} $\n${priceInETH} ETH\n\n1️⃣ $ ≃ ${perDollar} ${symbol}\n1️⃣ ETH ≃ ${perETH} ${symbol}\n\n🏦 ETH Price ≃ ${ethPrice}\n\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
 };
 
 export {

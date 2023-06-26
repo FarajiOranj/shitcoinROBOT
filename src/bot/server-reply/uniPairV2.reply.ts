@@ -47,12 +47,14 @@ const uniPairV2: ITrackerFn["callback"] = async (
 
       const reservedTokens = decodeReservedTokens(mintLog.data);
 
-      const { priceInETH, priceInDollar, perETH, perDollar } =
+      const etherprice = bot.context.ethPrice;
+
+      const { priceInETH, priceInDollar, perETH, perDollar, injectedSupply } =
         calculateTokenPrice(
           reservedTokens,
           decimals,
-          mainToken === token0Address
-          // etherprice
+          etherprice,
+          mainToken === token0Address,
         );
 
       const totalSupply = await getTokenSupply(mainToken, decimals);
@@ -72,13 +74,16 @@ const uniPairV2: ITrackerFn["callback"] = async (
           symbol,
           mainToken,
           uniPair,
-          priceInDollar,
-          priceInETH,
           marketCapInDollar,
           marketCapInETH,
           "As Soon As Possible...",
+          priceInDollar,
+          priceInETH,
+          totalSupply,
+          injectedSupply,
           perDollar,
           perETH,
+          etherprice,
           calledTimes.value
         ),
         {
