@@ -9,12 +9,14 @@ interface IRateTypes {
   priceInDollar: string;
   perETH: string;
   perDollar: string;
+  injectedSupply: string;
 }
 
 const calculateTokenPrice = (
   reservedTokens: Array<bigint>,
   shitcoinDecimal: number,
-  isReserved0?: boolean
+  ethPrice: number,
+  isReserved0?: boolean,
 ) :IRateTypes => {
   let ShitcoinAmount, WETHAmount: number;
 
@@ -31,9 +33,10 @@ const calculateTokenPrice = (
 
   const rateTypes = {
     priceInETH,
-    priceInDollar: priceInETH * 1880,
+    priceInDollar: priceInETH * ethPrice,
     perETH,
-    perDollar: perETH / 1880,
+    perDollar: perETH / ethPrice,
+    injectedSupply: ShitcoinAmount
   };
 
   for (const [key, value] of Object.entries(rateTypes)) {
