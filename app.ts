@@ -6,7 +6,7 @@ import "./src/bot/commands/common.commands";
 import "./src/bot/commands/track.commands";
 import "./src/bot/commands/uniPairRv2.commands";
 
-const ETH_PriceFork = spawn("dist/src/child-process/forked/ethPrice.ws.js");
+const ETH_PriceFork = spawn("node",["dist/src/child-process/forked/ethPrice.ws.js"]);
 
 ETH_PriceFork.send("");
 

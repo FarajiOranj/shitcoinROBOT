@@ -1,8 +1,8 @@
 import WebSocket from "ws";
 
-let ethPrice : string;
-
 const socket = new WebSocket('wss://stream.binance.com:9443/ws/ethusdt@trade');
+
+let ethPrice : string;
 
 socket.on('open', () => {
   console.log('WebSocket connection established.');
