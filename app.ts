@@ -1,5 +1,4 @@
 
-import path from "path";
 import { fork } from "child_process";
 import bot from './src/bot/bot.instance';
 import './src/bot/session/default.session'
@@ -8,9 +7,7 @@ import './src/bot/commands/common.commands';
 import './src/bot/commands/track.commands';
 import './src/bot/commands/uniPairRv2.commands';
 
-const ETH_PriceFork = fork(
-    path.dirname("dist/src/child-process/forked/ethPrice.ws.js")
-  );
+const ETH_PriceFork = fork("dist/src/child-process/forked/ethPrice.ws.js");
   
   ETH_PriceFork.send("");
   
