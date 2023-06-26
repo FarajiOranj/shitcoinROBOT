@@ -4,6 +4,17 @@ const ms = require("millisecond");
 import * as dotenv from "dotenv";
 dotenv.config();
 
+
+declare module "telegraf" {
+    interface Context {
+        ethPrice: number;
+    }
+}
+
+const bot: Telegraf = new Telegraf<Context>(process.env.TELEGRAM_BOT_TOKEN, {
+    handlerTimeout: ms("172000s"),
+});
+
 const ETH_PriceFork = fork("../../dist/src/child-process/forked/ethPrice.ws.js");
 
 ETH_PriceFork.send("");
@@ -13,15 +24,4 @@ ETH_PriceFork.on("message", (price: string) => {
 
     bot.context.ethPrice = Number(price);
 });
-
-declare module "telegraf" {
-  interface Context {
-    ethPrice: number;
-  }
-}
-
-const bot: Telegraf = new Telegraf<Context>(process.env.TELEGRAM_BOT_TOKEN, {
-  handlerTimeout: ms("172000s"),
-});
-
 export default bot;
