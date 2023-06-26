@@ -7,7 +7,7 @@ import "./src/bot/commands/track.commands";
 import "./src/bot/commands/uniPairRv2.commands";
 
 const sharedBuffer = new SharedArrayBuffer(4);
-const sharedData = new Int32Array(sharedBuffer);
+const sharedData = new Float32Array(sharedBuffer);
 
 const ethPriceWorker = new Worker("./dist/src/workers/ethPrice.worker.js", {
   workerData: sharedBuffer,
