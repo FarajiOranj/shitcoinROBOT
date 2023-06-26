@@ -1,4 +1,4 @@
-import { fork } from "child_process";
+import { Worker } from "worker_threads";
 import bot from "./src/bot/bot.instance";
 import "./src/bot/session/default.session";
 import "./src/bot/middlewares/common.middlewares";
@@ -6,13 +6,16 @@ import "./src/bot/commands/common.commands";
 import "./src/bot/commands/track.commands";
 import "./src/bot/commands/uniPairRv2.commands";
 
-bot.launch();
+const sharedBuffer = new SharedArrayBuffer(4);
+const sharedData = new Int32Array(sharedBuffer);
 
-const ETH_PriceFork = fork("dist/src/child-process/forked/ethPrice.ws.js");
-
-ETH_PriceFork.on("message", (price: string) => {
-  console.log("bot.context.ethPrice is: ", bot.context.ethPrice);
-
-  bot.context.ethPrice = {value: Number(price)}
+const ethPriceWorker = new Worker("./dist/src/workers/ethPrice.worker.js", {
+  workerData: sharedBuffer,
 });
 
+ethPriceWorker.on("message", (message) => {
+  console.log("ethPrice worker message: ", message);
+  console.log("sharedData: ", sharedData[0]);
+});
+
+bot.launch();
