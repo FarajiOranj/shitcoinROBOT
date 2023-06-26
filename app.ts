@@ -10,9 +10,9 @@ const ETH_PriceFork = spawn("node", [
   "dist/src/child-process/spawned/ethPrice.ws.js",
 ]);
 
-ETH_PriceFork.on("message", (message) => {
+ETH_PriceFork.stdout.on("data", (data) => {
   console.log("bot.context.ethPrice is: ", bot.context.ethPrice);
-  bot.context.ethPrice = Number(message);
+  bot.context.ethPrice = Number(data.toString());
 });
 
 bot.launch();

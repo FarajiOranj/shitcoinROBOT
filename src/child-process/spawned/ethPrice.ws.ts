@@ -14,7 +14,7 @@ socket.on('message', (data) => {
 
     if(ethPrice !== currentPrice) {
         ethPrice = currentPrice;
-        process.send(ethPrice);
+        process.stdout.write(ethPrice);
     }
 });
 
