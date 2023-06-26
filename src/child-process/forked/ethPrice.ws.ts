@@ -10,6 +10,8 @@ socket.on('open', () => {
 
 socket.on('message', (data) => {
     const currentPrice = (Number(JSON.parse(data).p)).toFixed(2);
+    console.log(currentPrice);
+
     if(ethPrice !== currentPrice) {
         ethPrice = currentPrice;
         process.send(ethPrice);
