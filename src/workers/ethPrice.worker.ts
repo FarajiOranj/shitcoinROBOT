@@ -1,7 +1,7 @@
 import { workerData, parentPort } from "worker_threads";
 import WebSocket from "ws";
 
-const sharedData = new Int32Array(workerData);
+const sharedData = new Float32Array(workerData);
 const socket = new WebSocket("wss://stream.binance.com:9443/ws/ethusdt@trade");
 
 socket.on("open", () => {
