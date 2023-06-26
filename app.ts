@@ -12,7 +12,7 @@ const ETH_PriceFork = spawn("node", [
 
 ETH_PriceFork.stdout.on("data", (data) => {
   console.log("bot.context.ethPrice is: ", bot.context.ethPrice);
-  bot.context.ethPrice = Number(data.toString());
+  bot.context.ethPrice = Number(data.toString().trim());
 });
 
 bot.launch();
