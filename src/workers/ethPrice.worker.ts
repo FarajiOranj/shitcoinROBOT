@@ -14,7 +14,6 @@ socket.on("message", (data) => {
   const currentPrice = Number(JSON.parse(data).p);
   if (sharedData[0] !== currentPrice) {
     sharedData[0] = currentPrice;
-    // parentPort.postMessage(sharedData[0].toFixed(2));
   }
 });
 
