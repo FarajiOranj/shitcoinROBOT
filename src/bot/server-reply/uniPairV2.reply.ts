@@ -1,3 +1,4 @@
+import { workerData } from "worker_threads";
 import bot from "../bot.instance";
 import { alchemy } from "../../provider/sdk-provider";
 import getTokenMetadata from "../../utils/tokenMetadata";
@@ -16,6 +17,7 @@ import { decodeReservedTokens } from "../../utils/reservedTokens";
 dotenv.config();
 
 const { ADDLIQETH_MID, PAIR_EID, MINT_EID, WETH } = process.env;
+const sharedData = new Float32Array(workerData);
 
 const uniPairV2: ITrackerFn["callback"] = async (
   txData: ITxData,
@@ -47,7 +49,7 @@ const uniPairV2: ITrackerFn["callback"] = async (
 
       const reservedTokens = decodeReservedTokens(mintLog.data);
 
-      const etherprice = 1880;
+      const etherprice = sharedData[0];
 
       console.log(etherprice);
 
