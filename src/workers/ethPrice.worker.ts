@@ -1,4 +1,4 @@
-import { workerData, parentPort } from "worker_threads";
+import { workerData } from "worker_threads";
 import WebSocket from "ws";
 
 const sharedData = new Float32Array(workerData);
@@ -12,7 +12,7 @@ socket.on("message", (data) => {
   const currentPrice = Number(JSON.parse(data).p);
   if (sharedData[0] !== currentPrice) {
     sharedData[0] = currentPrice;
-    parentPort.postMessage(sharedData[0].toFixed(2));
+    // parentPort.postMessage(sharedData[0].toFixed(2));
   }
 });
 

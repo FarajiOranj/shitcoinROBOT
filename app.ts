@@ -13,9 +13,9 @@ const ethPriceWorker = new Worker("./dist/src/workers/ethPrice.worker.js", {
   workerData: sharedBuffer,
 });
 
-ethPriceWorker.on("message", (message) => {
-  console.log("ethPrice worker message: ", message);
-  console.log("sharedData: ", sharedData[0]);
-});
+// ethPriceWorker.on("message", (message) => {
+//   console.log("ethPrice worker message: ", message);
+//   console.log("sharedData: ", sharedData[0]);
+// });
 
 bot.launch();
