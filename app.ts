@@ -7,18 +7,8 @@ import "./src/bot/commands/common.commands";
 import "./src/bot/commands/track.commands";
 import "./src/bot/commands/uniPairRv2.commands";
 
-// const sharedData = new Float32Array(sharedBuffer);
-
-/* const ethPriceWorker =  */ new Worker(
-  "./dist/src/workers/ethPrice.worker.js",
-  {
-    workerData: sharedBuffer,
-  }
-);
-
-// ethPriceWorker.on("message", (message) => {
-//   console.log("ethPrice worker message: ", message);
-//   console.log("sharedData: ", sharedData[0]);
-// });
+new Worker("./dist/src/workers/ethPrice.worker.js", {
+  workerData: sharedBuffer,
+});
 
 bot.launch();
