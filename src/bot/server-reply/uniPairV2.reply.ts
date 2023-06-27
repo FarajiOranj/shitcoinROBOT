@@ -9,11 +9,11 @@ import ITxData, {
 import { uniPairFound } from "../../../public/static/trackUx";
 import { uniPairURLs } from "../layout/linker";
 import { Log } from "alchemy-sdk";
-import * as dotenv from "dotenv";
 import calculateTokenPrice from "../../utils/tokenMidPrice";
 import getTokenSupply from "../../utils/tokenTotalSupply";
 import calculateTokenMarketCap from "../../utils/tokenMarketCap";
 import { decodeReservedTokens } from "../../utils/reservedTokens";
+import * as dotenv from "dotenv";
 dotenv.config();
 
 const { ADDLIQETH_MID, PAIR_EID, MINT_EID, WETH } = process.env;

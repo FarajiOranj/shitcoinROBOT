@@ -1,8 +1,10 @@
 import { workerData } from "worker_threads";
 import WebSocket from "ws";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const sharedData = new Float32Array(workerData);
-const socket = new WebSocket("wss://stream.binance.com:9443/ws/ethusdt@trade");
+const socket = new WebSocket(process.env.BINANCE_WS_ETHUSDT);
 
 socket.on("open", () => {
   console.log("WebSocket connection established.");
