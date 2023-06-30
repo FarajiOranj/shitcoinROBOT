@@ -51,9 +51,9 @@ const pendMsg = (txData: ITxData): string => {
   https://etherscan.io/tx/${hash}`;
 };
 
-const willSentPairs = (totalPairs: number) :string => {
+const willSentPairs = (totalPairs: number): string => {
   return `❇️ به تعداد ${totalPairs} بار، میم کوین های جدید برای شما ارسال خواهند شد.`;
-}
+};
 
 const uniPairFound = (
   name: string,
@@ -73,7 +73,23 @@ const uniPairFound = (
   ethPrice: number,
   reqNum: number
 ): string => {
-  return `${name} | $${symbol}\n\n🔰 Token Address:\n${tokenAddress}\n\n⛓ Pair Address:\n${pairAddress}\n\n💵 Market Cap:\n${Math.round(Number(marketCapInDollar))} $ / ${Number(marketCapInETH).toFixed(4)} ETH\n\n💰 Liquidity:\n${Math.round(Number(liquidityInDollar))} $ / ${Number(liquidityInETH).toFixed(4)} ETH\n\n🌐 Total Supply:\n${totalSupply}\n🕸 Injected Supply:\n${injectedSupply}\n\n💳 Price:\n${Number(priceInDollar).toFixed(12)} $\n${Number(priceInETH).toFixed(15)} ETH\n\n1️⃣ $ ≃ ${Number(perDollar).toFixed(4)} ${symbol}\n1️⃣ ETH ≃ ${Number(perETH).toFixed(4)} ${symbol}\n\n🏦 ETH Price ≃ ${Math.round(ethPrice)} $\n\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
+  return `${name} | $${symbol}\n\n🔰 Token Address:\n${tokenAddress}\n\n⛓ Pair Address:\n${pairAddress}\n\n💵 Market Cap:\n${Math.round(
+    Number(marketCapInDollar)
+  )} $ / ${Number(marketCapInETH).toFixed(
+    4
+  )} ETH\n\n💰 Liquidity:\n${Math.round(
+    Number(liquidityInDollar)
+  )} $ / ${Number(liquidityInETH).toFixed(
+    4
+  )} ETH\n\n🌐 Total Supply:\n${totalSupply}\n🕸 Injected Supply:\n${injectedSupply}\n\n💳 Price:\n${Number(
+    priceInDollar
+  ).toFixed(12)} $\n${Number(priceInETH).toFixed(15)} ETH\n\n1️⃣ $ ≃ ${Number(
+    perDollar
+  ).toFixed(4)} ${symbol}\n1️⃣ ETH ≃ ${Number(perETH).toFixed(
+    4
+  )} ${symbol}\n\n🏦 ETH Price ≃ ${Math.round(
+    ethPrice
+  )} $\n\n\n☑️ نتیجه درخواست شماره ${reqNum}.`;
 };
 
 export {
