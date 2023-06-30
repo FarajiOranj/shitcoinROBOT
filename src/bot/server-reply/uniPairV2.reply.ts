@@ -14,6 +14,7 @@ import getTokenSupply from "../../utils/tokenTotalSupply";
 import calculateTokenMarketCap from "../../utils/tokenMarketCap";
 import { decodeReservedTokens } from "../../utils/reservedTokens";
 import * as dotenv from "dotenv";
+import { calculateShitcoinLiquidity } from "../../utils/pairLiquidity";
 dotenv.config();
 
 const { ADDLIQETH_MID, PAIR_EID, MINT_EID, WETH } = process.env;
@@ -69,6 +70,12 @@ const uniPairV2: ITrackerFn["callback"] = async (
         priceInETH
       );
 
+      const { liquidityInDollar, liquidityInETH } = calculateShitcoinLiquidity(
+        injectedSupply,
+        priceInDollar,
+        priceInETH
+      );
+
       const dynamicNSoffset = name.length + symbol.length;
 
       await bot.telegram.sendMessage(
@@ -80,7 +87,8 @@ const uniPairV2: ITrackerFn["callback"] = async (
           uniPair,
           marketCapInDollar,
           marketCapInETH,
-          "As Soon As Possible...",
+          liquidityInDollar,
+          liquidityInETH,
           priceInDollar,
           priceInETH,
           totalSupply,
