@@ -82,7 +82,7 @@ const uniPairFound = (
   )} $ / ${Number(liquidityInETH).toFixed(
     4
   )} ETH\n\n🌐 Total Supply:\n${totalSupply}\n🕸 Injected Supply:\n${injectedSupply} (${Math.round(
-    +injectedSupply / +totalSupply
+    (+injectedSupply / +totalSupply) * 100
   )}% of Total Supply)\n\n💳 Price:\n${Number(priceInDollar).toFixed(
     12
   )} $\n${Number(priceInETH).toFixed(15)} ETH\n\n1️⃣ $ ≃ ${Number(
