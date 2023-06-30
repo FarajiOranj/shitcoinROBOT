@@ -15,8 +15,10 @@ const calculateShitcoinLiquidity = (
     liquidityInETH: +priceInETH,
   };
 
+  const totalValue: number = +injectedSupply * 2;
+
   for (const [key, value] of Object.entries(liquidity)) {
-    liquidity[key] = new Decimal(value * +injectedSupply).toFixed();
+    liquidity[key] = new Decimal(value * totalValue).toFixed();
   }
 
   // @ts-ignore
