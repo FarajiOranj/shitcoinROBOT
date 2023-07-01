@@ -13,10 +13,10 @@ import { TrackSession } from "../../../public/types/sessionTypes";
 const newUniPair = async (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
 
-  const hasTrackSession = await ctx.session?.trackSession;
-  if(!hasTrackSession) {
+  // const hasTrackSession = await ctx.session?.trackSession;
+  // if(!hasTrackSession) {
     ctx.session.trackSession = {} as TrackSession;
-  }
+  // }
 
   ctx.session.trackSession.commonStat = "uniPair";
 
