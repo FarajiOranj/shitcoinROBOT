@@ -14,7 +14,7 @@ const newUniPair = async (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
 
   const hasTrackSession = await ctx.session?.trackSession;
-  if(hasTrackSession) {
+  if(!hasTrackSession) {
     ctx.session.trackSession = {} as TrackSession;
   }
 
