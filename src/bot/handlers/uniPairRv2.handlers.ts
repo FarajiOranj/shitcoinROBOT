@@ -10,13 +10,16 @@ import {
 } from "../../../public/static/trackUx";
 import { TrackSession } from "../../../public/types/sessionTypes";
 
-const newUniPair = (ctx: SessionContext<any>) => {
+const newUniPair = async (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
 
-  ctx.session.trackSession = {} as TrackSession;
+  if(await !ctx.session?.trackSession) {
+    ctx.session.trackSession = {} as TrackSession;
+  }
+
   ctx.session.trackSession.commonStat = "uniPair";
 
-  ctx.telegram
+  return ctx.telegram
     .sendMessage(ctx.chat.id, uniPairNums, backToMenu)
     .then(storeKeyID(ctx));
 };
