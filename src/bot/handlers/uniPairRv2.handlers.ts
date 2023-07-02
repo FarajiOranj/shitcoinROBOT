@@ -13,12 +13,14 @@ import { TrackSession } from "../../../public/types/sessionTypes";
 const newUniPair = async (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
 
-  // const hasTrackSession = await ctx.session?.trackSession;
-  // if(!hasTrackSession) {
-    ctx.session.trackSession = {} as TrackSession;
-  // }
+    try {
+      ctx.session.trackSession = {} as TrackSession;
+    } catch {}
 
-  ctx.session.trackSession.commonStat = "uniPair";
+  try {
+    ctx.session.trackSession.commonStat = "uniPair";
+  } catch {}
+
 
   ctx.telegram
     .sendMessage(ctx.chat.id, uniPairNums, backToMenu)
