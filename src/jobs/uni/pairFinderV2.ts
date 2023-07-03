@@ -3,6 +3,7 @@ import session from "../../bot/session/redis.session";
 import { SessionContext } from "telegraf/typings/session";
 import sharedBuffer from "../../db/worker-pool/workerSharedData.db";
 import * as dotenv from "dotenv";
+import { resolve } from "path";
 dotenv.config();
 
 const findUniV2Pairs = async (
@@ -14,12 +15,15 @@ const findUniV2Pairs = async (
     "./dist/src/workers/uniPairV2.worker.js",
     { workerData: sharedBuffer }
   );
-
   await pairFinderWorker.postMessage([chatId, totalPairs]);
 
-  new Promise(() => {
-    pairFinderWorker.on("exit", () => {});
-  }).then(() => {
+  const exitPromise = new Promise((resolve) => {
+    pairFinderWorker.on("exit", () => {
+      resolve(undefined);
+    });
+  });
+
+  await exitPromise.then(() => {
     delete ctx.session.underProcesses["uniNewPair"];
   });
 };
