@@ -31,7 +31,7 @@ const givenPairNum = async (ctx: SessionContext<any>) => {
   const totalPairs: number = Number(ctx.message["text"]);
 
   await ctx.telegram.sendMessage(chatId, reqSent, {
-    reply_to_message_id: ctx.message.message_id,
+    reply_to_message_id: ctx.message["message_id"],
   });
 
   await ctx.telegram
