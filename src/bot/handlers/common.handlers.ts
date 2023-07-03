@@ -10,10 +10,9 @@ import deleteAvailableMsg from "../../helper/deleteMsg";
 const menuCB = (ctx: SessionContext<any>) => {
   deleteAvailableMsg(ctx);
 
-  if (!ctx?.session) {
-    ctx.session = {} as Object;
+  if (!ctx.session?.underProcesses) {
+    ctx.session.underProcesses = {} as Object;
   }
-  ctx.session.underProcesses = {} as Object;
 
   const message: string =
     (ctx.update as any)?.message?.text === "/start"
