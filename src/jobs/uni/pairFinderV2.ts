@@ -20,10 +20,10 @@ const findUniV2Pairs = async (
   await pairFinderWorker.on("exit", () => {
     //it gives true
     console.log("before change: ", ctx.session.underProcesses["uniNewPair"]);
-    delete ctx.session.underProcesses["uniNewPair"];
     //it gives false
     console.log("after change: ", ctx.session.underProcesses?.["uniNewPair"]);
   });
+  delete ctx.session.underProcesses["uniNewPair"];
 };
 
 export default findUniV2Pairs;
