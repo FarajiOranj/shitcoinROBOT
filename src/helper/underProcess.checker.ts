@@ -7,7 +7,7 @@ const isUnderProcess = async (ctx: SessionContext<any>, next: () => void) => {
   const hasProcessName = await ctx.session.underProcesses?.[
     `${ctx.callbackQuery["data"]}`
   ];
-  if (hasProcessName) {
+  if (!hasProcessName) {
     await deleteAvailableMsg(ctx);
     return ctx
       .reply(
