@@ -1,9 +1,7 @@
 import { Worker } from "worker_threads";
-import session from "../../bot/session/redis.session";
 import { SessionContext } from "telegraf/typings/session";
 import sharedBuffer from "../../db/worker-pool/workerSharedData.db";
 import * as dotenv from "dotenv";
-import { resolve } from "path";
 dotenv.config();
 
 const findUniV2Pairs = async (
