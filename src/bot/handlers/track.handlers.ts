@@ -16,16 +16,16 @@ import deleteAvailableMsg from "../../helper/deleteMsg";
 import storeKeyID from "../../helper/sessionKey.store";
 import { singlePendingTxFinder } from "../../jobs/track/sinlgleTracker";
 
-const trackCB = (ctx: Context) => {
-  deleteAvailableMsg(ctx);
-  ctx.telegram
+const trackCB = async (ctx: Context) => {
+  await deleteAvailableMsg(ctx);
+  await ctx.telegram
     .sendMessage(ctx.chat.id, trackOpts, trackMenu)
-    .then(storeKeyID(ctx));
+    .then(()=>storeKeyID(ctx));
 };
 
 //TODO! change "any" type later to an accurate type
-const pairOptSaver = (ctx: SessionContext<any>) => {
-  deleteAvailableMsg(ctx);
+const pairOptSaver = async (ctx: SessionContext<any>) => {
+  await deleteAvailableMsg(ctx);
   const chatId: number = ctx.chat.id;
   const data: string = ctx.callbackQuery["data"];
 
@@ -44,7 +44,7 @@ const pairOptSaver = (ctx: SessionContext<any>) => {
   ctx.session.triggerType = data; 
   */
 
-  ctx.telegram.sendMessage(chatId, fromAddres, backToMenu).then(storeKeyID(ctx));
+  ctx.telegram.sendMessage(chatId, fromAddres, backToMenu).then(() => storeKeyID(ctx));
 };
 
 //TODO! change "any" type later to an accurate type
@@ -54,7 +54,7 @@ const AddrAnalysis = async (ctx: SessionContext<any>) => {
   const givenAddress: string = ctx.message["text"];
   const chatId: number = ctx.chat.id;
 
-  deleteAvailableMsg(ctx);
+  await deleteAvailableMsg(ctx);
 
   let sendAcceptionNotif: boolean;
   let continuousMsg: string;
@@ -101,11 +101,11 @@ const AddrAnalysis = async (ctx: SessionContext<any>) => {
 
     ctx.telegram
       .sendMessage(chatId, menuMessage, mainMenu)
-      .then(storeKeyID(ctx));
+      .then(() => storeKeyID(ctx));
   } else
     ctx.telegram
       .sendMessage(chatId, continuousMsg, backToMenu)
-      .then(storeKeyID(ctx));
+      .then(() => storeKeyID(ctx));
 };
 
 export default trackCB;

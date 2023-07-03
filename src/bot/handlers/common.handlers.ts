@@ -7,8 +7,8 @@ import {
 import storeKeyID from "../../helper/sessionKey.store";
 import deleteAvailableMsg from "../../helper/deleteMsg";
 
-const menuCB = (ctx: SessionContext<any>) => {
-  deleteAvailableMsg(ctx);
+const menuCB = async (ctx: SessionContext<any>) => {
+  await deleteAvailableMsg(ctx);
 
   if (!ctx.session?.underProcesses) {
     ctx.session.underProcesses = {} as Object;
@@ -19,9 +19,9 @@ const menuCB = (ctx: SessionContext<any>) => {
       ? starterMessage(ctx.from.first_name)
       : menuMessage;
 
-  ctx.telegram
+  await ctx.telegram
     .sendMessage(ctx.chat.id, message, mainMenu)
-    .then(storeKeyID(ctx));
+    .then(() => storeKeyID(ctx));
 };
 
 export { menuCB };

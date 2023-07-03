@@ -11,23 +11,18 @@ import {
 import { TrackSession } from "../../../public/types/sessionTypes";
 
 const newUniPair = async (ctx: SessionContext<any>) => {
-  deleteAvailableMsg(ctx);
+  await deleteAvailableMsg(ctx);
 
-  try {
-    ctx.session.trackSession = {} as TrackSession;
-  } catch {}
+  ctx.session.trackSession = {} as TrackSession;
+  ctx.session.trackSession.commonStat = "uniPair";
 
-  try {
-    ctx.session.trackSession.commonStat = "uniPair";
-  } catch {}
-
-  ctx.telegram
+  await ctx.telegram
     .sendMessage(ctx.chat.id, uniPairNums, backToMenu)
-    .then(storeKeyID(ctx));
+    .then(() => storeKeyID(ctx));
 };
 
 const givenPairNum = async (ctx: SessionContext<any>) => {
-  deleteAvailableMsg(ctx);
+  await deleteAvailableMsg(ctx);
 
   ctx.session.trackSession.completed = true;
   ctx.session.underProcesses["uniNewPair"] = true;
@@ -41,7 +36,7 @@ const givenPairNum = async (ctx: SessionContext<any>) => {
 
   await ctx.telegram
     .sendMessage(chatId, willSentPairs(totalPairs), backToMenu)
-    .then(await storeKeyID(ctx));
+    .then(() => storeKeyID(ctx));
 
   findUniV2Pairs(ctx, chatId, totalPairs);
 };
