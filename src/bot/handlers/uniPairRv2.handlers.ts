@@ -18,7 +18,7 @@ const newUniPair = async (ctx: SessionContext<any>) => {
 
   await ctx.telegram
     .sendMessage(ctx.chat.id, uniPairNums, backToMenu)
-    .then(() => storeKeyID(ctx));
+    // .then();
 };
 
 const givenPairNum = async (ctx: SessionContext<any>) => {
