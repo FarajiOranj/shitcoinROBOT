@@ -12,10 +12,10 @@ const hasTrackNotifierStat = (ctx: SessionContext<any>, next: () => void) => {
   return;
 };
 
-const addressCheck = (ctx: Context, next: () => void) => {
+const addressCheck = async (ctx: Context, next: () => void) => {
   if (!Web3.utils.checkAddressChecksum(ctx.message["text"])) {
-    deleteAvailableMsg(ctx);
-    return ctx.reply(invalidAddress, backToMenu).then(storeKeyID(ctx));
+    await deleteAvailableMsg(ctx);
+    return ctx.reply(invalidAddress, backToMenu).then(()=> storeKeyID(ctx));
   } else return next();
 };
 
