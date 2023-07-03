@@ -17,11 +17,10 @@ const findUniV2Pairs = async (
 
   await pairFinderWorker.postMessage([chatId, totalPairs]);
 
-  await pairFinderWorker.on("exit", () => {
-    
-    const res = session.getSession(ctx);
+  new Promise(() => {
+    pairFinderWorker.on("exit", () => {});
+  }).then(() => {
     delete ctx.session.underProcesses["uniNewPair"];
-    session.saveSession(res, ctx);
   });
 };
 
