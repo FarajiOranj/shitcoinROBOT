@@ -1,5 +1,4 @@
 import { Worker } from "worker_threads";
-import session from "../../bot/session/redis.session";
 import { SessionContext } from "telegraf/typings/session";
 import sharedBuffer from "../../db/worker-pool/workerSharedData.db";
 import * as dotenv from "dotenv";
@@ -17,15 +16,6 @@ const findUniV2Pairs = async (
   await pairFinderWorker.postMessage([chatId, totalPairs]);
 
   pairFinderWorker.on("exit", () => {
-    const userId = ctx.from.id;
-
-    // session.clearSession()
-    // const sessionKey = session.options.getSessionKey(); // Get the session key
-
-    // session.saveSession(sessionKey, )
-
-
-
     delete ctx.session.underProcesses["uniNewPair"];
   });
 };
