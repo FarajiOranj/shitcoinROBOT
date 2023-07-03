@@ -4,7 +4,7 @@ import storeKeyID from "./sessionKey.store";
 import { backToMenu } from "../bot/layout/layout";
 
 const isUnderProcess = async (ctx: SessionContext<any>, next: () => void) => {
-  console.log(ctx.session.underProcesses[`${ctx.callbackQuery["data"]}`]);
+  console.log(ctx.session.underProcesses?.[`${ctx.callbackQuery["data"]}`]);
   if (ctx.session.underProcesses[`${ctx.callbackQuery["data"]}`]) {
     await deleteAvailableMsg(ctx);
     return ctx
