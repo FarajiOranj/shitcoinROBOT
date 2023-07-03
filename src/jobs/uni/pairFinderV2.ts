@@ -11,13 +11,13 @@ const findUniV2Pairs = async (
 ) => {
   const pairFinderWorker = new Worker(
     "./dist/src/workers/uniPairV2.worker.js",
-    {workerData: sharedBuffer}
+    { workerData: sharedBuffer }
   );
 
-  pairFinderWorker.postMessage([chatId, totalPairs]);
+  await pairFinderWorker.postMessage([chatId, totalPairs]);
 
-  pairFinderWorker.on("exit", () => {
-    delete ctx.session.underProcesses["uniNewPair"];
+  await pairFinderWorker.on("exit", () => {
+    ctx.session.underProcesses["uniNewPair"] = false;
   });
 };
 
