@@ -3,7 +3,7 @@ import bot from "../bot.instance";
 
 const session = new RedisSession({
   store: {
-    host: "127.0.0.1",
+    host: "79.175.66.159",
     port: 6379,
   },
 });
