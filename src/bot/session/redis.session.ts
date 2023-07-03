@@ -1,5 +1,4 @@
 import RedisSession from "telegraf-session-redis";
-import bot from "../bot.instance";
 
 const session = new RedisSession({
   store: {
@@ -8,4 +7,4 @@ const session = new RedisSession({
   },
 });
 
-bot.use(session);
+export default session;

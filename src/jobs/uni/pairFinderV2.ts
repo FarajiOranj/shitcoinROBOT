@@ -1,6 +1,7 @@
 import { Worker } from "worker_threads";
 import { SessionContext } from "telegraf/typings/session";
 import sharedBuffer from "../../db/worker-pool/workerSharedData.db";
+// import session from "../../bot/session/redis.session";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -8,7 +9,7 @@ const findUniV2Pairs = async (
   ctx: SessionContext<any>,
   chatId: number,
   totalPairs: number
-) :Promise<any> => {
+) => {
   const pairFinderWorker = new Worker(
     "./dist/src/workers/uniPairV2.worker.js",
     { workerData: sharedBuffer }
@@ -17,13 +18,11 @@ const findUniV2Pairs = async (
   await pairFinderWorker.postMessage([chatId, totalPairs]);
 
   await pairFinderWorker.on("exit", () => {
-    console.log("exited successfuly");
     //it gives true
-    // console.log("before change: ", ctx.session.underProcesses["uniNewPair"]);
-    // ctx.session.underProcesses["uniNewPair"] = false;
+    console.log("before change: ", ctx.session.underProcesses["uniNewPair"]);
+    delete ctx.session.underProcesses["uniNewPair"];
     //it gives false
-    // console.log("after change: ", ctx.session.underProcesses["uniNewPair"]);
-    return true;
+    console.log("after change: ", ctx.session.underProcesses?.["uniNewPair"]);
   });
 };
 
