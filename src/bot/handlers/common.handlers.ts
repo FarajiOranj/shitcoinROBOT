@@ -21,7 +21,7 @@ const menuCB = async (ctx: SessionContext<any>) => {
 
   await ctx.telegram
     .sendMessage(ctx.chat.id, message, mainMenu)
-    .then(() => storeKeyID(ctx));
+    .then((msg) => storeKeyID(ctx, msg.message_id));
 };
 
 export { menuCB };

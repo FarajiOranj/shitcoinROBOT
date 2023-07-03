@@ -20,7 +20,7 @@ const trackCB = async (ctx: Context) => {
   await deleteAvailableMsg(ctx);
   await ctx.telegram
     .sendMessage(ctx.chat.id, trackOpts, trackMenu)
-    .then(()=>storeKeyID(ctx));
+    .then((msg) => storeKeyID(ctx, msg.message_id));
 };
 
 //TODO! change "any" type later to an accurate type
@@ -44,7 +44,9 @@ const pairOptSaver = async (ctx: SessionContext<any>) => {
   ctx.session.triggerType = data; 
   */
 
-  ctx.telegram.sendMessage(chatId, fromAddres, backToMenu).then(() => storeKeyID(ctx));
+  ctx.telegram
+    .sendMessage(chatId, fromAddres, backToMenu)
+    .then((msg) => storeKeyID(ctx, msg.message_id));
 };
 
 //TODO! change "any" type later to an accurate type
@@ -77,7 +79,6 @@ const AddrAnalysis = async (ctx: SessionContext<any>) => {
     }
   }
 
-
   if (sendAcceptionNotif) {
     let replyMsgId: number;
 
@@ -101,11 +102,11 @@ const AddrAnalysis = async (ctx: SessionContext<any>) => {
 
     ctx.telegram
       .sendMessage(chatId, menuMessage, mainMenu)
-      .then(() => storeKeyID(ctx));
+      .then((msg) => storeKeyID(ctx, msg.message_id));
   } else
     ctx.telegram
       .sendMessage(chatId, continuousMsg, backToMenu)
-      .then(() => storeKeyID(ctx));
+      .then((msg) => storeKeyID(ctx, msg.message_id));
 };
 
 export default trackCB;

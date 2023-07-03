@@ -18,7 +18,7 @@ const newUniPair = async (ctx: SessionContext<any>) => {
 
   await ctx.telegram
     .sendMessage(ctx.chat.id, uniPairNums, backToMenu)
-    // .then();
+    .then((msg) => storeKeyID(ctx, msg.message_id));
 };
 
 const givenPairNum = async (ctx: SessionContext<any>) => {
@@ -36,7 +36,7 @@ const givenPairNum = async (ctx: SessionContext<any>) => {
 
   await ctx.telegram
     .sendMessage(chatId, willSentPairs(totalPairs), backToMenu)
-    .then(() => storeKeyID(ctx));
+    .then((msg) => storeKeyID(ctx, msg.message_id));
 
   findUniV2Pairs(ctx, chatId, totalPairs);
 };
