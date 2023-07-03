@@ -1,4 +1,4 @@
-import { workerData } from "worker_threads";
+import { workerData, parentPort } from "worker_threads";
 import bot from "../bot.instance";
 import { alchemy } from "../../provider/sdk-provider";
 import getTokenMetadata from "../../utils/tokenMetadata";
@@ -110,7 +110,8 @@ const uniPairV2: ITrackerFn["callback"] = async (
 
       if (calledTimes.value >= totalPairs) {
         await wsData.transcat.off(wsData.event);
-        process.exit();
+        // process.exit();
+        parentPort.postMessage("close");
       } else calledTimes.value++;
     }
   }
