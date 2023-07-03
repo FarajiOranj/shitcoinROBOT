@@ -17,8 +17,9 @@ const findUniV2Pairs = async (
   await pairFinderWorker.postMessage([chatId, totalPairs]);
 
   pairFinderWorker.on("exit", () => {
-    console.log(ctx.session.underProcesses["uniNewPair"]);
+    console.log("before change: ", ctx.session.underProcesses["uniNewPair"]);
     ctx.session.underProcesses["uniNewPair"] = false;
+    console.log("after change: ", ctx.session.underProcesses["uniNewPair"]);
   });
 };
 
