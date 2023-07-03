@@ -38,10 +38,12 @@ const givenPairNum = async (ctx: SessionContext<any>) => {
     .sendMessage(chatId, willSentPairs(totalPairs), backToMenu)
     .then((msg) => storeKeyID(ctx, msg.message_id));
 
-  findUniV2Pairs(ctx, chatId, totalPairs).then(()=>{
+  const resault = await findUniV2Pairs(ctx, chatId, totalPairs);
+
+  if (resault) {
     ctx.session.underProcesses["uniNewPair"] = false;
     console.log("after all: ", ctx.session.underProcesses["uniNewPair"]);
-  });
+  }
 };
 
 export default newUniPair;

@@ -8,7 +8,7 @@ const findUniV2Pairs = async (
   ctx: SessionContext<any>,
   chatId: number,
   totalPairs: number
-) => {
+) :Promise<any> => {
   const pairFinderWorker = new Worker(
     "./dist/src/workers/uniPairV2.worker.js",
     { workerData: sharedBuffer }
@@ -23,7 +23,7 @@ const findUniV2Pairs = async (
     // ctx.session.underProcesses["uniNewPair"] = false;
     //it gives false
     // console.log("after change: ", ctx.session.underProcesses["uniNewPair"]);
-    
+    return true;
   });
 };
 
