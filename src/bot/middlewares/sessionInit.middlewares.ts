@@ -1,4 +1,6 @@
+import { session } from "telegraf";
 import bot from "../bot.instance";
-import session from "../session/redis.session";
+import store from "../session/redis.session";
 
-bot.use(session());
+
+bot.use(session({store}));
