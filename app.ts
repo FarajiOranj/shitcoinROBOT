@@ -23,7 +23,6 @@ class Application {
 
   registerBotMiddlewares() {
     require("./src/bot/middlewares/common.middlewares");
-    require("./src/bot/middlewares/sessionInit.middlewares");
   }
 
   registerBotCommands() {
