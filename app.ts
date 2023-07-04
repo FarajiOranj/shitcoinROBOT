@@ -4,34 +4,36 @@ import bot from "./src/bot/bot.instance";
 
 class Application {
   constructor(bot: Telegraf) {
-    this.registerRedisSession();
-    this.ethPriceWorker();
-    this.registerBotMiddlewares();
-    this.registerBotCommands();
-    this.launchBot(bot);
+    (async () => {
+      await this.registerRedisSession();
+      await this.ethPriceWorker();
+      await this.registerBotMiddlewares();
+      await this.registerBotCommands();
+      await this.launchBot(bot);
+    })();
   }
 
-  registerRedisSession() {
+  async registerRedisSession() {
     require("./src/session/redis.session");
   }
 
-  ethPriceWorker() {
+  async ethPriceWorker() {
     new Worker("./dist/src/workers/ethPrice.worker.js", {
       workerData: require("./src/db/worker-pool/workerSharedData.db"),
     });
   }
 
-  registerBotMiddlewares() {
+  async registerBotMiddlewares() {
     require("./src/bot/middlewares/common.middlewares");
   }
 
-  registerBotCommands() {
+  async registerBotCommands() {
     require("./src/bot/commands/common.commands");
     require("./src/bot/commands/track.commands");
     require("./src/bot/commands/uniPairRv2.commands");
   }
 
-  launchBot(bot: Telegraf) {
+  async launchBot(bot: Telegraf) {
     bot.launch();
   }
 }
