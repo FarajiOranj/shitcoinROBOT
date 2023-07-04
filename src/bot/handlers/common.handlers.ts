@@ -6,6 +6,7 @@ import {
 } from "../../../public/static/starterUserUx";
 import storeKeyID from "../../helper/sessionKey.store";
 import deleteAvailableMsg from "../../helper/deleteMsg";
+import redisClient from "../../session/redis.session";
 
 const menuCB = async (ctx: SessionContext<any>) => {
   await deleteAvailableMsg(ctx);
@@ -14,6 +15,9 @@ const menuCB = async (ctx: SessionContext<any>) => {
   //   ctx.session = {} as Object;
   //   ctx.session.underProcesses = {} as Object;
   // }
+
+  redisClient.hset(`${ctx.from.id}:${ctx.chat.id}`,{underProcesses: {newUniPair: false}});
+  redisClient.hget(`${ctx.from.id}:${ctx.chat.id}`,"underProcesses");
 
   const message: string =
     (ctx.update as any)?.message?.text === "/start"
