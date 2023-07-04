@@ -9,7 +9,7 @@ import deleteAvailableMsg from "../../helper/deleteMsg";
 import redisClient from "../../session/redis.session";
 
 const menuCB = async (ctx: SessionContext<any>) => {
-  await deleteAvailableMsg(ctx);
+  // await deleteAvailableMsg(ctx);
 
   // if (!ctx?.session) {
   //   ctx.session = {} as Object;
@@ -20,7 +20,7 @@ const menuCB = async (ctx: SessionContext<any>) => {
     underProcesses: { newUniPair: false },
   });
   redisClient
-    .hget(`${ctx.from.id}:${ctx.chat.id}`, "underProcesses:newUniPair")
+    .hget(`${ctx.from.id}:${ctx.chat.id}`, "underProcesses")
     .then(console.log);
 
   const message: string =
@@ -30,7 +30,7 @@ const menuCB = async (ctx: SessionContext<any>) => {
 
   await ctx.telegram
     .sendMessage(ctx.chat.id, message, mainMenu)
-    .then((msg) => storeKeyID(ctx, msg.message_id));
+    // .then((msg) => storeKeyID(ctx, msg.message_id));
 };
 
 export { menuCB };
