@@ -21,7 +21,7 @@ const menuCB = async (ctx: SessionContext<any>) => {
   });
   redisClient
     .hget(`${ctx.from.id}:${ctx.chat.id}`, "underProcesses")
-    .then(console.log);
+    .then((value)=>console.log(JSON.parse(value)));
 
   const message: string =
     (ctx.update as any)?.message?.text === "/start"
