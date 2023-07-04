@@ -16,8 +16,12 @@ const menuCB = async (ctx: SessionContext<any>) => {
   //   ctx.session.underProcesses = {} as Object;
   // }
 
-  redisClient.hset(`${ctx.from.id}:${ctx.chat.id}`,{underProcesses: {newUniPair: false}});
-  redisClient.hget(`${ctx.from.id}:${ctx.chat.id}`,"underProcesses");
+  redisClient.hset(`${ctx.from.id}:${ctx.chat.id}`, {
+    underProcesses: { newUniPair: false },
+  });
+  redisClient
+    .hget(`${ctx.from.id}:${ctx.chat.id}`, "underProcesses:newUniPair")
+    .then(console.log);
 
   const message: string =
     (ctx.update as any)?.message?.text === "/start"
