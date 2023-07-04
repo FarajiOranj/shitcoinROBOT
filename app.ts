@@ -1,14 +1,40 @@
 import { Worker } from "worker_threads";
-import sharedBuffer from "./src/db/worker-pool/workerSharedData.db";
+import { Telegraf } from "telegraf";
 import bot from "./src/bot/bot.instance";
-import "./src/bot/middlewares/common.middlewares";
-import "./src/bot/middlewares/sessionInit.middlewares";
-import "./src/bot/commands/common.commands";
-import "./src/bot/commands/track.commands";
-import "./src/bot/commands/uniPairRv2.commands";
 
-new Worker("./dist/src/workers/ethPrice.worker.js", {
-  workerData: sharedBuffer,
-});
+class Application {
+  constructor(bot: Telegraf) {
+    this.registerRedisSession();
+    this.ethPriceWorker();
+    this.registerBotMiddlewares();
+    this.registerBotCommands();
+    this.launchBot(bot);
+  }
 
-bot.launch();
+  registerRedisSession() {
+    require("./src/session/redis.session");
+  }
+
+  ethPriceWorker() {
+    new Worker("./dist/src/workers/ethPrice.worker.js", {
+      workerData: require("./src/db/worker-pool/workerSharedData.db"),
+    });
+  }
+
+  registerBotMiddlewares() {
+    require("./src/bot/middlewares/common.middlewares");
+    require("./src/bot/middlewares/sessionInit.middlewares");
+  }
+
+  registerBotCommands() {
+    require("./src/bot/commands/common.commands");
+    require("./src/bot/commands/track.commands");
+    require("./src/bot/commands/uniPairRv2.commands");
+  }
+
+  launchBot(bot: Telegraf) {
+    bot.launch();
+  }
+}
+
+new Application(bot);
