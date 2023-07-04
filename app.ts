@@ -14,27 +14,27 @@ class Application {
   }
 
   async registerRedisSession() {
-    require("./src/session/redis.session");
+    await require("./src/session/redis.session");
   }
 
   async ethPriceWorker() {
-    new Worker("./dist/src/workers/ethPrice.worker.js", {
+    await new Worker("./dist/src/workers/ethPrice.worker.js", {
       workerData: require("./src/db/worker-pool/workerSharedData.db"),
     });
   }
 
   async registerBotMiddlewares() {
-    require("./src/bot/middlewares/common.middlewares");
+    await require("./src/bot/middlewares/common.middlewares");
   }
 
   async registerBotCommands() {
-    require("./src/bot/commands/common.commands");
-    require("./src/bot/commands/track.commands");
-    require("./src/bot/commands/uniPairRv2.commands");
+    await require("./src/bot/commands/common.commands");
+    await require("./src/bot/commands/track.commands");
+    await require("./src/bot/commands/uniPairRv2.commands");
   }
 
   async launchBot(bot: Telegraf) {
-    bot.launch();
+    await bot.launch();
   }
 }
 
