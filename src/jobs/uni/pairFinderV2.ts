@@ -15,9 +15,14 @@ const findUniV2Pairs = async (
   );
   await pairFinderWorker.postMessage([chatId, totalPairs]);
 
-  pairFinderWorker.on("exit", () => {
-    delete ctx.session.underProcesses["uniNewPair"];
+  await new Promise(resolve => {
+    pairFinderWorker.on("exit", () => {
+      resolve(undefined);
+    });
   });
+
+  delete ctx.session.underProcesses["uniNewPair"];
+
 };
 
 export default findUniV2Pairs;
