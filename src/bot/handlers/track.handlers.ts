@@ -1,7 +1,6 @@
 import { Context } from "telegraf";
 import { SessionContext } from "telegraf/typings/session";
 import { backToMenu, mainMenu, trackMenu } from "../layout/layout";
-import { TrackSession } from "../../../public/types/sessionTypes";
 import {
   trackOpts,
   fromAddres,
@@ -12,8 +11,8 @@ import {
   resWillReply,
 } from "../../../public/static/trackUx";
 import { menuMessage } from "../../../public/static/starterUserUx";
-import deleteAvailableMsg from "../../helper/deleteMsg";
-import storeKeyID from "../../helper/sessionKey.store";
+import deleteAvailableMsg from "../../helper/message/deleteMsg";
+import storeKeyID from "../../helper/message/storeKeyId";
 import { singlePendingTxFinder } from "../../jobs/track/sinlgleTracker";
 
 const trackCB = async (ctx: Context) => {
@@ -30,19 +29,10 @@ const pairOptSaver = async (ctx: SessionContext<any>) => {
   const data: string = ctx.callbackQuery["data"];
 
   //* maybe should change or move
-  ctx.session.trackSession = {} as TrackSession;
+  // ctx.session.trackSession = {} as TrackSession;
 
-  ctx.session.trackSession.triggerType = data;
-  ctx.session.trackSession.commonStat = "trackNotifier";
-
-  /* TODO
-  ! needs more researches to use - untested
-  let data: string;
-  if (ctx.has(callbackQuery("data"))) {
-    data = ctx.callbackQuery.data // works!;
-  }
-  ctx.session.triggerType = data; 
-  */
+  // ctx.session.trackSession.triggerType = data;
+  // ctx.session.trackSession.commonStat = "trackNotifier";
 
   ctx.telegram
     .sendMessage(chatId, fromAddres, backToMenu)
