@@ -2,7 +2,11 @@ import { Worker } from "worker_threads";
 import { SessionContext } from "telegraf/typings/session";
 import sharedBuffer from "../../db/worker-pool/workerSharedData.db";
 import * as dotenv from "dotenv";
+import { singleGetter } from "../../session/getter";
+import { singleSetter } from "../../session/setter";
 dotenv.config();
+
+const underProcesses = "underProcesses";
 
 const findUniV2Pairs = async (
   ctx: SessionContext<any>,
@@ -15,14 +19,13 @@ const findUniV2Pairs = async (
   );
   await pairFinderWorker.postMessage([chatId, totalPairs]);
 
-  await new Promise(resolve => {
-    pairFinderWorker.on("exit", () => {
-      resolve(undefined);
+  pairFinderWorker.on("exit", () => {
+    singleGetter(ctx, underProcesses).then((value) => {
+      const updatedValue = value;
+      updatedValue["uniNewPair"] = null;
+      singleSetter(ctx, underProcesses, updatedValue);
     });
   });
-
-  delete ctx.session.underProcesses["uniNewPair"];
-
 };
 
 export default findUniV2Pairs;
