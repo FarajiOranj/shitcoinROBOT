@@ -22,13 +22,16 @@ const menuCB = async (ctx: SessionContext<any>) => {
     .update(`${ctx.from.id}:${ctx.chat.id}`)
     .digest("hex");
 
-  await redisClient.hset(hashKey, "underProcesses", 21);
+  const value = {newUniPair: false};
+
+  await redisClient.hset(hashKey, "underProcesses", JSON.stringify(value));
 
   const under = await redisClient.hget(
     hashKey,
     "underProcesses"
   );
   console.log(under);
+  console.log(JSON.parse(under));
 
   const message: string =
     (ctx.update as any)?.message?.text === "/start"
