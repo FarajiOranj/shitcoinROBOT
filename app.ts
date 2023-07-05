@@ -27,7 +27,7 @@ class Application {
 
   registerBotCommands() {
     require("./src/bot/commands/common.commands");
-    require("./src/bot/commands/track.commands");
+    // require("./src/bot/commands/track.commands");
     require("./src/bot/commands/uniPairRv2.commands");
   }
 
