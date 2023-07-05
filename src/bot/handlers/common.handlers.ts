@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { SessionContext } from "telegraf/typings/session";
 import { mainMenu } from "../layout/layout";
 import {
@@ -16,21 +17,26 @@ const menuCB = async (ctx: SessionContext<any>) => {
   //   ctx.session.underProcesses = {} as Object;
   // }
 
-  redisClient.hset(`${ctx.from.id}:${ctx.chat.id}`, {
-    underProcesses: { newUniPair: false },
-  });
-  redisClient
-    .hget(`${ctx.from.id}:${ctx.chat.id}`, "underProcesses")
-    .then((value)=>console.log(JSON.parse(value)));
+  const hashKey = crypto
+    .createHash("sha256")
+    .update(`${ctx.from.id}:${ctx.chat.id}`)
+    .digest("hex");
+
+  await redisClient.hset(hashKey, "underProcesses", 21);
+
+  const under = await redisClient.hget(
+    hashKey,
+    "underProcesses"
+  );
+  console.log(under);
 
   const message: string =
     (ctx.update as any)?.message?.text === "/start"
       ? starterMessage(ctx.from.first_name)
       : menuMessage;
 
-  await ctx.telegram
-    .sendMessage(ctx.chat.id, message, mainMenu)
-    // .then((msg) => storeKeyID(ctx, msg.message_id));
+  await ctx.telegram.sendMessage(ctx.chat.id, message, mainMenu);
+  // .then((msg) => storeKeyID(ctx, msg.message_id));
 };
 
 export { menuCB };
