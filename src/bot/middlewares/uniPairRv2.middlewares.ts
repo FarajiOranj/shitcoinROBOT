@@ -1,9 +1,10 @@
 import { Telegraf } from "telegraf";
 import { SessionContext } from "telegraf/typings/session";
-import isCompleted from "../../helper/compeletion.checker";
+import isCompleted from "../../helper/checker/completion.checker";
+import { singleGetter } from "../../session/getter";
 
-const hasUniPairStat = (ctx: SessionContext<any>, next: () => void) => {
-  if (ctx.session.trackSession?.commonStat === "uniPair") return next();
+const hasUniPairStat = async (ctx: SessionContext<any>, next: () => void) => {
+  if (await singleGetter(ctx,"tracker")["commonStat"] === "uniPair") return next();
   return;
 };
 
