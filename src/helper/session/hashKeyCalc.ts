@@ -1,14 +1,16 @@
 import blake2 from "blake2";
 import * as dotenv from "dotenv";
+import { SessionContext } from "telegraf/typings/session";
 dotenv.config();
 
-const getHashedKey = (userId: number, chatId: number): string => {
+
+const getHashedKey = (ctx: SessionContext<any>): string => {
+    const {from, chat} = ctx;
+
   return blake2
     .createKeyedHash("blake2s", Buffer.from(process.env.MAGIC_SECRET), {digestLength: 8})
-    .update(Buffer.from(`${userId}:${chatId}`))
+    .update(Buffer.from(`${from}:${chat}`))
     .digest("hex");
 };
-
-console.log(getHashedKey(123,456));
 
 export default getHashedKey;
