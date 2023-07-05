@@ -13,7 +13,7 @@ import Skeleton from "./skeleton";
 */
 
 const mainMenu = new Skeleton([
-  [{ text: "📌 نشانه گذاری 🔎", callback_data: "track" }],
+  // [{ text: "📌 نشانه گذاری 🔎", callback_data: "track" }], //under dev
   [{ text: "🆕 میم کوین جدید 🔥", callback_data: "uniNewPair" }]
 ]).keyboardLayout;
 
