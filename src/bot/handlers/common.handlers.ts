@@ -1,8 +1,8 @@
 import { SessionContext } from "telegraf/typings/session";
-import userRegistration from "../../helper/session/newUserChecker";
+import userRegistration from "../../helper/session/userRegistration.session";
 import { multipleSetter } from "../../session/setter";
-import deleteAvailableMsg from "../../helper/message/deleteMsg";
-import storeKeyID from "../../helper/message/storeKeyId";
+import deleteAvailableMsg from "../../helper/message/delete.msg";
+import storeMsgId from "../../helper/message/storeId.msg";
 import { mainMenu } from "../layout/layout";
 import {
   starterMessage,
@@ -43,7 +43,7 @@ const menuCB = async (ctx: SessionContext<any>) => {
 
   await ctx.telegram
     .sendMessage(ctx.chat.id, message, mainMenu)
-    .then((msg) => storeKeyID(ctx, msg.message_id));
+    .then((msg) => storeMsgId(ctx, msg.message_id));
 };
 
 export { menuCB };

@@ -1,7 +1,7 @@
 import { SessionContext } from "telegraf/typings/session";
-import redisClient from "./redis.session";
-import getHashedKey from "../helper/session/hashKeyCalc";
-import isJSON from "../helper/lib/jsonUtility";
+import redisClient from "./redisClient";
+import getHashedKey from "../helper/session/hashKey.session";
+import isJSON from "../helper/lib/json.lib";
 
 
 type unAcceptablFalsies = null | undefined |  "";

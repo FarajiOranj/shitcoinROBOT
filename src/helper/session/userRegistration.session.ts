@@ -1,6 +1,6 @@
 import { SessionContext } from "telegraf/typings/session";
-import redisClient from "../../session/redis.session";
-import getHashedKey from "./hashKeyCalc";
+import redisClient from "../../session/redisClient";
+import getHashedKey from "./hashKey.session";
 
 interface IRegistration {
   registeredBefore: boolean;
