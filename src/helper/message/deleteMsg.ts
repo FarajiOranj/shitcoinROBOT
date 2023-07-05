@@ -1,12 +1,20 @@
 import { SessionContext } from "telegraf/typings/session";
+import { singleGetter } from "../../session/getter";
+import { singleSetter } from "../../session/setter";
 
 const deleteAvailableMsg = async (ctx: SessionContext<any>) => {
-  try {
-    await ctx.deleteMessage(ctx.session.keyId);
-  } catch {}
+  const keyId = await singleGetter(ctx, "keyId");
 
-  if (ctx.session?.trackSession?.commonStat)
-    ctx.session.trackSession.commonStat = null;
+  if (keyId !== null) {
+    try {
+      await ctx.deleteMessage(+keyId);
+    } catch {}
+
+    let tracker = await singleGetter(ctx, "tracker");
+    tracker["commonStat"] = null;
+
+    singleSetter(ctx, "tracker", tracker);
+  }
 };
 
 export default deleteAvailableMsg;
