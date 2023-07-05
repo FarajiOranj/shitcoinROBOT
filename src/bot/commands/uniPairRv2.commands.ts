@@ -1,4 +1,4 @@
-import isUnderProcess from "../../helper/underProcess.checker";
+import isUnderProcess from "../../helper/checker/underProcess.checker";
 import bot from "../bot.instance";
 import newUniPair, { givenPairNum } from "../handlers/uniPairRv2.handlers";
 import composedUniMiddleware from "../middlewares/uniPairRv2.middlewares";
