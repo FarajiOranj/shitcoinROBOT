@@ -12,7 +12,7 @@ class Application {
   }
 
   registerRedisSession() {
-    require("./src/session/redis.session");
+    require("./src/session/redisClient");
   }
 
   ethPriceWorker() {
