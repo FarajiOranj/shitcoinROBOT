@@ -2,10 +2,12 @@ import { SessionContext } from "telegraf/typings/session";
 import deleteAvailableMsg from "../message/delete.msg";
 import storeKeyID from "../message/storeId.msg";
 import { backToMenu } from "../../bot/layout/layout";
+import { singleGetter } from "../../session/getter";
 
 const isUnderProcess = async (ctx: SessionContext<any>, next: () => void) => {
-  console.log(ctx.session.underProcesses?.[`${ctx.callbackQuery["data"]}`]);
-  if (ctx.session.underProcesses[`${ctx.callbackQuery["data"]}`]) {
+  const underProcessStat = await singleGetter(ctx, "underProcesses")[`${ctx.callbackQuery["data"]}`]
+  console.log(underProcessStat);
+  if (underProcessStat) {
     await deleteAvailableMsg(ctx);
     return ctx
       .reply(
