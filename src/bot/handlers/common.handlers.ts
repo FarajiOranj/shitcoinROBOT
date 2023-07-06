@@ -19,7 +19,7 @@ const menuCB = async (ctx: SessionContext<any>) => {
     console.log("User Subscribed Right Now!");
 
     multipleSetter(ctx, {
-      keyId: null,
+      msgId: null,
       underProcesses: {
         uniNewPair: 0,
         whaleTracker: 0,

@@ -3,14 +3,17 @@ import { singleGetter } from "../../session/getter";
 import { singleSetter } from "../../session/setter";
 
 const deleteAvailableMsg = async (ctx: SessionContext<any>) => {
-  const keyId = await singleGetter(ctx, "keyId");
+  const msgId = await singleGetter(ctx, "msgId");
 
-  if (keyId !== null) {
+  console.log(msgId);
+
+  if (msgId !== null) {
     try {
-      await ctx.deleteMessage(+keyId);
+      await ctx.deleteMessage(+msgId);
     } catch {}
 
     let tracker = await singleGetter(ctx, "tracker");
+    console.log(tracker)
     tracker["commonStat"] = null;
 
     singleSetter(ctx, "tracker", tracker);
