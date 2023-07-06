@@ -31,8 +31,8 @@ const singleSetter = (
   else updatedValue = value;
 
   oneTime
-    ? redisClient.hset(hashedKey, field, updatedValue)
-    : redisClient.hsetnx(hashedKey, field, updatedValue);
+    ? redisClient.hsetnx(hashedKey, field, updatedValue)
+    : redisClient.hset(hashedKey, field, updatedValue);
 
   return updatedValue;
 };
