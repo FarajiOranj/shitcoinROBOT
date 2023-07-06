@@ -1,5 +1,6 @@
 import { Worker } from "worker_threads";
 import { Telegraf } from "telegraf";
+import sharedBuffer from "./src/db/worker-pool/workerSharedData.db";
 import bot from "./src/bot/bot.instance";
 
 class Application {
@@ -17,7 +18,7 @@ class Application {
 
   ethPriceWorker() {
     new Worker("./dist/src/workers/ethPrice.worker.js", {
-      workerData: require("./src/db/worker-pool/workerSharedData.db"),
+      workerData: sharedBuffer
     });
   }
 
