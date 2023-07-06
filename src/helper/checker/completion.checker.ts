@@ -6,9 +6,11 @@ const isCompleted = async (ctx: SessionContext<any>, next: () => void) => {
 
   if (!completion) {
     console.log("Passed All UniPair Middlewares.");
-    return next()
-  };
-  return;
+    return next();
+  } else {
+    console.log("Cant Pass Completion Stat!");
+    return;
+  }
 };
 
 export default isCompleted;
