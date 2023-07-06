@@ -12,11 +12,12 @@ const deleteAvailableMsg = async (ctx: SessionContext<any>) => {
       await ctx.deleteMessage(+msgId);
     } catch {}
 
-    let tracker = await singleGetter(ctx, "tracker");
-    console.log(tracker)
-    tracker["commonStat"] = null;
+    let updatedTracker = await singleGetter(ctx, "tracker");
+    console.log(updatedTracker);
+    updatedTracker["commonStat"] = null;
+    updatedTracker["completed"] = false;
 
-    singleSetter(ctx, "tracker", tracker);
+    singleSetter(ctx, "tracker", updatedTracker);
   }
 };
 

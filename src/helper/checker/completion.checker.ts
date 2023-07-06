@@ -2,9 +2,11 @@ import { SessionContext } from "telegraf/typings/session";
 import { singleGetter } from "../../session/getter";
 
 const isCompleted = async (ctx: SessionContext<any>, next: () => void) => {
-  const completion = await singleGetter(ctx, "tracker")["completed"];
+  const tracker = await singleGetter(ctx, "tracker");
 
-  if (!completion) {
+  console.log("In Completion Stat Middleware status is: ", tracker["completed"]);
+
+  if (!tracker["completed"]) {
     console.log("Passed All UniPair Middlewares.");
     return next();
   } else {
