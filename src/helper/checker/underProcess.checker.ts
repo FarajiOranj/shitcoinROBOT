@@ -5,9 +5,14 @@ import { backToMenu } from "../../bot/layout/layout";
 import { singleGetter } from "../../session/getter";
 
 const isUnderProcess = async (ctx: SessionContext<any>, next: () => void) => {
-  const underProcessStat = await singleGetter(ctx, "underProcesses")[`${ctx.callbackQuery["data"]}`]
-  console.log(underProcessStat);
-  if (underProcessStat) {
+  const underProcessStat = await singleGetter(ctx, "underProcesses")
+  const cb = `${ctx.callbackQuery["data"]}`
+
+  console.log("CB is; ", cb);
+  console.log("Under Process Stat is", underProcessStat);
+  console.log(underProcessStat[cb]);
+
+  if (underProcessStat[cb]) {
     await deleteAvailableMsg(ctx);
     return ctx
       .reply(
