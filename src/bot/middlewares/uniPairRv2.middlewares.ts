@@ -4,11 +4,11 @@ import isCompleted from "../../helper/checker/completion.checker";
 import { singleGetter } from "../../session/getter";
 
 const hasUniPairStat = async (ctx: SessionContext<any>, next: () => void) => {
-  const status = await singleGetter(ctx, "tracker")["commonStat"];
+  const tracker = await singleGetter(ctx, "tracker");
 
-  console.log("In UniPair Stat Middleware status is: ", status);
+  console.log("In UniPair Stat Middleware status is: ", tracker["commonStat"]);
 
-  if (status === "uniPair") {
+  if (tracker["commonStat"] === "uniPair") {
     console.log("Passed UniPair Stat.");
     return next();
   } else {
