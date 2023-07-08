@@ -6,8 +6,6 @@ import { singleGetter } from "../../session/getter";
 import { singleSetter } from "../../session/setter";
 dotenv.config();
 
-let uniPairFinderWorker : Worker;
-
 const underProcesses = "underProcesses";
 
 const findUniV2Pairs = async (
@@ -15,19 +13,18 @@ const findUniV2Pairs = async (
   chatId: number,
   totalPairs: number
 ) => {
-  uniPairFinderWorker = new Worker(
+  const pairFinderWorker = new Worker(
     "./dist/src/workers/uniPairV2.worker.js",
     { workerData: sharedBuffer }
   );
-  await uniPairFinderWorker.postMessage([chatId, totalPairs]);
 
-  uniPairFinderWorker.on("exit", () => {
+  await pairFinderWorker.postMessage([chatId, totalPairs]);
+
+  pairFinderWorker.on("exit", () => {
     singleGetter(ctx, underProcesses).then((value) => {
       const updatedValue = value;
       updatedValue["uniNewPair"] = null;
       singleSetter(ctx, underProcesses, updatedValue);
-
-      uniPairFinderWorker = null;
     });
   });
 };
