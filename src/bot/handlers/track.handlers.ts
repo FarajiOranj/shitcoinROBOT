@@ -11,8 +11,8 @@ import {
   resWillReply,
 } from "../../../public/static/trackUx";
 import { menuMessage } from "../../../public/static/starterUserUx";
-import deleteAvailableMsg from "../../helper/message/deleteMsg";
-import storeKeyID from "../../helper/message/storeKeyId";
+import deleteAvailableMsg from "../../helper/message/delete.msg";
+import storeKeyID from "../../helper/message/storeId.msg";
 import { singlePendingTxFinder } from "../../jobs/track/sinlgleTracker";
 
 const trackCB = async (ctx: Context) => {
